@@ -4,12 +4,11 @@ import com.kordunyan.domain.Item;
 import com.kordunyan.domain.ItemFieldConfig;
 import com.kordunyan.dto.SaveItemFieldConfigDto;
 import com.kordunyan.service.ItemFieldConfigService;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.jpa.repository.Query;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component("default")
 public class DefaultItemFieldConfigSaveStrategy implements ItemFieldConfigSaveStrategy {
@@ -22,15 +21,17 @@ public class DefaultItemFieldConfigSaveStrategy implements ItemFieldConfigSaveSt
 
 	@Override
 	public void save(SaveItemFieldConfigDto saveItemFieldConfigDto) {
+		List<ItemFieldConfig> changedItemFieldConfigs = saveItemFieldConfigDto.getItemFieldConfigs();
+		if (CollectionUtils.isEmpty(changedItemFieldConfigs)) {
+			return;
+		}
 		Item item = saveItemFieldConfigDto.getItem();
-		List<ItemFieldConfig> itemFieldConfigs = saveItemFieldConfigDto.getItemFieldConfigs();
-		setItemToFieldConfigs(item, itemFieldConfigs);
-		itemFieldConfigService.saveAll(itemFieldConfigs);
+		itemFieldConfigService.saveAll(getUpdatedOriginalItemFields(item, changedItemFieldConfigs));
 	}
 
-	private void setItemToFieldConfigs(Item item, List<ItemFieldConfig> itemFieldConfigList) {
-		for (ItemFieldConfig itemFieldConfig : itemFieldConfigList) {
-			itemFieldConfig.setItem(item);
-		}
+	private List<ItemFieldConfig> getUpdatedOriginalItemFields(Item item, List<ItemFieldConfig> itemFieldConfigs) {
+		return itemFieldConfigs.stream()
+				.peek(itemFieldConfig -> itemFieldConfig.setItem(item))
+				.collect(Collectors.toList());
 	}
 }
