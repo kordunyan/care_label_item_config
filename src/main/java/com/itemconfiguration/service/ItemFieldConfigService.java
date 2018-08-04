@@ -1,0 +1,25 @@
+package com.itemconfiguration.service;
+
+import com.itemconfiguration.dao.ItemFieldConfigDAO;
+import com.itemconfiguration.domain.ItemFieldConfig;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class ItemFieldConfigService {
+
+	private ItemFieldConfigDAO itemFieldConfigDAO;
+
+	public ItemFieldConfigService(ItemFieldConfigDAO itemFieldConfigDAO) {
+		this.itemFieldConfigDAO = itemFieldConfigDAO;
+	}
+
+	public void save(ItemFieldConfig itemFieldConfig) {
+		itemFieldConfigDAO.save(itemFieldConfig);
+	}
+
+	public void saveAll(List<ItemFieldConfig> itemFieldConfigs) {
+		itemFieldConfigDAO.saveAll(itemFieldConfigs);
+	}
+}
