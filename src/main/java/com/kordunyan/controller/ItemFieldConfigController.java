@@ -1,6 +1,7 @@
 package com.kordunyan.controller;
 
 import com.kordunyan.dto.SaveItemFieldConfigDto;
+import com.kordunyan.exception.SaveItemFieldConfigException;
 import com.kordunyan.service.savestrategy.ItemFieldConfigSaveStrategyProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +22,12 @@ public class ItemFieldConfigController {
 
 	@PostMapping(value = "/save")
 	public ResponseEntity<Void> save(@RequestBody SaveItemFieldConfigDto saveItemFieldConfigDto) {
-		saveStrategyProvider.getSaveStrategy(saveItemFieldConfigDto).save(saveItemFieldConfigDto);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		try {
+			saveStrategyProvider.getSaveStrategy(saveItemFieldConfigDto).save(saveItemFieldConfigDto);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		} catch (SaveItemFieldConfigException e) {
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 

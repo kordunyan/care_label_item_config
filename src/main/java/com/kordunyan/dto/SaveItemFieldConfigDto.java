@@ -2,6 +2,7 @@ package com.kordunyan.dto;
 
 import com.kordunyan.domain.Item;
 import com.kordunyan.domain.ItemFieldConfig;
+import com.kordunyan.service.savestrategy.SaveForAllStrategy;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class SaveItemFieldConfigDto {
 
 	private boolean saveForAll;
 
-	private boolean newOnlyForAll;
+	private SaveForAllStrategy saveForAllStrategy;
 
 	public SaveItemFieldConfigDto() {
 	}
@@ -41,11 +42,11 @@ public class SaveItemFieldConfigDto {
 		this.saveForAll = saveForAll;
 	}
 
-	public boolean isNewOnlyForAll() {
-		return newOnlyForAll;
+	public SaveForAllStrategy getSaveForAllStrategy() {
+		return saveForAllStrategy;
 	}
 
-	public void setNewOnlyForAll(boolean newOnlyForAll) {
-		this.newOnlyForAll = newOnlyForAll;
+	public void setSaveForAllStrategy(SaveForAllStrategy saveForAllStrategy) {
+		this.saveForAllStrategy = saveForAllStrategy;
 	}
 }

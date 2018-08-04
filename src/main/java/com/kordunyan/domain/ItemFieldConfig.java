@@ -50,6 +50,20 @@ public class ItemFieldConfig {
 	@JoinColumn(name = "item_id")
 	private Item item;
 
+	public static ItemFieldConfig copyWithoutIdAndItem(ItemFieldConfig src) {
+		ItemFieldConfig copy = new ItemFieldConfig();
+		copy.isActive = src.isActive;
+		copy.isRequired = src.isRequired;
+		copy.isEditable = src.isEditable;
+		copy.storeLastUserInput = src.storeLastUserInput;
+		copy.predefinedValue = src.predefinedValue;
+		copy.filterRegex = src.filterRegex;
+		copy.canAddLater = src.canAddLater;
+		copy.dataSourceName = src.dataSourceName;
+		copy.fieldConfigName = src.fieldConfigName;
+		return copy;
+	}
+
 	public ItemFieldConfig() {
 	}
 
