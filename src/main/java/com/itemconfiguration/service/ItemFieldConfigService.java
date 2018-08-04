@@ -22,4 +22,11 @@ public class ItemFieldConfigService {
 	public void saveAll(List<ItemFieldConfig> itemFieldConfigs) {
 		itemFieldConfigDAO.saveAll(itemFieldConfigs);
 	}
+
+	public void deleteItemFieldConfigs(List<ItemFieldConfig> itemFieldConfigs) {
+		for (ItemFieldConfig itemFieldConfig : itemFieldConfigs) {
+			itemFieldConfigDAO.delete(itemFieldConfig);
+		}
+//		itemFieldConfigDAO.deleteAll(itemFieldConfigs);
+	}
 }

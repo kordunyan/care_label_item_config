@@ -5,12 +5,16 @@ import com.itemconfiguration.domain.AppFields;
 import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.FieldSet;
 import com.itemconfiguration.domain.Item;
+import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
+import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
+import com.itemconfiguration.exception.SaveItemFieldConfigException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemService {
@@ -64,6 +68,18 @@ public class ItemService {
 		fieldSetService.saveAll(fieldSets);
 		fieldService.saveAll(fields);
 		itemDAO.saveAll(items);
+	}
+
+	public List<ItemWithItemFieldConfigsMap> getAllItemsWithFieldConfigmapByItemNumber(Item originalItem) throws SaveItemFieldConfigException {
+		ItemWithFieldsMap originalItemWithFildsMap = new ItemWithFieldsMap(originalItem);
+		if (!originalItemWithFildsMap.containsField(AppFields.D2COMM_ITEM_NUMBER)) {
+			throw new SaveItemFieldConfigException(AppFields.D2COMM_ITEM_NUMBER + " field does not exist in item");
+		}
+		List<Item> items = this.findByItemNumber(originalItemWithFildsMap.getFieldValue(AppFields.D2COMM_ITEM_NUMBER));
+		return items.stream()
+				.filter(item -> !item.getId().equals(originalItem.getId()))
+				.map(ItemWithItemFieldConfigsMap::new)
+				.collect(Collectors.toList());
 	}
 
 	public List<String> getAllItemNumbers() {

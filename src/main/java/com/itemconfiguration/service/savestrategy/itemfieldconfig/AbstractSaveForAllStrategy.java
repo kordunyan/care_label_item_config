@@ -35,7 +35,7 @@ public abstract class AbstractSaveForAllStrategy implements ItemFieldConfigSaveS
         }
         List<ItemFieldConfig> itemFieldConfigsForSave = new ArrayList<>();
         itemFieldConfigsForSave.addAll(getUpdatedOriginalItemFields(originalItem, changedItemFieldsConfigs));
-        itemFieldConfigsForSave.addAll(getUpdatedItemsFields(getAllItemsByItemNumber(originalItem), changedItemFieldsConfigs));
+        itemFieldConfigsForSave.addAll(getUpdatedItemsFields(itemService.getAllItemsWithFieldConfigmapByItemNumber(originalItem), changedItemFieldsConfigs));
         itemFieldConfigService.saveAll(itemFieldConfigsForSave);
     }
 
@@ -47,18 +47,6 @@ public abstract class AbstractSaveForAllStrategy implements ItemFieldConfigSaveS
             }
         }
         return result;
-    }
-
-    private List<ItemWithItemFieldConfigsMap> getAllItemsByItemNumber(Item originalItem) throws SaveItemFieldConfigException {
-        ItemWithFieldsMap originalItemWithFildsMap = new ItemWithFieldsMap(originalItem);
-        if (!originalItemWithFildsMap.containsField(AppFields.D2COMM_ITEM_NUMBER)) {
-            throw new SaveItemFieldConfigException(AppFields.D2COMM_ITEM_NUMBER + " field does not exist in item");
-        }
-        List<Item> items = itemService.findByItemNumber(originalItemWithFildsMap.getFieldValue(AppFields.D2COMM_ITEM_NUMBER));
-        return items.stream()
-                .filter(item -> !item.getId().equals(originalItem.getId()))
-                .map(ItemWithItemFieldConfigsMap::new)
-                .collect(Collectors.toList());
     }
 
     private List<ItemFieldConfig> getUpdatedOriginalItemFields(Item item, List<ItemFieldConfig> itemFieldConfigs) {

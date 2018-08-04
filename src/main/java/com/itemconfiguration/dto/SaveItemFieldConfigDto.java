@@ -6,32 +6,13 @@ import com.itemconfiguration.service.savestrategy.itemfieldconfig.SaveForAllStra
 
 import java.util.List;
 
-public class SaveItemFieldConfigDto {
-	private Item item;
-
-	private List<ItemFieldConfig> itemFieldConfigs;
+public class SaveItemFieldConfigDto extends ItemWithItemFieldConfigDto{
 
 	private boolean saveForAll;
 
 	private SaveForAllStrategy saveForAllStrategy;
 
 	public SaveItemFieldConfigDto() {
-	}
-
-	public Item getItem() {
-		return item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
-
-	public List<ItemFieldConfig> getItemFieldConfigs() {
-		return itemFieldConfigs;
-	}
-
-	public void setItemFieldConfigs(List<ItemFieldConfig> itemFieldConfigs) {
-		this.itemFieldConfigs = itemFieldConfigs;
 	}
 
 	public boolean isSaveForAll() {
