@@ -2,7 +2,7 @@ package com.itemconfiguration.controller;
 
 import com.itemconfiguration.dto.SaveItemFieldConfigDto;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;
-import com.itemconfiguration.service.savestrategy.ItemFieldConfigSaveStrategyProvider;
+import com.itemconfiguration.service.savestrategy.itemfieldconfig.ItemFieldConfigSaveStrategyProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,4 +1,4 @@
-package com.itemconfiguration.service.savestrategy;
+package com.itemconfiguration.service.savestrategy.itemfieldconfig;
 
 import com.itemconfiguration.dto.SaveItemFieldConfigDto;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;

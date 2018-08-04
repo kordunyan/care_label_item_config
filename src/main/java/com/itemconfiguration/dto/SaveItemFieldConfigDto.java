@@ -2,7 +2,7 @@ package com.itemconfiguration.dto;
 
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
-import com.itemconfiguration.service.savestrategy.SaveForAllStrategy;
+import com.itemconfiguration.service.savestrategy.itemfieldconfig.SaveForAllStrategy;
 
 import java.util.List;
 

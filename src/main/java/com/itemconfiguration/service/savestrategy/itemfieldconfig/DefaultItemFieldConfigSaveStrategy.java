@@ -1,4 +1,4 @@
-package com.itemconfiguration.service.savestrategy;
+package com.itemconfiguration.service.savestrategy.itemfieldconfig;
 
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
