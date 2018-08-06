@@ -4,7 +4,7 @@ import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.dto.ExportDataDto;
-import com.itemconfiguration.export.bilder.block.ItemFieldsBlockBuilder;
+import com.itemconfiguration.export.bilder.block.itemfields.ItemFieldsBlockBuilder;
 import com.itemconfiguration.export.bilder.line.StaticLineBuilder;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
