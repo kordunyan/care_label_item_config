@@ -4,7 +4,7 @@ import com.itemconfiguration.domain.AppFields;
 import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
-import com.itemconfiguration.export.bilder.line.StaticLineBuilder;
+import com.itemconfiguration.export.bilder.line.StaticLines;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -18,9 +18,9 @@ public class ItemCommentBuilder {
 		return new StringBuilder()
 				.append("-- item: ")
 				.append(item.getFieldValue(AppFields.D2COMM_ITEM_NUMBER))
-				.append(StaticLineBuilder.WHITE_SPACE)
+				.append(StaticLines.WHITE_SPACE)
 				.append(createMultipleFieldsComment(item, fieldConfigsWrapper))
-				.append(StaticLineBuilder.NEW_LINE)
+				.append(StaticLines.NEW_LINE)
 				.toString();
 	}
 

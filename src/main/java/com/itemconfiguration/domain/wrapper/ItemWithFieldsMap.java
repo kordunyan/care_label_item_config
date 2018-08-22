@@ -40,6 +40,10 @@ public class ItemWithFieldsMap {
 		return null;
 	}
 
+	public boolean hasFields() {
+		return !fieldsMap.isEmpty();
+	}
+
 	public boolean containsField(String fieldConfigName) {
 		return fieldsMap.containsKey(fieldConfigName);
 	}
