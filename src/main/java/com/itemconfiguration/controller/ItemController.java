@@ -3,7 +3,9 @@ package com.itemconfiguration.controller;
 import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
+import com.itemconfiguration.dto.CopyItemDto;
 import com.itemconfiguration.dto.ItemWithoutItemFieldConfigsDto;
+import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -18,9 +21,11 @@ import java.util.stream.Collectors;
 public class ItemController {
 
 	private ItemService itemService;
+	protected ItemFieldConfigService itemFieldConfigService;
 
-	public ItemController(ItemService itemService) {
+	public ItemController(ItemService itemService, ItemFieldConfigService itemFieldConfigService) {
 		this.itemService = itemService;
+		this.itemFieldConfigService = itemFieldConfigService;
 	}
 
 	@GetMapping("/new")
@@ -62,6 +67,23 @@ public class ItemController {
 	@PostMapping("/save-all")
 	public ResponseEntity<Void> saveAll(@RequestBody List<Item> items) {
 		itemService.saveAll(items);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@PostMapping("/copy-all")
+	public ResponseEntity<Void> copyItem(@RequestBody CopyItemDto copyItemDto) {
+		Optional<Item> optionalCopyItem = itemService.getById(copyItemDto.getCopyItemId());
+		optionalCopyItem.ifPresent(copyItem -> {
+			List<ItemFieldConfig> copyItemFieldConfigs = new ArrayList<>();
+			for (Item newItem : copyItemDto.getItems()) {
+				 copyItem.getItemFieldConfigs().stream()
+					.map(ItemFieldConfig::copyWithoutIdAndItem)
+					.peek(itemFieldConfig -> itemFieldConfig.setItem(newItem))
+					.forEach(copyItemFieldConfigs::add);
+			}
+			itemService.saveAll(copyItemDto.getItems());
+			itemFieldConfigService.saveAll(copyItemFieldConfigs);
+		});
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
