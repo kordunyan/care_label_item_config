@@ -33,7 +33,7 @@ public class DeleteForAllItemsStrategy implements DeleteItemFieldConfigStrategy{
         }
         List<ItemFieldConfig> itemFieldConfigsToDelete = new ArrayList<>();
         itemFieldConfigsToDelete.addAll(originalItemFieldConfigs);
-        itemFieldConfigsToDelete.addAll(getFieldConfigToDelete(itemService.getAllItemsWithFieldConfigmapByItemNumber(originalItem),
+        itemFieldConfigsToDelete.addAll(getFieldConfigToDelete(itemService.getAllItemsWithFieldConfigMapByItemNumber(originalItem),
                 originalItemFieldConfigs));
         itemFieldConfigService.deleteItemFieldConfigs(itemFieldConfigsToDelete);
     }

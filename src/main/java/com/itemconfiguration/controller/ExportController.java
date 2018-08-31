@@ -5,7 +5,6 @@ import com.itemconfiguration.domain.AppFields;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import com.itemconfiguration.dto.ExportDataDto;
-import com.itemconfiguration.export.AllItemsConfigurationExportBuilder;
 import com.itemconfiguration.export.ItemConfigurationExportBuilder;
 import com.itemconfiguration.service.FieldConfigService;
 import com.itemconfiguration.service.ItemService;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -33,6 +33,29 @@ public class ExportController {
     @GetMapping("/generate")
     public String generateExport() {
         List<Item> items = itemService.getAll();
+        FieldConfigsWrapper fieldConfigsWrapper = new FieldConfigsWrapper(fieldConfigService.getByOwner(AppFields.OWNER_ITEM));
+        ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper);
+        return itemConfigurationExportBuilder.build(data);
+    }
+
+    @GetMapping("/generateby")
+    public String generateExportBy() {
+
+
+//        //All EU
+        List<String> itemNumbers = Arrays.asList("032463-W"
+        );
+
+
+        //        //All Costco
+//        List<String> itemNumbers = Arrays.asList(
+//                "PR-100010","PR-100011"
+//        );
+
+
+
+
+                List<Item> items = itemService.findAllByItemNumbers(itemNumbers);
         FieldConfigsWrapper fieldConfigsWrapper = new FieldConfigsWrapper(fieldConfigService.getByOwner(AppFields.OWNER_ITEM));
         ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper);
         return itemConfigurationExportBuilder.build(data);

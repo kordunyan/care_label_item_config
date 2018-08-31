@@ -1,6 +1,11 @@
 package com.itemconfiguration.domain;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Table(name = "field_set")
@@ -8,7 +13,7 @@ public class FieldSet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "field_set_id")
+	@Column(name = "id")
 	private Long fieldSetId;
 
 	public FieldSet() {
