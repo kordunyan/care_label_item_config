@@ -122,6 +122,10 @@ public class ItemService {
 	}
 
 	public void deleteByItemNumber(String itemNumber) {
-		this.itemDAO.deleteAll(findByItemNumber(itemNumber));
+		List<Item> items = findByItemNumber(itemNumber);
+		for (Item item : items) {
+			fieldService.deleteAll(item.getFields());
+		}
+		this.itemDAO.deleteAll(items);
 	}
 }

@@ -42,6 +42,10 @@ public class FieldService {
 		this.fieldDAO.saveAll(createCopyForEachFieldSets(fieldForAllItems));
 	}
 
+	public void deleteAll(List<Field> fields) {
+		fieldDAO.deleteAll(fields);
+	}
+
 	private List<Field> createCopyForEachFieldSets(List<FieldForAllItemsDto> fieldForAllItems) {
 		List<Field> result = new ArrayList<>();
 		for (FieldForAllItemsDto fieldForAllItem : fieldForAllItems) {

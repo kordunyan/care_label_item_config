@@ -2,6 +2,7 @@ package com.itemconfiguration.service;
 
 import com.itemconfiguration.dao.ItemFieldConfigDAO;
 import com.itemconfiguration.domain.ItemFieldConfig;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,9 @@ public class ItemFieldConfigService {
 	}
 
 	public void deleteItemFieldConfigs(List<ItemFieldConfig> itemFieldConfigs) {
+		if (CollectionUtils.isEmpty(itemFieldConfigs)) {
+			return;
+		}
 		for (ItemFieldConfig itemFieldConfig : itemFieldConfigs) {
 			itemFieldConfigDAO.delete(itemFieldConfig);
 		}
