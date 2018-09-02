@@ -79,18 +79,7 @@ public class ItemController {
 
 	@PostMapping("/copy-all")
 	public ResponseEntity<Void> copyItem(@RequestBody CopyItemDto copyItemDto) {
-		Optional<Item> optionalCopyItem = itemService.getById(copyItemDto.getCopyItemId());
-		optionalCopyItem.ifPresent(copyItem -> {
-			List<ItemFieldConfig> copyItemFieldConfigs = new ArrayList<>();
-			for (Item newItem : copyItemDto.getItems()) {
-				 copyItem.getItemFieldConfigs().stream()
-					.map(ItemFieldConfig::copyWithoutIdAndItem)
-					.peek(itemFieldConfig -> itemFieldConfig.setItem(newItem))
-					.forEach(copyItemFieldConfigs::add);
-			}
-			itemService.saveAll(copyItemDto.getItems());
-			itemFieldConfigService.saveAll(copyItemFieldConfigs);
-		});
+		this.itemService.saveWithItemFieldConfigCopy(copyItemDto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

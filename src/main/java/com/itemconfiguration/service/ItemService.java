@@ -1,12 +1,10 @@
 package com.itemconfiguration.service;
 
 import com.itemconfiguration.dao.ItemDAO;
-import com.itemconfiguration.domain.AppFields;
-import com.itemconfiguration.domain.Field;
-import com.itemconfiguration.domain.FieldSet;
-import com.itemconfiguration.domain.Item;
+import com.itemconfiguration.domain.*;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
+import com.itemconfiguration.dto.CopyItemDto;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -49,6 +47,21 @@ public class ItemService {
 		}
 		itemDAO.save(item);
 		itemFieldConfigService.saveAll(item.getItemFieldConfigs());
+	}
+
+	public void saveWithItemFieldConfigCopy(CopyItemDto copyItemDto) {
+		Optional<Item> optionalCopyItem = getById(copyItemDto.getCopyItemId());
+		optionalCopyItem.ifPresent(copyItem -> {
+			List<ItemFieldConfig> copyItemFieldConfigs = new ArrayList<>();
+			for (Item newItem : copyItemDto.getItems()) {
+				copyItem.getItemFieldConfigs().stream()
+						.map(ItemFieldConfig::copyWithoutIdAndItem)
+						.peek(itemFieldConfig -> itemFieldConfig.setItem(newItem))
+						.forEach(copyItemFieldConfigs::add);
+			}
+			saveAll(copyItemDto.getItems());
+			itemFieldConfigService.saveAll(copyItemFieldConfigs);
+		});
 	}
 
 	public void saveAll(List<Item> items) {
