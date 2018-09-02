@@ -119,10 +119,6 @@ public class ItemService {
 		itemDAO.delete(item);
 	}
 
-	public void deleteById(Long id) {
-		itemDAO.deleteById(id);
-	}
-
 	public void deleteByItemNumber(String itemNumber) {
 		List<Item> items = findByItemNumber(itemNumber);
 		List<FieldSet> fieldSets = items.stream().map(Item::getFieldSet).collect(Collectors.toList());

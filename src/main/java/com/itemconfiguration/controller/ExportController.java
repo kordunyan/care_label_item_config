@@ -8,10 +8,17 @@ import com.itemconfiguration.dto.ExportDataDto;
 import com.itemconfiguration.export.ItemConfigurationExportBuilder;
 import com.itemconfiguration.service.FieldConfigService;
 import com.itemconfiguration.service.ItemService;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,11 +38,16 @@ public class ExportController {
     }
 
     @GetMapping("/generate")
-    public String generateExport() {
+    public ResponseEntity<ByteArrayResource> generateExport() {
         List<Item> items = itemService.getAll();
         FieldConfigsWrapper fieldConfigsWrapper = new FieldConfigsWrapper(fieldConfigService.getByOwner(AppFields.OWNER_ITEM));
         ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper);
-        return itemConfigurationExportBuilder.build(data);
+        ByteArrayResource resource = new ByteArrayResource(itemConfigurationExportBuilder.build(data).getBytes());
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=item_field_config.sql")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .contentLength(resource.contentLength())
+                .body(resource);
     }
 
     @GetMapping("/generateby")
