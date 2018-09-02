@@ -44,7 +44,9 @@ public class ExportController {
         ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper);
         ByteArrayResource resource = new ByteArrayResource(itemConfigurationExportBuilder.build(data).getBytes());
         return ResponseEntity.ok()
+                .header("Access-Control-Expose-Headers", HttpHeaders.CONTENT_DISPOSITION, "Filename")
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=item_field_config.sql")
+                .header("Filename", "item_field_config.sql")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .contentLength(resource.contentLength())
                 .body(resource);
