@@ -30,21 +30,28 @@ public class ItemController {
 
 	@GetMapping("/new")
 	public Item createNewItem() {
-		List<Field> fields = new ArrayList<>();
-		fields.add(new Field("BRAND", "The Underwear Group", null));
-		fields.add(new Field("SEASON", "SP18", null));
-		fields.add(new Field("ITEM_NUBER", "2149324", null));
+		final String ITEM_NUMBER = "2149324";
+		Item item = null;
+		for (int i = 0; i < 2; i++) {
+			List<Field> fields = new ArrayList<>();
+			fields.add(new Field("BRAND", "The Underwear Group", null));
+			fields.add(new Field("SEASON", "SP18" + i, null));
+			fields.add(new Field("D2COMM_ITEM_NUMBER", ITEM_NUMBER, null));
 
-		Item item = new Item(true, true, null);
-		item.setFields(fields);
+			item = new Item(true, true, null);
+			item.setFields(fields);
 
-		List<ItemFieldConfig> itemFieldConfigs = new ArrayList<>();
-		itemFieldConfigs.add(new ItemFieldConfig("SIZE", true, true, true, true, null, "{'searchByRegexFields': [{fieldName:'SIZE_SPECIAL_HANDLEING', regex:'(?i)^.*B.*$'}]}", true, null, item));
-		itemFieldConfigs.add(new ItemFieldConfig("COO", true, true, true, true, null, null, true, null, item));
-		itemFieldConfigs.add(new ItemFieldConfig("EOD", true, true, true, true, null, null, true, null, item));
-		itemFieldConfigs.add(new ItemFieldConfig("STYLE", true, true, true, true, null, null, true, null, item));
-		item.setItemFieldConfigs(itemFieldConfigs);
-		itemService.save(item);
+			List<ItemFieldConfig> itemFieldConfigs = new ArrayList<>();
+			itemFieldConfigs.add(new ItemFieldConfig("SIZE", true, true, true, true, null, "{'searchByRegexFields': [{fieldName:'SIZE_SPECIAL_HANDLEING', regex:'(?i)^.*B.*$'}]}", true, null, item));
+			itemFieldConfigs.add(new ItemFieldConfig("COO", true, true, true, true, null, null, true, null, item));
+			itemFieldConfigs.add(new ItemFieldConfig("EOD", true, true, true, true, null, null, true, null, item));
+			itemFieldConfigs.add(new ItemFieldConfig("STYLE", true, true, true, true, null, null, true, null, item));
+			item.setItemFieldConfigs(itemFieldConfigs);
+			itemService.save(item);
+		}
+
+		//this.itemService.deleteByItemNumber(ITEM_NUMBER);
+
 		return item;
 	}
 
