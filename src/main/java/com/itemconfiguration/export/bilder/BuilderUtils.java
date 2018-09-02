@@ -6,14 +6,14 @@ public class BuilderUtils {
 	public static String NULL = "NULL";
 	public static String ESCAPE_SYMBOL = "E";
 	public static String COMMA = ",";
-	private static String REGEX_ESCAPE_SYMBOLS = "['\\\\]+";
+	private static String REGEX_ESCAPE_SYMBOLS = ".*['\\\\]+.*";
 
 
 	public static String escapeValue(String value) {
 		if (value == null) {
 			return NULL;
 		}
-		return getEscapeSymbol(value) + "'" + value + "'";
+		return getEscapeSymbol(value) + "'" + value.replaceAll("'", "\\\\'") + "'";
 	}
 
 	private static String getEscapeSymbol(String value) {

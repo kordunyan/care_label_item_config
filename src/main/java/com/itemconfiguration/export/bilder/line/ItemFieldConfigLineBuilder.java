@@ -19,7 +19,7 @@ public class ItemFieldConfigLineBuilder {
 	private static final String IS_EDITABLE = "is_editable,";
 	private static final String STORE_LAST_USER_INPUT = "store_last_user_input,";
 	private static final String CAN_ADD_LATER = "can_add_later,";
-	private static final String FILTER_REGEX = "filter_regex,";
+	private static final String FILTER_REGEX = "filter_regex";
 
 	public String buildFieldNames() {
 		return String.format(INSERT_LINE_FORAMAT,

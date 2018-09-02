@@ -13,6 +13,9 @@ public interface ItemDAO extends CrudRepository<Item, Long> {
 	@Query("SELECT i FROM Item i INNER JOIN i.fields as f WHERE f.fieldConfigName = ?1 AND f.value = ?2")
 	List<Item> findAllByField(String fieldType, String fieldValue);
 
+	@Query("SELECT i FROM Item i INNER JOIN i.fields as f WHERE f.fieldConfigName = ?1 AND f.value in ?2 ORDER BY i.id")
+	List<Item> findAllByFields(String fieldType, List<String> fieldValue);
+
 	@Modifying
 	@Transactional
 	@Query("UPDATE Item i SET i.ipps = ?1, i.sb = ?2 WHERE i.id = ?3")
