@@ -2,6 +2,7 @@ package com.itemconfiguration.service;
 
 import com.itemconfiguration.dao.FieldDAO;
 import com.itemconfiguration.domain.Field;
+import com.itemconfiguration.domain.FieldSet;
 import com.itemconfiguration.dto.FieldForAllItemsDto;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,14 @@ public class FieldService {
 			result.addAll(itemFields);
 		}
 		return result;
+	}
+
+	public int deleteByFieldSet(FieldSet fieldSet) {
+		return fieldDAO.deleteByFieldSet(fieldSet);
+	}
+
+	public int deleteByFieldSets(List<FieldSet> fieldSets) {
+		return fieldDAO.deleteByFieldSetIn(fieldSets);
 	}
 
 	public int deleteForAllItems(Field field) {

@@ -1,6 +1,7 @@
 package com.itemconfiguration.dao;
 
 import com.itemconfiguration.domain.Field;
+import com.itemconfiguration.domain.FieldSet;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -32,4 +33,12 @@ public interface FieldDAO extends CrudRepository<Field, Long> {
 			"JOIN field all_fields ON all_fields.field_set_id = all_items.field_set_id AND all_fields.field_config_name = f.field_config_name " +
 			"WHERE f.id = ?1)", nativeQuery = true)
 	int deleteForAllItems(Long id);
+
+	@Modifying
+	@Transactional
+	int deleteByFieldSetIn(List<FieldSet> fieldSetIds);
+
+	@Modifying
+	@Transactional
+	int deleteByFieldSet(FieldSet fieldSet);
 }

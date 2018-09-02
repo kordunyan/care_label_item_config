@@ -102,6 +102,7 @@ public class ItemService {
 	}
 
 	public void delete(Item item) {
+		fieldService.deleteByFieldSet(item.getFieldSet());
 		itemDAO.delete(item);
 	}
 
@@ -111,6 +112,8 @@ public class ItemService {
 
 	public void deleteByItemNumber(String itemNumber) {
 		List<Item> items = findByItemNumber(itemNumber);
+		List<FieldSet> fieldSets = items.stream().map(Item::getFieldSet).collect(Collectors.toList());
+		fieldService.deleteByFieldSets(fieldSets);
 		this.itemDAO.deleteAll(items);
 	}
 }
