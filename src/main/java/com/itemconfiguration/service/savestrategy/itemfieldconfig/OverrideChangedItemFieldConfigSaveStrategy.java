@@ -18,8 +18,9 @@ public class OverrideChangedItemFieldConfigSaveStrategy extends AbstractSaveForA
 
 	protected void addChangedFieldConfig(List<ItemFieldConfig> result, ItemWithItemFieldConfigsMap item, ItemFieldConfig changedItemFieldConfig) {
 		ItemFieldConfig changedItemFieldConfigCopy = ItemFieldConfig.copyWithoutIdAndItem(changedItemFieldConfig);
-		if (item.containsItemFieldConfig(changedItemFieldConfig.getFieldConfigName())) {
-			changedItemFieldConfigCopy.setId(item.getItemFieldConfig(changedItemFieldConfig.getFieldConfigName()).getId());
+		ItemFieldConfig itemFieldConfig = item.getItemFieldConfig(changedItemFieldConfig.getFieldConfigName());
+		if (itemFieldConfig != null) {
+			changedItemFieldConfigCopy.setId(itemFieldConfig.getId());
 		}
 		changedItemFieldConfigCopy.setItem(item.getItem());
 		result.add(changedItemFieldConfigCopy);

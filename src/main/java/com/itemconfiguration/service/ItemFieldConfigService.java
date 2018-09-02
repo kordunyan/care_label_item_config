@@ -28,9 +28,6 @@ public class ItemFieldConfigService {
 		if (CollectionUtils.isEmpty(itemFieldConfigs)) {
 			return;
 		}
-		for (ItemFieldConfig itemFieldConfig : itemFieldConfigs) {
-			itemFieldConfigDAO.delete(itemFieldConfig);
-		}
-//		itemFieldConfigDAO.deleteAll(itemFieldConfigs);
+		itemFieldConfigDAO.deleteAll(itemFieldConfigs);
 	}
 }

@@ -26,10 +26,10 @@ public class DefaultItemFieldConfigSaveStrategy implements ItemFieldConfigSaveSt
 			return;
 		}
 		Item item = saveItemFieldConfigDto.getItem();
-		itemFieldConfigService.saveAll(getUpdatedOriginalItemFields(item, changedItemFieldConfigs));
+		itemFieldConfigService.saveAll(setItemForChangedFieldConfigs(item, changedItemFieldConfigs));
 	}
 
-	private List<ItemFieldConfig> getUpdatedOriginalItemFields(Item item, List<ItemFieldConfig> itemFieldConfigs) {
+	private List<ItemFieldConfig> setItemForChangedFieldConfigs(Item item, List<ItemFieldConfig> itemFieldConfigs) {
 		return itemFieldConfigs.stream()
 				.peek(itemFieldConfig -> itemFieldConfig.setItem(item))
 				.collect(Collectors.toList());

@@ -6,7 +6,7 @@ import com.itemconfiguration.service.savestrategy.itemfieldconfig.SaveForAllStra
 
 import java.util.List;
 
-public class SaveItemFieldConfigDto extends ItemWithItemFieldConfigDto{
+public class SaveItemFieldConfigDto extends ItemCrudOperationsDto{
 
 	private boolean saveForAll;
 

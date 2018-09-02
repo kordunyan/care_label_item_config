@@ -1,5 +1,6 @@
 package com.itemconfiguration.controller;
 
+import com.itemconfiguration.dto.ItemCrudOperationsDto;
 import com.itemconfiguration.dto.ItemWithItemFieldConfigDto;
 import com.itemconfiguration.dto.SaveItemFieldConfigDto;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;
@@ -45,9 +46,9 @@ public class ItemFieldConfigController {
 	}
 
 	@PostMapping(value = "/delete")
-	public ResponseEntity<Void> delete(@RequestBody ItemWithItemFieldConfigDto itemWithItemFieldConfigDto) {
+	public ResponseEntity<Void> delete(@RequestBody ItemCrudOperationsDto crudOperationsDto) {
 		try {
-			forOriginalItemDeleteStrategy.delete(itemWithItemFieldConfigDto);
+			forOriginalItemDeleteStrategy.delete(crudOperationsDto);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (SaveItemFieldConfigException e) {
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -55,9 +56,9 @@ public class ItemFieldConfigController {
 	}
 
 	@PostMapping(value = "deleteForAll")
-	public ResponseEntity<Void> deleteForAll(@RequestBody ItemWithItemFieldConfigDto itemWithItemFieldConfigDto) {
+	public ResponseEntity<Void> deleteForAll(@RequestBody ItemCrudOperationsDto crudOperationsDto) {
 		try {
-			forAllItemsDeleteStrategy.delete(itemWithItemFieldConfigDto);
+			forAllItemsDeleteStrategy.delete(crudOperationsDto);
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (SaveItemFieldConfigException e) {
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);

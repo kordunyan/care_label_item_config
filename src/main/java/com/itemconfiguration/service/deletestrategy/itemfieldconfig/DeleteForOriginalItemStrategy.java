@@ -1,5 +1,6 @@
 package com.itemconfiguration.service.deletestrategy.itemfieldconfig;
 
+import com.itemconfiguration.dto.ItemCrudOperationsDto;
 import com.itemconfiguration.dto.ItemWithItemFieldConfigDto;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import org.springframework.stereotype.Component;
@@ -14,7 +15,7 @@ public class DeleteForOriginalItemStrategy implements DeleteItemFieldConfigStrat
     }
 
     @Override
-    public void delete(ItemWithItemFieldConfigDto itemWithItemFieldConfigDto) {
-        itemFieldConfigService.deleteItemFieldConfigs(itemWithItemFieldConfigDto.getItemFieldConfigs());
+    public void delete(ItemCrudOperationsDto curdOperationsDto) {
+        itemFieldConfigService.deleteItemFieldConfigs(curdOperationsDto.getItemFieldConfigs());
     }
 }

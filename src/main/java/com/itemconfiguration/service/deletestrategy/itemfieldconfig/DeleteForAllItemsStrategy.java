@@ -3,7 +3,9 @@ package com.itemconfiguration.service.deletestrategy.itemfieldconfig;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
+import com.itemconfiguration.dto.ItemCrudOperationsDto;
 import com.itemconfiguration.dto.ItemWithItemFieldConfigDto;
+import com.itemconfiguration.dto.SaveItemFieldConfigDto;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.ItemService;
@@ -25,17 +27,18 @@ public class DeleteForAllItemsStrategy implements DeleteItemFieldConfigStrategy{
     }
 
     @Override
-    public void delete(ItemWithItemFieldConfigDto itemWithItemFieldConfigDto) throws SaveItemFieldConfigException {
-        Item originalItem = itemWithItemFieldConfigDto.getItem();
-        List<ItemFieldConfig> originalItemFieldConfigs = itemWithItemFieldConfigDto.getItemFieldConfigs();
+    public void delete(ItemCrudOperationsDto curdOperationsDto) throws SaveItemFieldConfigException {
+        List<ItemFieldConfig> originalItemFieldConfigs = curdOperationsDto.getItemFieldConfigs();
         if(CollectionUtils.isEmpty(originalItemFieldConfigs)) {
             return;
         }
         List<ItemFieldConfig> itemFieldConfigsToDelete = new ArrayList<>();
-        itemFieldConfigsToDelete.addAll(originalItemFieldConfigs);
-        itemFieldConfigsToDelete.addAll(getFieldConfigToDelete(itemService.getAllItemsWithFieldConfigMapByItemNumber(originalItem),
-                originalItemFieldConfigs));
+        itemFieldConfigsToDelete.addAll(getFieldConfigToDelete(getItems(curdOperationsDto), originalItemFieldConfigs));
         itemFieldConfigService.deleteItemFieldConfigs(itemFieldConfigsToDelete);
+    }
+
+    protected List<ItemWithItemFieldConfigsMap> getItems(ItemCrudOperationsDto curdOperationsDto) throws SaveItemFieldConfigException {
+        return itemService.getAllItemsWithFieldConfigMapByItemNumbers(curdOperationsDto.getItemNumbers());
     }
 
     private List<ItemFieldConfig> getFieldConfigToDelete(List<ItemWithItemFieldConfigsMap> items, List<ItemFieldConfig> originalItemFieldConfigs) {

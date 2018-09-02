@@ -70,18 +70,6 @@ public class ItemService {
 		itemDAO.saveAll(items);
 	}
 
-	public List<ItemWithItemFieldConfigsMap> getAllItemsWithFieldConfigMapByItemNumber(Item originalItem) throws SaveItemFieldConfigException {
-		ItemWithFieldsMap originalItemWithFildsMap = new ItemWithFieldsMap(originalItem);
-		if (!originalItemWithFildsMap.containsField(AppFields.D2COMM_ITEM_NUMBER)) {
-			throw new SaveItemFieldConfigException(AppFields.D2COMM_ITEM_NUMBER + " field does not exist in item");
-		}
-		List<Item> items = this.findByItemNumber(originalItemWithFildsMap.getFieldValue(AppFields.D2COMM_ITEM_NUMBER));
-		return items.stream()
-				.filter(item -> !item.getId().equals(originalItem.getId()))
-				.map(ItemWithItemFieldConfigsMap::new)
-				.collect(Collectors.toList());
-	}
-
 	public List<ItemWithItemFieldConfigsMap> getAllItemsWithFieldConfigMapByItemNumbers(List<String> itemNumbers) {
 		List<Item> items = this.findAllByItemNumbers(itemNumbers);
 		return convertToItemWithItemFieldConfigsMap(items);
@@ -123,9 +111,6 @@ public class ItemService {
 
 	public void deleteByItemNumber(String itemNumber) {
 		List<Item> items = findByItemNumber(itemNumber);
-		for (Item item : items) {
-			fieldService.deleteAll(item.getFields());
-		}
 		this.itemDAO.deleteAll(items);
 	}
 }

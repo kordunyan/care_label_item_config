@@ -50,7 +50,7 @@ public class ItemController {
 			itemService.save(item);
 		}
 
-		//this.itemService.deleteByItemNumber(ITEM_NUMBER);
+		this.itemService.deleteByItemNumber(ITEM_NUMBER);
 
 		return item;
 	}
