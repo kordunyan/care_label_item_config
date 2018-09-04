@@ -4,6 +4,7 @@ import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.dto.ExportDataDto;
+import com.itemconfiguration.export.bilder.BaseScreeptsBuilder;
 import com.itemconfiguration.export.bilder.block.item.ItemBlockBuilder;
 import com.itemconfiguration.export.bilder.block.itemfieldconfig.ItemFieldConfigBlockBuilder;
 import com.itemconfiguration.export.bilder.block.itemfields.ItemFieldsBlockBuilder;
@@ -21,13 +22,15 @@ public class AllItemsConfigurationExportBuilder implements ItemConfigurationExpo
     private ItemFieldsBlockBuilder itemFieldsBlockBuilder;
     private ItemBlockBuilder itemBlockBuilder;
     private ItemFieldConfigBlockBuilder itemFieldConfigBlockBuilder;
+    private BaseScreeptsBuilder baseScreeptsBuilder;
 
     public AllItemsConfigurationExportBuilder(ItemFieldsBlockBuilder itemFieldsBlockBuilder,
-                                              ItemBlockBuilder itemBlockBuilder,
-                                              ItemFieldConfigBlockBuilder itemFieldConfigBlockBuilder) {
+            ItemBlockBuilder itemBlockBuilder, ItemFieldConfigBlockBuilder itemFieldConfigBlockBuilder,
+            BaseScreeptsBuilder baseScreeptsBuilder) {
         this.itemFieldsBlockBuilder = itemFieldsBlockBuilder;
         this.itemBlockBuilder = itemBlockBuilder;
         this.itemFieldConfigBlockBuilder = itemFieldConfigBlockBuilder;
+        this.baseScreeptsBuilder = baseScreeptsBuilder;
     }
 
     @Override
@@ -38,7 +41,8 @@ public class AllItemsConfigurationExportBuilder implements ItemConfigurationExpo
             return StringUtils.EMPTY;
         }
         List<String> result = new ArrayList<>();
-
+        result.add(baseScreeptsBuilder.buildDeclarations());
+        result.addAll(baseScreeptsBuilder.buildDeleteItemsData(exportData.getItemNumbers()));
         items.stream()
                 .map(ItemWithFieldsMap::new)
                 .forEach(itemWithFieldsMap -> {
@@ -49,6 +53,7 @@ public class AllItemsConfigurationExportBuilder implements ItemConfigurationExpo
                     result.addAll(itemFieldConfigBlockBuilder.build(itemWithFieldsMap));
                     result.add(StaticLines.getBlockSeparator());
                 });
+        result.add(baseScreeptsBuilder.buildFinalScrepts());
         return StringUtils.join(result, "");
     }
 }
