@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component("onlynew")
-public class OnlyNewItemFieldConfigSaveStrategy extends AbstractSaveForAllStrategy{
+public class OnlyNewItemFieldConfigSaveStrategy extends AbstractItemFieldConfigSaveForAllStrategy {
 
 	public OnlyNewItemFieldConfigSaveStrategy(ItemService itemService,
 			ItemFieldConfigService itemFieldConfigService) {

@@ -1,10 +1,6 @@
 package com.itemconfiguration.dto;
 
-import com.itemconfiguration.domain.Item;
-import com.itemconfiguration.domain.ItemFieldConfig;
-import com.itemconfiguration.service.savestrategy.itemfieldconfig.SaveForAllStrategy;
-
-import java.util.List;
+import com.itemconfiguration.service.savestrategy.SaveForAllStrategy;
 
 public class SaveItemFieldConfigDto extends ItemCrudOperationsDto{
 

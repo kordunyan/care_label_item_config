@@ -2,7 +2,9 @@ package com.itemconfiguration.controller;
 
 import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.dto.FieldForAllItemsDto;
+import com.itemconfiguration.dto.ItemFieldCrudOperationsDto;
 import com.itemconfiguration.service.FieldService;
+import com.itemconfiguration.service.savestrategy.itemField.ItemFieldSaveStrategyProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,9 +19,11 @@ import java.util.List;
 public class FieldController {
 
 	private FieldService fieldService;
+	private ItemFieldSaveStrategyProvider itemFieldSaveStrategyProvider;
 
-	public FieldController(FieldService fieldService) {
+	public FieldController(FieldService fieldService, ItemFieldSaveStrategyProvider itemFieldSaveStrategyProvider) {
 		this.fieldService = fieldService;
+		this.itemFieldSaveStrategyProvider = itemFieldSaveStrategyProvider;
 	}
 
 	@PostMapping("/update")
@@ -35,6 +39,12 @@ public class FieldController {
 	@PostMapping("/save-all")
 	public ResponseEntity<Void> saveAll(@RequestBody List<Field> fields) {
 		this.fieldService.saveAll(fields);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@PostMapping("/saveall")
+	public ResponseEntity<Void> newSaveAll(@RequestBody ItemFieldCrudOperationsDto dto) {
+		itemFieldSaveStrategyProvider.getStrategy(dto).save(dto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

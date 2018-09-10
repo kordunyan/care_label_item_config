@@ -13,13 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public abstract class AbstractSaveForAllStrategy implements ItemFieldConfigSaveStrategy {
+public abstract class AbstractItemFieldConfigSaveForAllStrategy implements ItemFieldConfigSaveStrategy {
 
     private ItemService itemService;
     private ItemFieldConfigService itemFieldConfigService;
 
-    public AbstractSaveForAllStrategy(ItemService itemService,
-            ItemFieldConfigService itemFieldConfigService) {
+    public AbstractItemFieldConfigSaveForAllStrategy(ItemService itemService,
+                                                     ItemFieldConfigService itemFieldConfigService) {
         this.itemService = itemService;
         this.itemFieldConfigService = itemFieldConfigService;
     }

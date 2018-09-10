@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component("override")
-public class OverrideChangedItemFieldConfigSaveStrategy extends AbstractSaveForAllStrategy {
+public class OverrideChangedItemFieldConfigSaveStrategy extends AbstractItemFieldConfigSaveForAllStrategy {
 
 	public OverrideChangedItemFieldConfigSaveStrategy(ItemService itemService,
 			ItemFieldConfigService itemFieldConfigService) {

@@ -84,8 +84,17 @@ public class ItemService {
 	}
 
 	public List<ItemWithItemFieldConfigsMap> getAllItemsWithFieldConfigMapByItemNumbers(List<String> itemNumbers) {
-		List<Item> items = this.findAllByItemNumbers(itemNumbers);
-		return convertToItemWithItemFieldConfigsMap(items);
+		return convertToItemWithItemFieldConfigsMap(findAllByItemNumbers(itemNumbers));
+	}
+
+	public List<ItemWithFieldsMap> findItemsFithFieldMapByItemNumbers(List<String> itemNumbers) {
+		return conertToItemWithFieldsMap(findAllByItemNumbers(itemNumbers));
+	}
+
+	private List<ItemWithFieldsMap> conertToItemWithFieldsMap(List<Item> items) {
+		return items.stream()
+				.map(ItemWithFieldsMap::new)
+				.collect(Collectors.toList());
 	}
 
 	private List<ItemWithItemFieldConfigsMap> convertToItemWithItemFieldConfigsMap(List<Item> items) {
