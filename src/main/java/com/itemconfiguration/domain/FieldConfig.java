@@ -21,7 +21,7 @@ public class FieldConfig {
 	private boolean printable;
 
 	@Column(name = "is_multiple")
-	private boolean multiple = false;
+	private boolean multiple;
 
 	public FieldConfig() {
 	}

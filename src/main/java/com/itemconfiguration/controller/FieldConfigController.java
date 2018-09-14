@@ -2,8 +2,12 @@ package com.itemconfiguration.controller;
 
 import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.service.FieldConfigService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -59,4 +63,15 @@ public class FieldConfigController {
 		return fieldConfigService.getAll();
 	}
 
+	@PostMapping("/save-all")
+	public ResponseEntity<Void> saveAll(@RequestBody List<FieldConfig> fieldConfigs) {
+		fieldConfigService.saveAll(fieldConfigs);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+
+	@PostMapping("/delete")
+	public ResponseEntity<Void> delete(@RequestBody FieldConfig fieldConfig) {
+		fieldConfigService.delete(fieldConfig);
+		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
 }
