@@ -18,35 +18,19 @@ public class FieldConfig {
 	private String owner;
 
 	@Column(name = "is_printable")
-	private boolean isPrintable;
+	private boolean printable;
 
 	@Column(name = "is_multiple")
-	private boolean multiple = false;
+	private boolean multiple;
 
 	public FieldConfig() {
 	}
 
-	public FieldConfig(String name, String type, String owner, boolean isPrintable, boolean multiple) {
+	public FieldConfig(String name, String type, String owner, boolean printable, boolean multiple) {
 		this.name = name;
 		this.type = type;
 		this.owner = owner;
-		this.isPrintable = isPrintable;
-		this.multiple = multiple;
-	}
-
-	public boolean isPrintable() {
-		return isPrintable;
-	}
-
-	public void setPrintable(boolean printable) {
-		isPrintable = printable;
-	}
-
-	public boolean isMultiple() {
-		return multiple;
-	}
-
-	public void setMultiple(boolean multiple) {
+		this.printable = printable;
 		this.multiple = multiple;
 	}
 
@@ -74,11 +58,19 @@ public class FieldConfig {
 		this.owner = owner;
 	}
 
-	public Boolean getIsPrintable() {
-		return isPrintable;
+	public boolean isPrintable() {
+		return printable;
 	}
 
-	public void setIsPrintable(Boolean isPrintable) {
-		this.isPrintable = isPrintable;
+	public void setPrintable(boolean printable) {
+		this.printable = printable;
+	}
+
+	public boolean isMultiple() {
+		return multiple;
+	}
+
+	public void setMultiple(boolean multiple) {
+		this.multiple = multiple;
 	}
 }
