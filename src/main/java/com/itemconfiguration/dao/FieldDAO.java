@@ -40,5 +40,10 @@ public interface FieldDAO extends CrudRepository<Field, Long> {
 
 	@Modifying
 	@Transactional
+	@Query(value = "DELETE FROM Field f WHERE f.id IN ?1")
+	void deleteAllById(List<Long> ids);
+
+	@Modifying
+	@Transactional
 	int deleteByFieldSet(FieldSet fieldSet);
 }

@@ -1,11 +1,15 @@
 package com.itemconfiguration.service;
 
 import com.itemconfiguration.dao.ItemDAO;
-import com.itemconfiguration.domain.*;
+import com.itemconfiguration.domain.AppFields;
+import com.itemconfiguration.domain.Field;
+import com.itemconfiguration.domain.FieldSet;
+import com.itemconfiguration.domain.Item;
+import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
 import com.itemconfiguration.dto.CopyItemDto;
-import com.itemconfiguration.exception.SaveItemFieldConfigException;
+import com.itemconfiguration.dto.UpdateLocationDto;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -33,8 +37,16 @@ public class ItemService {
 		return this.itemDAO.updateLocationEnablemend(item.isIpps(), item.isSb(), item.getId());
 	}
 
-	public int updateLocationEnablemendForAll(Item item) {
-		return this.itemDAO.updateLocationEnablemendForAll(item.isIpps(), item.isSb(), item.getId());
+	public void updateLocationEnablemendForAll(UpdateLocationDto dto) {
+		if (CollectionUtils.isEmpty(dto.getItemNumbers())) {
+			throw new IllegalArgumentException("[itemNumbers] should not be empty");
+		}
+		List<Item> items = this.findAllByItemNumbers(dto.getItemNumbers());
+		items.forEach(item -> {
+			item.setIpps(dto.isIpps());
+			item.setSb(dto.isSb());
+		});
+		itemDAO.saveAll(items);
 	}
 
 	public void save(Item item) {
@@ -112,7 +124,13 @@ public class ItemService {
 	}
 
 	public List<Item> findAllByItemNumbers(List<String> itemNumbers) {
-		return itemDAO.findAllByFields(AppFields.D2COMM_ITEM_NUMBER, itemNumbers);
+		return itemDAO.findAllByFieldsLight(AppFields.D2COMM_ITEM_NUMBER, itemNumbers);
+	}
+
+	public List<Item> findAllByItemNumberFull(List<String> itemNumbers) {
+
+		return itemDAO.findAllByFieldsFull(AppFields.D2COMM_ITEM_NUMBER, itemNumbers);
+		//return Collections.emptyList();
 	}
 
 	public List<Item> getAll() {

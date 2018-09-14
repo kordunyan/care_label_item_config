@@ -14,20 +14,13 @@ public interface ItemDAO extends CrudRepository<Item, Long> {
 	List<Item> findAllByField(String fieldType, String fieldValue);
 
 	@Query("SELECT i FROM Item i INNER JOIN i.fields as f WHERE f.fieldConfigName = ?1 AND f.value in ?2 ORDER BY i.id")
-	List<Item> findAllByFields(String fieldType, List<String> fieldValue);
+	List<Item> findAllByFieldsLight(String fieldType, List<String> fieldValue);
+
+	@Query("FROM Item i JOIN i.fields as fields JOIN i.fieldSet as fieldSet JOIN i.itemFieldConfigs as itemFieldConfigs WHERE fields.fieldConfigName = ?1 AND fields.value in ?2 ORDER BY i.id")
+	List<Item> findAllByFieldsFull(String fieldType, List<String> fieldValue);
 
 	@Modifying
 	@Transactional
 	@Query("UPDATE Item i SET i.ipps = ?1, i.sb = ?2 WHERE i.id = ?3")
 	int updateLocationEnablemend(boolean ipps, boolean sb, Long id);
-
-	@Modifying
-	@Transactional
-	@Query(value = "UPDATE item SET is_ipps = ?1, is_sb = ?2 WHERE id IN( " +
-			"SELECT same_items.id FROM item i " +
-			"JOIN field i_number ON i_number.field_set_id = i.field_set_id AND i_number.field_config_name = 'D2COMM_ITEM_NUMBER' " +
-			"JOIN field items_number ON items_number.value = i_number.value AND items_number.field_config_name = 'D2COMM_ITEM_NUMBER' " +
-			"JOIN item same_items ON same_items.field_set_id = items_number.field_set_id " +
-			"WHERE i.id = ?3)", nativeQuery = true)
-	int updateLocationEnablemendForAll(boolean ipps, boolean sb, Long id);
 }

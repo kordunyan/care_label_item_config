@@ -2,6 +2,7 @@ package com.itemconfiguration.service.savestrategy.itemField;
 
 import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
+import com.itemconfiguration.service.FieldService;
 import com.itemconfiguration.service.ItemService;
 import org.springframework.stereotype.Component;
 
@@ -10,8 +11,8 @@ import java.util.List;
 @Component("overrideFields")
 public class OverideChangedItemFieldSaveStrategy extends AbstractItemFieldSaveStrategy{
 
-	public OverideChangedItemFieldSaveStrategy(ItemService itemService) {
-		super(itemService);
+	public OverideChangedItemFieldSaveStrategy(ItemService itemService, FieldService fieldService) {
+		super(itemService, fieldService);
 	}
 
 	@Override
