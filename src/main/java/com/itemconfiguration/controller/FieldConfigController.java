@@ -1,5 +1,6 @@
 package com.itemconfiguration.controller;
 
+import com.itemconfiguration.dao.resultobjects.InstructionField;
 import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.service.FieldConfigService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,6 +58,11 @@ public class FieldConfigController {
 	@GetMapping("/all")
 	public List<FieldConfig> getAll() {
 		return fieldConfigService.getAll();
+	}
+
+	@GetMapping("/instructions/fields")
+	public Map<String, List<String>> getInstructionsFields() {
+		return fieldConfigService.getInstructionFields();
 	}
 
 }
