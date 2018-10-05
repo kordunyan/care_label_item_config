@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/field_set")
+@RequestMapping("/api/field_set")
 public class FieldSetController {
 
 	private FieldSetService fieldSetService;

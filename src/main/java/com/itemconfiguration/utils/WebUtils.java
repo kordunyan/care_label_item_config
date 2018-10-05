@@ -15,9 +15,7 @@ public class WebUtils {
         }
         ByteArrayResource resource = new ByteArrayResource(data.getBytes());
         return ResponseEntity.ok()
-                .header(WebUtils.HEADER_ACCESS_CONTROL_EXPOSE_HEADERS, HttpHeaders.CONTENT_DISPOSITION, WebUtils.HEADER_FILENAME)
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; " + fileName)
-                .header(WebUtils.HEADER_FILENAME, fileName)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .contentLength(resource.contentLength())
                 .body(resource);

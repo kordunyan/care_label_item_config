@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/field")
+@RequestMapping(value = "/api/field")
 public class FieldController {
 
 	private FieldService fieldService;

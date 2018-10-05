@@ -5,7 +5,6 @@ import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.export.bilder.line.FieldLineBuilder;
 import com.itemconfiguration.export.bilder.line.StaticLines;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -14,8 +13,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class ItemFieldsBlockBuilder {
-
-
     private ItemCommentBuilder itemCommentBuilder;
     private FieldLineBuilder fieldLineBuilder;
 
@@ -41,7 +38,7 @@ public class ItemFieldsBlockBuilder {
                 .collect(Collectors.joining(StaticLines.INSERT_VALUES_SEPARATOR)) + ";";
     }
 
-    public String getInsertIntoFields() {
+    private String getInsertIntoFields() {
         return "INSERT INTO field (field_config_name, value, field_set_id) VALUES" + StaticLines.NEW_LINE;
     }
 

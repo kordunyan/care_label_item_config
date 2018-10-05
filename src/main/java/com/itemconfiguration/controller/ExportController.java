@@ -12,8 +12,6 @@ import com.itemconfiguration.service.ItemService;
 import com.itemconfiguration.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,14 +19,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/export")
+@RequestMapping("/api/export")
 public class ExportController {
 
     @Value(AppProperties.KEY_ITEM_FIELD_CONFIG_FILE_NAME)

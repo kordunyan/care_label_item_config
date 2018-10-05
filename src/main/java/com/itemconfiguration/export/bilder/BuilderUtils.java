@@ -8,7 +8,6 @@ public class BuilderUtils {
 	public static String COMMA = ",";
 	private static String REGEX_ESCAPE_SYMBOLS = ".*['\\\\]+.*";
 
-
 	public static String escapeValue(String value) {
 		if (value == null) {
 			return NULL;

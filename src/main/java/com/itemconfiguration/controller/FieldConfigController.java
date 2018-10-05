@@ -1,6 +1,5 @@
 package com.itemconfiguration.controller;
 
-import com.itemconfiguration.dao.resultobjects.InstructionField;
 import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.service.FieldConfigService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController()
-@RequestMapping("/field_config")
+@RequestMapping("/api/field_config")
 public class FieldConfigController {
 
 	private FieldConfigService fieldConfigService;
@@ -22,10 +21,9 @@ public class FieldConfigController {
 		this.fieldConfigService = fieldConfigService;
 	}
 
-	@GetMapping("/save")
+	@GetMapping("/add-test-fields")
 	public List<FieldConfig> saveNew() {
 		List<FieldConfig> fieldConfigs = new ArrayList<>();
-
 		fieldConfigs.add(new FieldConfig("BRAND", "TEXT_FIELD", "ITEM", false, false));
 		fieldConfigs.add(new FieldConfig("SEASON", "TEXT_FIELD", "ITEM", false, true));
 		fieldConfigs.add(new FieldConfig("D2COMM_ITEM_NUMBER", "TEXT_FIELD", "ITEM", false, false));

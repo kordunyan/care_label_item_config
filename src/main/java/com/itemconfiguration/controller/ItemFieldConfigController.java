@@ -1,23 +1,22 @@
 package com.itemconfiguration.controller;
 
 import com.itemconfiguration.dto.ItemCrudOperationsDto;
-import com.itemconfiguration.dto.ItemWithItemFieldConfigDto;
 import com.itemconfiguration.dto.SaveItemFieldConfigDto;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.deletestrategy.itemfieldconfig.DeleteItemFieldConfigStrategy;
 import com.itemconfiguration.service.savestrategy.itemfieldconfig.ItemFieldConfigSaveStrategyProvider;
-import javax.annotation.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 @RestController
-@RequestMapping("/item_field_config")
+@RequestMapping("/api/item_field_config")
 public class ItemFieldConfigController {
 
 	private ItemFieldConfigSaveStrategyProvider saveStrategyProvider;
