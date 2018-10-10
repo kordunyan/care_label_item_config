@@ -35,7 +35,7 @@ public class BaseScreeptsBuilder {
         result.add(StaticLines.NEW_LINE);
         result.add(buildJoinedItemNumbers(itemNumbers));
         result.add(")" + StaticLines.NEW_LINE);
-        result.add(buileDeleteLoop());
+        result.add(buildDeleteLoop());
         return result;
     }
 
@@ -45,7 +45,7 @@ public class BaseScreeptsBuilder {
                 .collect(Collectors.joining("," + StaticLines.NEW_LINE));
     }
 
-    private String buileDeleteLoop() {
+    private String buildDeleteLoop() {
         return new StringBuilder()
                 .append(" LOOP").append(StaticLines.NEW_LINE)
                 .append("  RAISE INFO E'\\n\\nDelete item info: %', var_item_id;").append(StaticLines.NEW_LINE)
@@ -69,7 +69,7 @@ public class BaseScreeptsBuilder {
                 .toString();
     }
 
-    public String buildFinalScrepts() {
+    public String buildFinalScreepts() {
         return new StringBuilder()
                 .append(StaticLines.NEW_LINE)
                 .append("ALTER TABLE purchase_order").append(StaticLines.NEW_LINE)

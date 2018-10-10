@@ -2,12 +2,8 @@ package com.itemconfiguration.controller;
 
 import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.service.FieldConfigService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,7 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController()
-@RequestMapping("/field_config")
+@RequestMapping("/api/field_config")
 public class FieldConfigController {
 
 	private FieldConfigService fieldConfigService;
@@ -25,10 +21,9 @@ public class FieldConfigController {
 		this.fieldConfigService = fieldConfigService;
 	}
 
-	@GetMapping("/save")
+	@GetMapping("/add-test-fields")
 	public List<FieldConfig> saveNew() {
 		List<FieldConfig> fieldConfigs = new ArrayList<>();
-
 		fieldConfigs.add(new FieldConfig("BRAND", "TEXT_FIELD", "ITEM", false, false));
 		fieldConfigs.add(new FieldConfig("SEASON", "TEXT_FIELD", "ITEM", false, true));
 		fieldConfigs.add(new FieldConfig("D2COMM_ITEM_NUMBER", "TEXT_FIELD", "ITEM", false, false));
@@ -61,6 +56,11 @@ public class FieldConfigController {
 	@GetMapping("/all")
 	public List<FieldConfig> getAll() {
 		return fieldConfigService.getAll();
+	}
+
+	@GetMapping("/instructions/fields")
+	public Map<String, List<String>> getInstructionsFields() {
+		return fieldConfigService.getInstructionFields();
 	}
 
 	@PostMapping("/save-all")

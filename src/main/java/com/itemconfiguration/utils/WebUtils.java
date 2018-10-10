@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 public class WebUtils {
+    public static final String REQ_PARAM_TENANT_ID = "tenenatId";
+    public static final String HEAD_X_TENANT_ID = "X-TENANT-ID";
     public static final String HEADER_ACCESS_CONTROL_EXPOSE_HEADERS = "Access-Control-Expose-Headers";
     public static final String HEADER_FILENAME = "Filename";
 

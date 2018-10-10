@@ -1,24 +1,24 @@
 package com.itemconfiguration.service.savestrategy.itemField;
 
 import com.itemconfiguration.domain.Field;
-import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.dto.ItemFieldCrudOperationsDto;
+import com.itemconfiguration.service.FieldService;
 import com.itemconfiguration.service.ItemService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStrategy {
 
 	private ItemService itemService;
+	private FieldService fieldService;
 
-	public AbstractItemFieldSaveStrategy(ItemService itemService) {
+	public AbstractItemFieldSaveStrategy(ItemService itemService, FieldService fieldService) {
 		this.itemService = itemService;
+		this.fieldService = fieldService;
 	}
 
 	@Override
@@ -35,6 +35,7 @@ public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStra
 					StringUtils.join(dto.getItemNumbers(), ","));
 		}
 		List<Field> fieldsForSave = updateFieldsForItems(dto, itemsWithFieldsMap);
+		this.fieldService.saveAll(fieldsForSave);
 	}
 
 	protected List<Field> updateFieldsForItems(ItemFieldCrudOperationsDto dto, List<ItemWithFieldsMap> itemsWithFieldsMap) {

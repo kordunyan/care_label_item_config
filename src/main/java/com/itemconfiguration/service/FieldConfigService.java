@@ -1,12 +1,11 @@
 package com.itemconfiguration.service;
 
 import com.itemconfiguration.dao.FieldConfigRepository;
+import com.itemconfiguration.dao.resultobjects.InstructionField;
 import com.itemconfiguration.domain.FieldConfig;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -45,5 +44,17 @@ public class FieldConfigService {
 
 	public Map<String, FieldConfig> getFieldConfigsMap(String owner) {
 		return this.getByOwner(owner).stream().collect(Collectors.toMap(FieldConfig::getName, Function.identity()));
+	}
+
+	public Map<String, List<String>> getInstructionFields() {
+		List<InstructionField> instructionFields = fieldConfigRepository.getInstructionsFields();
+		Map<String, List<String>> result = new HashMap<>();
+		for (InstructionField instructionField : instructionFields) {
+			if (!result.containsKey(instructionField.getInstructionName())) {
+				result.put(instructionField.getInstructionName(), new ArrayList<>());
+			}
+			result.get(instructionField.getInstructionName()).add(instructionField.getFieldName());
+		}
+		return result;
 	}
 }

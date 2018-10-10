@@ -5,6 +5,7 @@ import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.FieldSet;
 import com.itemconfiguration.dto.FieldForAllItemsDto;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,8 +44,12 @@ public class FieldService {
 		this.fieldDAO.saveAll(createCopyForEachFieldSets(fieldForAllItems));
 	}
 
+
 	public void deleteAll(List<Field> fields) {
-		fieldDAO.deleteAll(fields);
+		if (CollectionUtils.isEmpty(fields)) {
+			return;
+		}
+		fieldDAO.deleteAllById(fields.stream().map(Field::getId).collect(Collectors.toList()));
 	}
 
 	private List<Field> createCopyForEachFieldSets(List<FieldForAllItemsDto> fieldForAllItems) {

@@ -53,7 +53,7 @@ public class AllItemsConfigurationExportBuilder implements ItemConfigurationExpo
                     result.addAll(itemFieldConfigBlockBuilder.build(itemWithFieldsMap));
                     result.add(StaticLines.getBlockSeparator());
                 });
-        result.add(baseScreeptsBuilder.buildFinalScrepts());
+        result.add(baseScreeptsBuilder.buildFinalScreepts());
         return StringUtils.join(result, "");
     }
 }

@@ -1,23 +1,26 @@
 package com.itemconfiguration.controller;
 
-import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.Item;
-import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.dto.CopyItemDto;
 import com.itemconfiguration.dto.ItemWithoutItemFieldConfigsDto;
+import com.itemconfiguration.dto.UpdateLocationDto;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.ItemService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/item")
+@RequestMapping("/api/item")
 public class ItemController {
 
 	private ItemService itemService;
@@ -26,33 +29,6 @@ public class ItemController {
 	public ItemController(ItemService itemService, ItemFieldConfigService itemFieldConfigService) {
 		this.itemService = itemService;
 		this.itemFieldConfigService = itemFieldConfigService;
-	}
-
-	@GetMapping("/new")
-	public Item createNewItem() {
-		final String ITEM_NUMBER = "2149324";
-		Item item = null;
-		for (int i = 0; i < 2; i++) {
-			List<Field> fields = new ArrayList<>();
-			fields.add(new Field("BRAND", "The Underwear Group", null));
-			fields.add(new Field("SEASON", "SP18" + i, null));
-			fields.add(new Field("D2COMM_ITEM_NUMBER", ITEM_NUMBER, null));
-
-			item = new Item(true, true, null);
-			item.setFields(fields);
-
-			List<ItemFieldConfig> itemFieldConfigs = new ArrayList<>();
-			itemFieldConfigs.add(new ItemFieldConfig("SIZE", true, true, true, true, null, "{'searchByRegexFields': [{fieldName:'SIZE_SPECIAL_HANDLEING', regex:'(?i)^.*B.*$'}]}", true, null, item));
-			itemFieldConfigs.add(new ItemFieldConfig("COO", true, true, true, true, null, null, true, null, item));
-			itemFieldConfigs.add(new ItemFieldConfig("EOD", true, true, true, true, null, null, true, null, item));
-			itemFieldConfigs.add(new ItemFieldConfig("STYLE", true, true, true, true, null, null, true, null, item));
-			item.setItemFieldConfigs(itemFieldConfigs);
-			itemService.save(item);
-		}
-
-		this.itemService.deleteByItemNumber(ITEM_NUMBER);
-
-		return item;
 	}
 
 	@PostMapping()
@@ -67,8 +43,9 @@ public class ItemController {
 	}
 
 	@PostMapping("/update-location-all")
-	public int updateLocationEnablemendForAll(@RequestBody Item item) {
-		return itemService.updateLocationEnablemendForAll(item);
+	public  ResponseEntity<Void> updateLocationEnablemendForAll(@RequestBody UpdateLocationDto dto) {
+		itemService.updateLocationEnablemendForAll(dto);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 	@PostMapping("/save-all")
