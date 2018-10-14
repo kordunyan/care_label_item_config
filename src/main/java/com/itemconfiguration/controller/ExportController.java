@@ -42,7 +42,7 @@ public class ExportController {
     public ResponseEntity<ByteArrayResource> generateExport() {
         List<Item> items = itemService.getAll();
         List<String> itemNumbers = itemService.getAllItemNumbers();
-        FieldConfigsWrapper fieldConfigsWrapper = new FieldConfigsWrapper(fieldConfigService.getByOwner(AppFields.OWNER_ITEM));
+        FieldConfigsWrapper fieldConfigsWrapper = fieldConfigService.getByOwnerFieldConfigWraper(AppFields.OWNER_ITEM);
         ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper, itemNumbers);
         return WebUtils.stringToDownloadFile(itemConfigurationExportBuilder.build(data), EXPORT_FILE_NAME);
     }
@@ -50,7 +50,7 @@ public class ExportController {
     @PostMapping("/generateby")
     public  ResponseEntity<ByteArrayResource> generateExportBy(@RequestBody List<String> itemNumbers) {
         List<Item> items = itemService.findAllByItemNumbers(itemNumbers);
-        FieldConfigsWrapper fieldConfigsWrapper = new FieldConfigsWrapper(fieldConfigService.getByOwner(AppFields.OWNER_ITEM));
+        FieldConfigsWrapper fieldConfigsWrapper = fieldConfigService.getByOwnerFieldConfigWraper(AppFields.OWNER_ITEM);
         ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper, itemNumbers);
         return WebUtils.stringToDownloadFile(itemConfigurationExportBuilder.build(data), EXPORT_FILE_NAME);
     }

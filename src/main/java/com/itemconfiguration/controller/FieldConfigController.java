@@ -24,20 +24,20 @@ public class FieldConfigController {
 	@GetMapping("/add-test-fields")
 	public List<FieldConfig> saveNew() {
 		List<FieldConfig> fieldConfigs = new ArrayList<>();
-		fieldConfigs.add(new FieldConfig("BRAND", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("SEASON", "TEXT_FIELD", "ITEM", false, true));
-		fieldConfigs.add(new FieldConfig("D2COMM_ITEM_NUMBER", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("CLOTHING_TYPE", "TEXT_FIELD", "ITEM", false, true));
-		fieldConfigs.add(new FieldConfig("CARE_CONFIG_ROTARY_FORMAT_GROUP", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("ROTARY_PART_NUMBER", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("THERMAL_PART_NUMBER", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("ADD_BOOKLET_ROTARY_PART_NUMBER", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("ADD_BOOKLET_THERMAL_PART_NUMBER", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("ADD_STRAIGHT_CUT_ROTARY_PART_NUMBER", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("ADD_STRAIGHT_CUT_THERMAL_PART_NUMBER", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("IS_EQUALIZE_BLOCKS_LENGTH", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("IS_STATIC_CONTENT", "TEXT_FIELD", "ITEM", false, false));
-		fieldConfigs.add(new FieldConfig("CARE_CODE_SUB", "TEXT_FIELD", "LABEL", true, false));
+		fieldConfigs.add(new FieldConfig("BRAND", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("SEASON", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("D2COMM_ITEM_NUMBER", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("CLOTHING_TYPE", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("CARE_CONFIG_ROTARY_FORMAT_GROUP", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("ROTARY_PART_NUMBER", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("THERMAL_PART_NUMBER", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("ADD_BOOKLET_ROTARY_PART_NUMBER", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("ADD_BOOKLET_THERMAL_PART_NUMBER", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("ADD_STRAIGHT_CUT_ROTARY_PART_NUMBER", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("ADD_STRAIGHT_CUT_THERMAL_PART_NUMBER", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("IS_EQUALIZE_BLOCKS_LENGTH", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("IS_STATIC_CONTENT", "TEXT_FIELD", "ITEM", false));
+		fieldConfigs.add(new FieldConfig("CARE_CODE_SUB", "TEXT_FIELD", "LABEL", true));
 
 		fieldConfigService.saveAll(fieldConfigs);
 		return fieldConfigs;

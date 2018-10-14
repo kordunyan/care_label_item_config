@@ -37,6 +37,6 @@ public class ItemCommentBuilder {
 	}
 
 	private String toCommentField(Field field) {
-		return field.getFieldConfigName() + " : " + field.getValue();
+		return field.getFieldConfigName() + ": " + field.getValue();
 	}
 }

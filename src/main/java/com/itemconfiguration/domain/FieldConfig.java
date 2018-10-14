@@ -20,18 +20,14 @@ public class FieldConfig {
 	@Column(name = "is_printable")
 	private boolean printable;
 
-	@Column(name = "is_multiple")
-	private boolean multiple = false;
-
 	public FieldConfig() {
 	}
 
-	public FieldConfig(String name, String type, String owner, boolean printable, boolean multiple) {
+	public FieldConfig(String name, String type, String owner, boolean printable) {
 		this.name = name;
 		this.type = type;
 		this.owner = owner;
 		this.printable = printable;
-		this.multiple = multiple;
 	}
 
 	public String getName() {
@@ -64,13 +60,5 @@ public class FieldConfig {
 
 	public void setPrintable(boolean printable) {
 		this.printable = printable;
-	}
-
-	public boolean isMultiple() {
-		return multiple;
-	}
-
-	public void setMultiple(boolean multiple) {
-		this.multiple = multiple;
 	}
 }

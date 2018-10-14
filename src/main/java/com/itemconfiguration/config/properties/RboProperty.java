@@ -1,13 +1,12 @@
 package com.itemconfiguration.config.properties;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class RboProperty {
 	private String name;
 	private String code;
 	private String url;
-	private List<String> multifields = new ArrayList<>();
+	private Set<String> multifields = new LinkedHashSet<>();
 
 	public String getName() {
 		return name;
@@ -33,11 +32,11 @@ public class RboProperty {
 		this.url = url;
 	}
 
-	public List<String> getMultifields() {
+	public Set<String> getMultifields() {
 		return multifields;
 	}
 
-	public void setMultifields(List<String> multifields) {
+	public void setMultifields(Set<String> multifields) {
 		this.multifields = multifields;
 	}
 }

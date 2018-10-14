@@ -3,6 +3,7 @@ package com.itemconfiguration.service;
 import com.itemconfiguration.dao.FieldConfigRepository;
 import com.itemconfiguration.dao.resultobjects.InstructionField;
 import com.itemconfiguration.domain.FieldConfig;
+import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,9 +13,12 @@ import java.util.stream.Collectors;
 @Service
 public class FieldConfigService {
 
+	private RboPropertiesService rboPropertiesService;
+
 	private FieldConfigRepository fieldConfigRepository;
 
-	public FieldConfigService(FieldConfigRepository fieldConfigRepository) {
+	public FieldConfigService(RboPropertiesService rboPropertiesService, FieldConfigRepository fieldConfigRepository) {
+		this.rboPropertiesService = rboPropertiesService;
 		this.fieldConfigRepository = fieldConfigRepository;
 	}
 
@@ -40,6 +44,11 @@ public class FieldConfigService {
 
 	public List<FieldConfig> getByOwner(String owner) {
 		return this.fieldConfigRepository.getByOwner(owner);
+	}
+
+	public FieldConfigsWrapper getByOwnerFieldConfigWraper(String owner) {
+		List<FieldConfig> fieldConfigs = getByOwner(owner);
+		return new FieldConfigsWrapper(fieldConfigs, rboPropertiesService.getMultipleFields());
 	}
 
 	public Map<String, FieldConfig> getFieldConfigsMap(String owner) {
