@@ -1,6 +1,6 @@
 package com.itemconfiguration.service.savestrategy.itemfieldconfig;
 
-import com.itemconfiguration.dto.SaveItemFieldConfigDto;
+import com.itemconfiguration.dto.SaveConfigDto;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,20 +17,20 @@ public class ItemFieldConfigSaveStrategyProvider {
 	@Resource(name = "onlynew")
 	ItemFieldConfigSaveStrategy onlyNewdefaultItemFieldConfigSaveStrategy;
 
-	public ItemFieldConfigSaveStrategy getSaveStrategy(SaveItemFieldConfigDto saveItemFieldConfigDto) {
-		if (saveItemFieldConfigDto.isSaveForAll()) {
-			return getSaveForAllStrategy(saveItemFieldConfigDto);
+	public ItemFieldConfigSaveStrategy getSaveStrategy(SaveConfigDto saveConfigDto) {
+		if (saveConfigDto.isSaveForAll()) {
+			return getSaveForAllStrategy(saveConfigDto);
 		}
 		return defaultItemFieldConfigSaveStrategy;
 	}
 
-	private ItemFieldConfigSaveStrategy getSaveForAllStrategy(SaveItemFieldConfigDto saveItemFieldConfigDto) {
-		switch (saveItemFieldConfigDto.getSaveForAllStrategy()) {
+	private ItemFieldConfigSaveStrategy getSaveForAllStrategy(SaveConfigDto saveConfigDto) {
+		switch (saveConfigDto.getSaveForAllStrategy()) {
 			case ONLY_FOR_NEW:
 				return onlyNewdefaultItemFieldConfigSaveStrategy;
 			case OVERRIDE_CHANGED:
 				return overrideChangedItemFieldConfigSaveStrategy;
 		}
-		throw new IllegalArgumentException("There are now save implements save strategy " + saveItemFieldConfigDto.getSaveForAllStrategy());
+		throw new IllegalArgumentException("There are now save implements save strategy " + saveConfigDto.getSaveForAllStrategy());
 	}
 }

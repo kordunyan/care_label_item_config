@@ -2,13 +2,13 @@ package com.itemconfiguration.dto;
 
 import com.itemconfiguration.service.savestrategy.SaveForAllStrategy;
 
-public class SaveItemFieldConfigDto extends ItemCrudOperationsDto{
+public class SaveConfigDto extends ItemCrudOperationsDto{
 
 	private boolean saveForAll;
 
 	private SaveForAllStrategy saveForAllStrategy;
 
-	public SaveItemFieldConfigDto() {
+	public SaveConfigDto() {
 	}
 
 	public boolean isSaveForAll() {

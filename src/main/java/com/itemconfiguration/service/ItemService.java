@@ -127,12 +127,6 @@ public class ItemService {
 		return itemDAO.findAllByFieldsLight(AppFields.D2COMM_ITEM_NUMBER, itemNumbers);
 	}
 
-	public List<Item> findAllByItemNumberFull(List<String> itemNumbers) {
-
-		return itemDAO.findAllByFieldsFull(AppFields.D2COMM_ITEM_NUMBER, itemNumbers);
-		//return Collections.emptyList();
-	}
-
 	public List<Item> getAll() {
 		return (List<Item>) itemDAO.findAll();
 	}

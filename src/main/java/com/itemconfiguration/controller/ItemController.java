@@ -1,7 +1,9 @@
 package com.itemconfiguration.controller;
 
+import com.itemconfiguration.converter.ItemConverter;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.dto.CopyItemDto;
+import com.itemconfiguration.dto.ItemNoMandatoryDataDto;
 import com.itemconfiguration.dto.ItemWithoutItemFieldConfigsDto;
 import com.itemconfiguration.dto.UpdateLocationDto;
 import com.itemconfiguration.service.ItemFieldConfigService;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -80,6 +83,14 @@ public class ItemController {
 	@GetMapping("/id/{id}")
 	public Item getById(@PathVariable("id") Long id) {
 		return itemService.getById(id).orElse(null);
+	}
+
+	@GetMapping("/nomandatory/id/{id}")
+	public ItemNoMandatoryDataDto getNoMandatoryById(@PathVariable("id") Long id) {
+		Optional<Item> optionalItem = itemService.getById(id);
+		return optionalItem
+				.map(ItemConverter::convertNoMandatory)
+				.orElse(null);
 	}
 
 	@DeleteMapping("/number/{itemNumber}")

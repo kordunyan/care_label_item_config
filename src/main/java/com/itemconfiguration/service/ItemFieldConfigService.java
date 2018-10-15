@@ -30,4 +30,12 @@ public class ItemFieldConfigService {
 		}
 		itemFieldConfigDAO.deleteAll(itemFieldConfigs);
 	}
+
+	public ItemFieldConfig getById(Long id) {
+		return itemFieldConfigDAO.findById(id).orElse(null);
+	}
+
+	public List<ItemFieldConfig> getInstructionsByItemId(Long itemId) {
+		return itemFieldConfigDAO.getInstructionsByItem(itemId);
+	}
 }

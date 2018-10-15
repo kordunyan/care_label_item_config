@@ -2,15 +2,9 @@ package com.itemconfiguration.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(
@@ -57,6 +51,21 @@ public class ItemFieldConfig {
 	@ManyToOne()
 	@JoinColumn(name = "item_id")
 	private Item item;
+
+	@OneToMany(
+			cascade = CascadeType.ALL,
+			mappedBy = "itemFieldConfig",
+			orphanRemoval = true,
+			fetch = FetchType.LAZY
+	)
+	private List<MandatoryField> mandatoryFields = new ArrayList<>();
+
+	@OneToMany(
+			cascade = CascadeType.ALL,
+			mappedBy = "itemFieldConfig",
+			fetch = FetchType.LAZY
+	)
+	private List<MandatoryTranslation> mandatoryTranslations = new ArrayList<>();
 
 	public static ItemFieldConfig copyWithoutIdAndItem(ItemFieldConfig src) {
 		ItemFieldConfig copy = new ItemFieldConfig();
@@ -174,5 +183,21 @@ public class ItemFieldConfig {
 
 	public void setItem(Item item) {
 		this.item = item;
+	}
+
+	public List<MandatoryField> getMandatoryFields() {
+		return mandatoryFields;
+	}
+
+	public void setMandatoryFields(List<MandatoryField> mandatoryFields) {
+		this.mandatoryFields = mandatoryFields;
+	}
+
+	public List<MandatoryTranslation> getMandatoryTranslations() {
+		return mandatoryTranslations;
+	}
+
+	public void setMandatoryTranslations(List<MandatoryTranslation> mandatoryTranslations) {
+		this.mandatoryTranslations = mandatoryTranslations;
 	}
 }

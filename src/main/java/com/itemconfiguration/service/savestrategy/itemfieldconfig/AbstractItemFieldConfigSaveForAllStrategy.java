@@ -3,7 +3,7 @@ package com.itemconfiguration.service.savestrategy.itemfieldconfig;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
-import com.itemconfiguration.dto.SaveItemFieldConfigDto;
+import com.itemconfiguration.dto.SaveConfigDto;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.ItemService;
@@ -25,15 +25,15 @@ public abstract class AbstractItemFieldConfigSaveForAllStrategy implements ItemF
     }
 
     @Override
-    public void save(SaveItemFieldConfigDto saveItemFieldConfigDto) throws SaveItemFieldConfigException {
-        List<ItemFieldConfig> changedItemFieldsConfigs = saveItemFieldConfigDto.getItemFieldConfigs();
+    public void save(SaveConfigDto saveConfigDto) throws SaveItemFieldConfigException {
+        List<ItemFieldConfig> changedItemFieldsConfigs = saveConfigDto.getItemFieldConfigs();
         if (CollectionUtils.isEmpty(changedItemFieldsConfigs)) {
             return;
         }
-        Item originalItem = saveItemFieldConfigDto.getItem();
+        Item originalItem = saveConfigDto.getItem();
         List<ItemFieldConfig> itemFieldConfigsForSave = new ArrayList<>();
         itemFieldConfigsForSave.addAll(setOriginalItemForChangedFieldConfigs(originalItem, changedItemFieldsConfigs));
-        itemFieldConfigsForSave.addAll(setItemForChangedFieldConfigs(getItems(saveItemFieldConfigDto), changedItemFieldsConfigs, originalItem));
+        itemFieldConfigsForSave.addAll(setItemForChangedFieldConfigs(getItems(saveConfigDto), changedItemFieldsConfigs, originalItem));
         itemFieldConfigService.saveAll(itemFieldConfigsForSave);
     }
 
@@ -43,8 +43,8 @@ public abstract class AbstractItemFieldConfigSaveForAllStrategy implements ItemF
                 .collect(Collectors.toList());
     }
 
-    protected List<ItemWithItemFieldConfigsMap> getItems(SaveItemFieldConfigDto saveItemFieldConfigDto) throws SaveItemFieldConfigException {
-        return itemService.getAllItemsWithFieldConfigMapByItemNumbers(saveItemFieldConfigDto.getItemNumbers());
+    protected List<ItemWithItemFieldConfigsMap> getItems(SaveConfigDto saveConfigDto) throws SaveItemFieldConfigException {
+        return itemService.getAllItemsWithFieldConfigMapByItemNumbers(saveConfigDto.getItemNumbers());
     }
 
     private List<ItemFieldConfig> setItemForChangedFieldConfigs(List<ItemWithItemFieldConfigsMap> items,

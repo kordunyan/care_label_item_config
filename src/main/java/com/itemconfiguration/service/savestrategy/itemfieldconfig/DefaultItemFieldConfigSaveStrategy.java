@@ -2,7 +2,7 @@ package com.itemconfiguration.service.savestrategy.itemfieldconfig;
 
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
-import com.itemconfiguration.dto.SaveItemFieldConfigDto;
+import com.itemconfiguration.dto.SaveConfigDto;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
@@ -20,12 +20,12 @@ public class DefaultItemFieldConfigSaveStrategy implements ItemFieldConfigSaveSt
 	}
 
 	@Override
-	public void save(SaveItemFieldConfigDto saveItemFieldConfigDto) {
-		List<ItemFieldConfig> changedItemFieldConfigs = saveItemFieldConfigDto.getItemFieldConfigs();
+	public void save(SaveConfigDto saveConfigDto) {
+		List<ItemFieldConfig> changedItemFieldConfigs = saveConfigDto.getItemFieldConfigs();
 		if (CollectionUtils.isEmpty(changedItemFieldConfigs)) {
 			return;
 		}
-		Item item = saveItemFieldConfigDto.getItem();
+		Item item = saveConfigDto.getItem();
 		itemFieldConfigService.saveAll(setItemForChangedFieldConfigs(item, changedItemFieldConfigs));
 	}
 
