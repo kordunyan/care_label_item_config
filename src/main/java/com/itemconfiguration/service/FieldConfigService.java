@@ -66,4 +66,10 @@ public class FieldConfigService {
 		}
 		return result;
 	}
+
+	public Map<String, FieldConfig> getInstructionsFieldConfigsMap() {
+		return fieldConfigRepository.getInstructionsFieldConfigs()
+				.stream()
+				.collect(Collectors.toMap(FieldConfig::getName, fieldConfig -> fieldConfig));
+	}
 }

@@ -63,4 +63,8 @@ public class FieldConfigController {
 		return fieldConfigService.getInstructionFields();
 	}
 
+	@GetMapping("/instructions/fieldconfigs/map")
+	public Map<String, FieldConfig> getInstructionsFieldConfigs() {
+		return fieldConfigService.getInstructionsFieldConfigsMap();
+	}
 }
