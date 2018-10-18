@@ -42,6 +42,10 @@ public class FieldConfigService {
 		this.fieldConfigRepository.saveAll(fieldConfigs);
 	}
 
+	public void save(FieldConfig fieldConfig) {
+		this.fieldConfigRepository.save(fieldConfig);
+	}
+
 	public List<FieldConfig> getByOwner(String owner) {
 		return this.fieldConfigRepository.getByOwner(owner);
 	}
