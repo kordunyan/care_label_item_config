@@ -63,15 +63,4 @@ public class FieldConfigController {
 		return fieldConfigService.getInstructionFields();
 	}
 
-	@PostMapping("/save-all")
-	public ResponseEntity<Void> saveAll(@RequestBody List<FieldConfig> fieldConfigs) {
-		fieldConfigService.saveAll(fieldConfigs);
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-
-	@PostMapping("/delete")
-	public ResponseEntity<Void> delete(@RequestBody FieldConfig fieldConfig) {
-		fieldConfigService.delete(fieldConfig);
-		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
 }
