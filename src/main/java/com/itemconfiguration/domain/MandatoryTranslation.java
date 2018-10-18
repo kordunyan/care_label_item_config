@@ -1,6 +1,15 @@
 package com.itemconfiguration.domain;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class MandatoryTranslation {
@@ -13,6 +22,7 @@ public class MandatoryTranslation {
 			name = "item_field_config_id",
 			foreignKey = @ForeignKey(name = "mandatory_translation_item_field_config_id_fkey")
 	)
+	@JsonIgnore
 	private ItemFieldConfig itemFieldConfig;
 
 	@OneToOne
@@ -21,6 +31,9 @@ public class MandatoryTranslation {
 			foreignKey = @ForeignKey(name = "mandatory_translation_language_code_fkey")
 	)
 	private Language language;
+
+	public MandatoryTranslation() {
+	}
 
 	public MandatoryTranslation(ItemFieldConfig itemFieldConfig, Language language) {
 		this.itemFieldConfig = itemFieldConfig;

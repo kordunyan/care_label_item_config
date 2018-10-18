@@ -19,7 +19,7 @@ public abstract class AbstractItemFieldConfigSaveForAllStrategy implements ItemF
     private ItemFieldConfigService itemFieldConfigService;
 
     public AbstractItemFieldConfigSaveForAllStrategy(ItemService itemService,
-                                                     ItemFieldConfigService itemFieldConfigService) {
+            ItemFieldConfigService itemFieldConfigService) {
         this.itemService = itemService;
         this.itemFieldConfigService = itemFieldConfigService;
     }

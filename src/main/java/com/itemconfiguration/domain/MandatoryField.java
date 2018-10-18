@@ -1,9 +1,15 @@
 package com.itemconfiguration.domain;
 
-import com.itemconfiguration.domain.FieldConfig;
-import com.itemconfiguration.domain.ItemFieldConfig;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class MandatoryField {
@@ -14,11 +20,16 @@ public class MandatoryField {
 	@OneToOne
 	@JoinColumn(
 			name = "field_config_name",
-			foreignKey = @ForeignKey(name = "mandatory_field_field_condif_name_fkey"))
+			foreignKey = @ForeignKey(name = "mandatory_field_field_condif_name_fkey")
+	)
 	private FieldConfig fieldConfig;
 
 	@ManyToOne()
-	@JoinColumn(name = "item_field_config_id", foreignKey = @ForeignKey(name = "mandatory_field_item_field_config_id_fkey"))
+	@JoinColumn(
+			name = "item_field_config_id",
+			foreignKey = @ForeignKey(name = "mandatory_field_item_field_config_id_fkey")
+	)
+	@JsonIgnore
 	private ItemFieldConfig itemFieldConfig;
 
 	public MandatoryField() {
