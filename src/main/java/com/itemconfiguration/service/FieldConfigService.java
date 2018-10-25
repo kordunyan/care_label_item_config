@@ -26,10 +26,6 @@ public class FieldConfigService {
 		this.fieldConfigRepository = fieldConfigRepository;
 	}
 
-	public void saveFieldConfig(FieldConfig fieldConfig) {
-		fieldConfigRepository.save(fieldConfig);
-	}
-
 	public Optional<FieldConfig> findByName(String name) {
 		return fieldConfigRepository.findById(name);
 	}
@@ -39,7 +35,7 @@ public class FieldConfigService {
 	}
 
 	public List<FieldConfig> getAll() {
-		return (List<FieldConfig>) fieldConfigRepository.findAll();
+		return fieldConfigRepository.findAllByOrderByName();
 	}
 
 	public void saveAll(List<FieldConfig> fieldConfigs) {

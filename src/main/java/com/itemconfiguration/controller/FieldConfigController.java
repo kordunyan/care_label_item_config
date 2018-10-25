@@ -89,4 +89,9 @@ public class FieldConfigController {
     public Map<String, FieldConfig> getInstructionsFieldConfigs() {
         return fieldConfigService.getInstructionsFieldConfigsMap();
     }
+
+    @GetMapping("/get-by-name/{name}")
+    public FieldConfig getByName(@PathVariable("name") String name) {
+        return fieldConfigService.findByName(name).orElse(null);
+    }
 }
