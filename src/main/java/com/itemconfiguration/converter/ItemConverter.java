@@ -12,7 +12,7 @@ public class ItemConverter {
 		result.setSb(item.isSb());
 		result.setFieldSet(item.getFieldSet());
 		result.setFields(item.getFields());
-		if (item.getItemFieldConfigs() != null && CollectionUtils.isNotEmpty(item.getItemFieldConfigs())) {
+		if (CollectionUtils.isNotEmpty(item.getItemFieldConfigs())) {
 			item.getItemFieldConfigs().forEach(itemFieldConfig -> {
 				result.addItemFiieldConfig(ItemFieldConfigConverter.convertToNoMandatory(itemFieldConfig));
 			});
