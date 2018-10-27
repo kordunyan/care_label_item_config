@@ -31,7 +31,7 @@ public class ItemFieldConfigLineBuilder {
 	public String buildItemFieldConfigLine(ItemFieldConfig itemFieldConfig, Item item) {
 		return String.format(INSERT_LINE_FORAMAT,
 				BuilderUtils.escapeWithComma(item.getId()),
-				BuilderUtils.escapeWithComma(itemFieldConfig.getFieldConfigName()),
+				BuilderUtils.escapeWithComma(itemFieldConfig.getFieldConfig().getName()),
 				BuilderUtils.escapeWithComma(itemFieldConfig.getDataSourceName()),
 				BuilderUtils.escapeWithComma(itemFieldConfig.isActive()),
 				BuilderUtils.escapeWithComma(itemFieldConfig.isRequired()),

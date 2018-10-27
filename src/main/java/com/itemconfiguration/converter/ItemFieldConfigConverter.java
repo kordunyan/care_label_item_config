@@ -8,7 +8,7 @@ public class ItemFieldConfigConverter {
 	public static ItemFieldConfigNoMandatoryDataDto convertToNoMandatory(ItemFieldConfig itemFieldConfig) {
 		ItemFieldConfigNoMandatoryDataDto result = new ItemFieldConfigNoMandatoryDataDto();
 		result.setId(itemFieldConfig.getId());
-		result.setFieldConfigName(itemFieldConfig.getFieldConfigName());
+		result.setFieldConfig(itemFieldConfig.getFieldConfig());
 		result.setActive(itemFieldConfig.isActive());
 		result.setRequired(itemFieldConfig.isRequired());
 		result.setEditable(itemFieldConfig.isEditable());

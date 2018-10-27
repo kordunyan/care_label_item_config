@@ -21,8 +21,9 @@ public class ItemFieldConfig {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "field_config_name")
-	private String fieldConfigName;
+	@ManyToOne()
+	@JoinColumn(name = "field_config_name")
+	private FieldConfig fieldConfig;
 
 	@Column(name = "is_active")
 	private boolean isActive;
@@ -77,15 +78,15 @@ public class ItemFieldConfig {
 		copy.filterRegex = src.filterRegex;
 		copy.canAddLater = src.canAddLater;
 		copy.dataSourceName = src.dataSourceName;
-		copy.fieldConfigName = src.fieldConfigName;
+		copy.fieldConfig = src.fieldConfig;
 		return copy;
 	}
 
 	public ItemFieldConfig() {
 	}
 
-	public ItemFieldConfig(String fieldConfigName, boolean isActive, boolean isRequired, boolean isEditable, boolean storeLastUserInput, String predefinedValue, String filterRegex, boolean canAddLater, String dataSourceName, Item item) {
-		this.fieldConfigName = fieldConfigName;
+	public ItemFieldConfig(FieldConfig fieldConfig, boolean isActive, boolean isRequired, boolean isEditable, boolean storeLastUserInput, String predefinedValue, String filterRegex, boolean canAddLater, String dataSourceName, Item item) {
+		this.fieldConfig = fieldConfig;
 		this.isActive = isActive;
 		this.isRequired = isRequired;
 		this.isEditable = isEditable;
@@ -105,12 +106,12 @@ public class ItemFieldConfig {
 		this.id = id;
 	}
 
-	public String getFieldConfigName() {
-		return fieldConfigName;
+	public FieldConfig getFieldConfig() {
+		return fieldConfig;
 	}
 
-	public void setFieldConfigName(String fieldConfigName) {
-		this.fieldConfigName = fieldConfigName;
+	public void setFieldConfig(FieldConfig fieldConfig) {
+		this.fieldConfig = fieldConfig;
 	}
 
 	public boolean isActive() {

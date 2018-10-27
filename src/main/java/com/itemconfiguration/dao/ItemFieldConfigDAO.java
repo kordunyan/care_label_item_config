@@ -9,8 +9,8 @@ import java.util.List;
 public interface ItemFieldConfigDAO extends CrudRepository<ItemFieldConfig, Long> {
 
 	@Query("SELECT f FROM ItemFieldConfig f " +
-			"JOIN FieldConfig fc ON fc.name = f.fieldConfigName " +
+			"JOIN f.fieldConfig fc " +
 			"WHERE f.item.id = ?1 AND fc.type <> 'TEXT_FIELD' " +
-			"ORDER BY f.fieldConfigName")
+			"ORDER BY fc.name")
 	List<ItemFieldConfig> getInstructionsByItem(Long itemId);
 }

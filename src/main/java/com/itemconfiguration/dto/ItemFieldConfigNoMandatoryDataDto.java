@@ -1,5 +1,6 @@
 package com.itemconfiguration.dto;
 
+import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.MandatoryField;
 import com.itemconfiguration.domain.MandatoryTranslation;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class ItemFieldConfigNoMandatoryDataDto {
 	private Long id;
-	private String fieldConfigName;
+	private FieldConfig fieldConfig;
 	private boolean isActive;
 	private boolean isRequired;
 	private boolean isEditable;
@@ -31,12 +32,12 @@ public class ItemFieldConfigNoMandatoryDataDto {
 		this.id = id;
 	}
 
-	public String getFieldConfigName() {
-		return fieldConfigName;
+	public FieldConfig getFieldConfig() {
+		return fieldConfig;
 	}
 
-	public void setFieldConfigName(String fieldConfigName) {
-		this.fieldConfigName = fieldConfigName;
+	public void setFieldConfig(FieldConfig fieldConfig) {
+		this.fieldConfig = fieldConfig;
 	}
 
 	public boolean isActive() {

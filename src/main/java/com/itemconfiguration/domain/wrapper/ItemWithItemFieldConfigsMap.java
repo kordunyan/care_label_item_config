@@ -21,7 +21,7 @@ public class ItemWithItemFieldConfigsMap {
 		if (item == null || CollectionUtils.isEmpty(item.getItemFieldConfigs())) {
 			return;
 		}
-		item.getItemFieldConfigs().forEach(field -> itemFieldConfigMap.put(field.getFieldConfigName(), field));
+		item.getItemFieldConfigs().forEach(field -> itemFieldConfigMap.put(field.getFieldConfig().getName(), field));
 	}
 
 	public Item getItem() {

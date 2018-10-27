@@ -27,7 +27,7 @@ public class InstructionTypeInputConfigController {
 		return instructionTypeInputConfigService.fidById(id).orElse(null);
 	}
 
-	@GetMapping("/instruction-languages")
+	@GetMapping("/instructions-languages")
 	public Map<String, List<Language>> getInstructionLanguages() {
 		return instructionTypeInputConfigService.getInstructionLanguages();
 	}
