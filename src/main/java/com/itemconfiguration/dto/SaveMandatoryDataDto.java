@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SaveMandatoryDataDto {
     private ItemFieldConfig itemFieldConfig;
-    private List<MandatoryTranslation> newMandatoryTrnaslations;
+    private List<MandatoryTranslation> newMandatoryTranslations;
     private boolean saveForAll;
     private SaveForAllStrategy saveForAllStrategy;
     private List<String> itemNumbers = new ArrayList<>();
@@ -25,12 +25,12 @@ public class SaveMandatoryDataDto {
         this.itemFieldConfig = itemFieldConfig;
     }
 
-    public List<MandatoryTranslation> getNewMandatoryTrnaslations() {
-        return newMandatoryTrnaslations;
+    public List<MandatoryTranslation> getNewMandatoryTranslations() {
+        return newMandatoryTranslations;
     }
 
-    public void setNewMandatoryTrnaslations(List<MandatoryTranslation> newMandatoryTrnaslations) {
-        this.newMandatoryTrnaslations = newMandatoryTrnaslations;
+    public void setNewMandatoryTranslations(List<MandatoryTranslation> newMandatoryTranslations) {
+        this.newMandatoryTranslations = newMandatoryTranslations;
     }
 
     public boolean isSaveForAll() {

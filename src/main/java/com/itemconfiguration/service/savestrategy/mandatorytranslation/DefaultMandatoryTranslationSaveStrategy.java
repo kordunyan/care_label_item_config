@@ -21,13 +21,13 @@ public class DefaultMandatoryTranslationSaveStrategy implements MandatoryTransla
 
     @Override
     public List<MandatoryTranslation> save(SaveMandatoryDataDto dto) {
-        if (CollectionUtils.isEmpty(dto.getNewMandatoryTrnaslations())) {
+        if (CollectionUtils.isEmpty(dto.getNewMandatoryTranslations())) {
             throw new IllegalArgumentException("[newMandatoryTrnaslations] should not be empty");
         }
         if (dto.getItemFieldConfig() == null) {
             throw new IllegalArgumentException("[itemFieldConfig] should not be empty");
         }
-        return dto.getNewMandatoryTrnaslations();
+        return dto.getNewMandatoryTranslations();
         //return mandatoryTranslationService.saveAll(setItemFieldConfigForNewTranslations(dto.getItemFieldConfig(), dto.getNewMandatoryTrnaslations()));
     }
 

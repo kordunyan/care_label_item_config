@@ -93,6 +93,14 @@ public class ItemController {
 				.orElse(null);
 	}
 
+	@GetMapping("/without-field-configs/id/{id}")
+	public ItemWithoutItemFieldConfigsDto getWithoutFieldConfigsById(@PathVariable("id") Long id) {
+		Optional<Item> optionalItem = itemService.getById(id);
+		return optionalItem
+				.map(ItemWithoutItemFieldConfigsDto::new)
+				.orElse(null);
+	}
+
 	@DeleteMapping("/number/{itemNumber}")
 	public ResponseEntity<Void> deleteByItemNumber(@PathVariable("itemNumber") String itemNumber) {
 		this.itemService.deleteByItemNumber(itemNumber);
