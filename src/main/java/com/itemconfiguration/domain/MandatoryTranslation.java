@@ -25,7 +25,7 @@ public class MandatoryTranslation {
 	@JsonIgnore
 	private ItemFieldConfig itemFieldConfig;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(
 			name = "language_code",
 			foreignKey = @ForeignKey(name = "mandatory_translation_language_code_fkey")
@@ -33,6 +33,10 @@ public class MandatoryTranslation {
 	private Language language;
 
 	public MandatoryTranslation() {
+	}
+
+	public MandatoryTranslation(Language language) {
+		this.language = language;
 	}
 
 	public MandatoryTranslation(ItemFieldConfig itemFieldConfig, Language language) {

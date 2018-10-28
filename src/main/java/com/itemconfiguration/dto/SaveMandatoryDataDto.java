@@ -8,52 +8,34 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SaveMandatoryDataDto {
-    private ItemFieldConfig itemFieldConfig;
-    private List<MandatoryTranslation> newMandatoryTranslations;
-    private boolean saveForAll;
-    private SaveForAllStrategy saveForAllStrategy;
-    private List<String> itemNumbers = new ArrayList<>();
+	private List<ItemFieldConfig> itemFieldConfigs;
+	private boolean saveForAll;
+	private List<String> itemNumbers = new ArrayList<>();
 
-    public SaveMandatoryDataDto() {
-    }
+	public SaveMandatoryDataDto() {
+	}
 
-    public ItemFieldConfig getItemFieldConfig() {
-        return itemFieldConfig;
-    }
+	public List<ItemFieldConfig> getItemFieldConfigs() {
+		return itemFieldConfigs;
+	}
 
-    public void setItemFieldConfig(ItemFieldConfig itemFieldConfig) {
-        this.itemFieldConfig = itemFieldConfig;
-    }
+	public void setItemFieldConfigs(List<ItemFieldConfig> itemFieldConfigs) {
+		this.itemFieldConfigs = itemFieldConfigs;
+	}
 
-    public List<MandatoryTranslation> getNewMandatoryTranslations() {
-        return newMandatoryTranslations;
-    }
+	public boolean isSaveForAll() {
+		return saveForAll;
+	}
 
-    public void setNewMandatoryTranslations(List<MandatoryTranslation> newMandatoryTranslations) {
-        this.newMandatoryTranslations = newMandatoryTranslations;
-    }
+	public void setSaveForAll(boolean saveForAll) {
+		this.saveForAll = saveForAll;
+	}
 
-    public boolean isSaveForAll() {
-        return saveForAll;
-    }
+	public List<String> getItemNumbers() {
+		return itemNumbers;
+	}
 
-    public void setSaveForAll(boolean saveForAll) {
-        this.saveForAll = saveForAll;
-    }
-
-    public SaveForAllStrategy getSaveForAllStrategy() {
-        return saveForAllStrategy;
-    }
-
-    public void setSaveForAllStrategy(SaveForAllStrategy saveForAllStrategy) {
-        this.saveForAllStrategy = saveForAllStrategy;
-    }
-
-    public List<String> getItemNumbers() {
-        return itemNumbers;
-    }
-
-    public void setItemNumbers(List<String> itemNumbers) {
-        this.itemNumbers = itemNumbers;
-    }
+	public void setItemNumbers(List<String> itemNumbers) {
+		this.itemNumbers = itemNumbers;
+	}
 }

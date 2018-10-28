@@ -13,4 +13,12 @@ public interface ItemFieldConfigDAO extends CrudRepository<ItemFieldConfig, Long
 			"WHERE f.item.id = ?1 AND fc.type <> 'TEXT_FIELD' " +
 			"ORDER BY fc.name")
 	List<ItemFieldConfig> getInstructionsByItem(Long itemId);
+
+	@Query(value = "SELECT ifc FROM ItemFieldConfig ifc " +
+			"JOIN ifc.fieldConfig fc " +
+			"JOIN ifc.item i " +
+			"JOIN i.fields f " +
+			"WHERE fc.name IN ?1 AND f.fieldConfigName = ?2 AND f.value IN ?3")
+	List<ItemFieldConfig> getByFieldConfigNamesAndItemNumbers(List<String> fieldConfigNames, String itemFieldName,
+			List<String> itemNumbers);
 }

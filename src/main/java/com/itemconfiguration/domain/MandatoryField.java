@@ -17,7 +17,7 @@ public class MandatoryField {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(
 			name = "field_config_name",
 			foreignKey = @ForeignKey(name = "mandatory_field_field_condif_name_fkey")

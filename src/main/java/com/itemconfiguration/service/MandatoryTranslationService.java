@@ -19,4 +19,8 @@ public class MandatoryTranslationService {
 		return (List<MandatoryTranslation>) mandatoryTranslationRepository.saveAll(mandatoryTranslations);
 	}
 
+	public void deleteALl(List<MandatoryTranslation> mandatoryTranslations) {
+		this.mandatoryTranslationRepository.deleteAll(mandatoryTranslations);
+	}
+
 }

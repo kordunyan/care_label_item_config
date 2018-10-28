@@ -45,4 +45,24 @@ public class Language {
 	public void setPrintCode(String printCode) {
 		this.printCode = printCode;
 	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Language language = (Language) o;
+
+		if (code != null ? !code.equals(language.code) : language.code != null) return false;
+		if (name != null ? !name.equals(language.name) : language.name != null) return false;
+		return printCode != null ? printCode.equals(language.printCode) : language.printCode == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = code != null ? code.hashCode() : 0;
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (printCode != null ? printCode.hashCode() : 0);
+		return result;
+	}
 }

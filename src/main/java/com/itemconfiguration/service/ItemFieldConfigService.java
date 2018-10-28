@@ -1,6 +1,8 @@
 package com.itemconfiguration.service;
 
+import com.itemconfiguration.AppProperties;
 import com.itemconfiguration.dao.ItemFieldConfigDAO;
+import com.itemconfiguration.domain.AppFields;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
@@ -37,5 +39,9 @@ public class ItemFieldConfigService {
 
 	public List<ItemFieldConfig> getInstructionsByItemId(Long itemId) {
 		return itemFieldConfigDAO.getInstructionsByItem(itemId);
+	}
+
+	public List<ItemFieldConfig> getByFieldConfigNamesAndItemNumbers(List<String> fieldConfigNames, List<String> itemmNumbers) {
+		return itemFieldConfigDAO.getByFieldConfigNamesAndItemNumbers(fieldConfigNames, AppFields.D2COMM_ITEM_NUMBER, itemmNumbers);
 	}
 }

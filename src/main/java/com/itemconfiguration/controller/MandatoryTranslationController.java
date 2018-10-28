@@ -1,13 +1,14 @@
 package com.itemconfiguration.controller;
 
-import com.itemconfiguration.domain.MandatoryTranslation;
+import com.itemconfiguration.domain.ItemFieldConfig;
+import com.itemconfiguration.dto.DeleteMandatoryDataDto;
 import com.itemconfiguration.dto.SaveMandatoryDataDto;
 import com.itemconfiguration.service.MandatoryTranslationService;
-import com.itemconfiguration.service.savestrategy.mandatorytranslation.MandatoryTranslationSaveStrategyProvider;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.itemconfiguration.service.deletestrategy.mandatory.translation.MandatoryTranslationDeleteStrategyProvider;
+import com.itemconfiguration.service.savestrategy.mandatory.translation.MandatoryTranslationSaveStrategyProvider;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,17 +17,26 @@ import java.util.List;
 public class MandatoryTranslationController {
 
 	private MandatoryTranslationService mandatoryTranslationService;
-	private MandatoryTranslationSaveStrategyProvider mandatoryTranslationSaveStrategyProvider;
+	private MandatoryTranslationSaveStrategyProvider saveStrategyProvider;
+	private MandatoryTranslationDeleteStrategyProvider deleteStrategyProvider;
 
 	public MandatoryTranslationController(MandatoryTranslationService mandatoryTranslationService,
-			MandatoryTranslationSaveStrategyProvider mandatoryTranslationSaveStrategyProvider) {
+			MandatoryTranslationSaveStrategyProvider saveStrategyProvider,
+			MandatoryTranslationDeleteStrategyProvider deleteStrategyProvider) {
 		this.mandatoryTranslationService = mandatoryTranslationService;
-		this.mandatoryTranslationSaveStrategyProvider = mandatoryTranslationSaveStrategyProvider;
+		this.saveStrategyProvider = saveStrategyProvider;
+		this.deleteStrategyProvider = deleteStrategyProvider;
 	}
 
 	@PostMapping("/save")
-	public List<MandatoryTranslation> saveNew(@RequestBody()SaveMandatoryDataDto saveMandatoryDataDto) {
-		return mandatoryTranslationSaveStrategyProvider.getSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
+	public List<ItemFieldConfig> saveNew(@RequestBody()SaveMandatoryDataDto saveMandatoryDataDto) {
+		return saveStrategyProvider.getSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
+	}
+
+	@PostMapping("/delete")
+	public ResponseEntity<Void> deleteTranslations(@RequestBody DeleteMandatoryDataDto dto) {
+		deleteStrategyProvider.getStrategy(dto).delete(dto);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
 }

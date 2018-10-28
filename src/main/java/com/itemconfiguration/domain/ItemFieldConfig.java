@@ -1,10 +1,13 @@
 package com.itemconfiguration.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.apache.commons.collections4.CollectionUtils;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @Table(
@@ -200,5 +203,14 @@ public class ItemFieldConfig {
 
 	public void setMandatoryTranslations(List<MandatoryTranslation> mandatoryTranslations) {
 		this.mandatoryTranslations = mandatoryTranslations;
+	}
+
+	public List<MandatoryTranslation> getNewMandatoryTranslations() {
+		if (CollectionUtils.isEmpty(mandatoryTranslations)) {
+			return Collections.emptyList();
+		}
+		return mandatoryTranslations.stream()
+				.filter(mandatoryTranslation -> mandatoryTranslation.getId() == null)
+				.collect(Collectors.toList());
 	}
 }

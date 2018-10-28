@@ -12,7 +12,7 @@ public interface FieldConfigRepository extends CrudRepository<FieldConfig, Strin
 
 	List<FieldConfig> findAllByOrderByName();
 
-	@Query(value = "SELECT i.name as instructionName, f.name as fieldName FROM FieldConfig i JOIN FieldConfig f ON f.owner = i.type")
+	@Query(value = "SELECT DISTINCT i.type AS instructionType, f.name AS fieldName FROM FieldConfig i JOIN FieldConfig f ON f.owner = i.type")
 	List<InstructionField> getInstructionsFields();
 
 	@Query(value = "SELECT DISTINCT f FROM FieldConfig i JOIN FieldConfig f ON f.owner = i.type")

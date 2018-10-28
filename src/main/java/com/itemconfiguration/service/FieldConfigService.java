@@ -63,10 +63,10 @@ public class FieldConfigService {
 		List<InstructionField> instructionFields = fieldConfigRepository.getInstructionsFields();
 		Map<String, List<String>> result = new HashMap<>();
 		for (InstructionField instructionField : instructionFields) {
-			if (!result.containsKey(instructionField.getInstructionName())) {
-				result.put(instructionField.getInstructionName(), new ArrayList<>());
+			if (!result.containsKey(instructionField.getInstructionType())) {
+				result.put(instructionField.getInstructionType(), new ArrayList<>());
 			}
-			result.get(instructionField.getInstructionName()).add(instructionField.getFieldName());
+			result.get(instructionField.getInstructionType()).add(instructionField.getFieldName());
 		}
 		return result;
 	}

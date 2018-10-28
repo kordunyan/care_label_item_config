@@ -33,7 +33,14 @@ public class InstructionTypeInputConfigService {
 			}
 			result.get(dataType.getName()).add(instructionLanguage.getLanguage());
 		}
+		this.sortLanguages(result);
 		return result;
 	}
 
+	private void sortLanguages(Map<String, List<Language>> instructionLanguages) {
+		for (String instructionName : instructionLanguages.keySet()) {
+			instructionLanguages.get(instructionName).sort((l1, l2) -> l1.getName().compareToIgnoreCase(l2.getName()));
+		}
+
+	}
 }
