@@ -31,7 +31,7 @@ public class MandatoryTranslationsSaveForItemNumbersStrategy implements Mandator
 		if (CollectionUtils.isEmpty(dto.getItemNumbers())) {
 			throw new IllegalArgumentException("[itemNumbers] should not be empty");
 		}
-		List<ItemFieldConfig> allItemFieldConfigs = itemFieldConfigService.getByFieldConfigNamesAndItemNumbers(
+		Map<String, List<ItemFieldConfig>> allItemFieldConfigs = itemFieldConfigService.getByFieldConfigNamesAndItemNumbersMap(
 				getItemFieldConfigNames(dto.getItemFieldConfigs()), dto.getItemNumbers());
 		List<MandatoryTranslation> newMandatoryTranslations = createNewMandatoryTranslations(dto.getItemFieldConfigs(), allItemFieldConfigs);
 		mandatoryTranslationService.saveAll(newMandatoryTranslations);
@@ -39,12 +39,11 @@ public class MandatoryTranslationsSaveForItemNumbersStrategy implements Mandator
 	}
 
 	private List<MandatoryTranslation> createNewMandatoryTranslations(List<ItemFieldConfig> originalItemFieldConfigs,
-			List<ItemFieldConfig> allItemFieldConfigs) {
-		Map<FieldConfig, List<ItemFieldConfig>> itemFieldConfigsMap = createItemFieldConfigsMap(allItemFieldConfigs);
+			Map<String, List<ItemFieldConfig>> itemFieldConfigsMap) {
 		List<MandatoryTranslation> result = new ArrayList<>();
 		for (ItemFieldConfig originalItemFieldConfig : originalItemFieldConfigs) {
 			List<MandatoryTranslation> newMandatoryTranslations = originalItemFieldConfig.getNewMandatoryTranslations();
-			List<ItemFieldConfig> itemNumbersFieldConfigs  = itemFieldConfigsMap.get(originalItemFieldConfig.getFieldConfig());
+			List<ItemFieldConfig> itemNumbersFieldConfigs  = itemFieldConfigsMap.get(originalItemFieldConfig.getFieldConfig().getName());
 			createMandatoryTranslationsForItemFieldConfigs(newMandatoryTranslations, itemNumbersFieldConfigs,
 					originalItemFieldConfig.getId(), result);
 			newMandatoryTranslations.forEach(mandatoryTranslation -> mandatoryTranslation.setItemFieldConfig(originalItemFieldConfig));
@@ -75,17 +74,6 @@ public class MandatoryTranslationsSaveForItemNumbersStrategy implements Mandator
 				continue;
 			}
 			result.add(new MandatoryTranslation(itemFieldConfig, newMandatoryTranslation.getLanguage()));
-		}
-		return result;
-	}
-
-	private Map<FieldConfig, List<ItemFieldConfig>> createItemFieldConfigsMap(List<ItemFieldConfig> itemFieldConfigs) {
-		Map<FieldConfig, List<ItemFieldConfig>> result = new HashMap<>();
-		for (ItemFieldConfig itemFieldConfig : itemFieldConfigs) {
-			if (!result.containsKey(itemFieldConfig.getFieldConfig())) {
-				result.put(itemFieldConfig.getFieldConfig(), new ArrayList<>());
-			}
-			result.get(itemFieldConfig.getFieldConfig()).add(itemFieldConfig);
 		}
 		return result;
 	}

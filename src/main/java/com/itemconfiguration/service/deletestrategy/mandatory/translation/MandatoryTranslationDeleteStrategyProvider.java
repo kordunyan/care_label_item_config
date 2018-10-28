@@ -11,9 +11,12 @@ public class MandatoryTranslationDeleteStrategyProvider {
 	@Resource(name = "default-mandatory-translation-delete")
 	private MandatoryTranslationDeleteStrategy defaultStrategy;
 
+	@Resource(name = "mandatory-translation-delete-for_items")
+	private MandatoryTranslationDeleteStrategy byItemsStrategy;
+
 	public MandatoryTranslationDeleteStrategy getStrategy(DeleteMandatoryDataDto dto) {
 		if (dto.isDeleteForAll()) {
-
+			return byItemsStrategy;
 		}
 		return defaultStrategy;
 	}
