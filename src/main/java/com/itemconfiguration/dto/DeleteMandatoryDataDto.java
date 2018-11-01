@@ -1,5 +1,6 @@
 package com.itemconfiguration.dto;
 
+import com.itemconfiguration.domain.MandatoryField;
 import com.itemconfiguration.domain.MandatoryTranslation;
 
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import java.util.Map;
 
 public class DeleteMandatoryDataDto {
 	private Map<String, List<MandatoryTranslation>> translationsToDeleteByFieldName = new HashMap<>();
+	private Map<String, List<MandatoryField>> fieldsToDeleteByFieldName = new HashMap<>();
 	private boolean deleteForAll;
 	private List<String> itemNumbers = new ArrayList<>();
 
@@ -18,6 +20,14 @@ public class DeleteMandatoryDataDto {
 
 	public void setTranslationsToDeleteByFieldName(Map<String, List<MandatoryTranslation>> translationsToDeleteByFieldName) {
 		this.translationsToDeleteByFieldName = translationsToDeleteByFieldName;
+	}
+
+	public Map<String, List<MandatoryField>> getFieldsToDeleteByFieldName() {
+		return fieldsToDeleteByFieldName;
+	}
+
+	public void setFieldsToDeleteByFieldName(Map<String, List<MandatoryField>> fieldsToDeleteByFieldName) {
+		this.fieldsToDeleteByFieldName = fieldsToDeleteByFieldName;
 	}
 
 	public boolean isDeleteForAll() {
