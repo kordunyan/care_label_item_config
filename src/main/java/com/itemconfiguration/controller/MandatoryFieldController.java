@@ -3,12 +3,17 @@ package com.itemconfiguration.controller;
 import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.MandatoryField;
+import com.itemconfiguration.dto.SaveMandatoryDataDto;
 import com.itemconfiguration.service.FieldConfigService;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.MandatoryFieldService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/mandatory/field")
@@ -35,5 +40,11 @@ public class MandatoryFieldController {
 		mandatoryFieldService.save(mandatoryField);
 
 		return itemFieldConfig;
+	}
+
+	@PostMapping("/save")
+	public List<ItemFieldConfig> saveNew(@RequestBody() SaveMandatoryDataDto saveMandatoryDataDto) {
+		return saveMandatoryDataDto.getItemFieldConfigs();
+		//return saveStrategyProvider.getSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
 	}
 }
