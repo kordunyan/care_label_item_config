@@ -1,19 +1,22 @@
 package com.itemconfiguration.service.savestrategy.mandatory.translation;
 
-import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.MandatoryTranslation;
 import com.itemconfiguration.dto.SaveMandatoryDataDto;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.MandatoryTranslationService;
+import com.itemconfiguration.service.savestrategy.mandatory.MandatoryDataSaveStrategy;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component("item-numbers-mandatory-save")
-public class MandatoryTranslationsSaveForItemNumbersStrategy implements MandatoryTranslationSaveStrategy {
+public class MandatoryTranslationsSaveForItemNumbersStrategy implements MandatoryDataSaveStrategy {
 	private MandatoryTranslationService mandatoryTranslationService;
 	private ItemFieldConfigService itemFieldConfigService;
 

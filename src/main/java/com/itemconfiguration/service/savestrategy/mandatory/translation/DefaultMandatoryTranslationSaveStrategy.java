@@ -4,6 +4,7 @@ import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.MandatoryTranslation;
 import com.itemconfiguration.dto.SaveMandatoryDataDto;
 import com.itemconfiguration.service.MandatoryTranslationService;
+import com.itemconfiguration.service.savestrategy.mandatory.MandatoryDataSaveStrategy;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component("default-mandatory-save")
-public class DefaultMandatoryTranslationSaveStrategy implements MandatoryTranslationSaveStrategy {
+public class DefaultMandatoryTranslationSaveStrategy implements MandatoryDataSaveStrategy {
 
 	private MandatoryTranslationService mandatoryTranslationService;
 
