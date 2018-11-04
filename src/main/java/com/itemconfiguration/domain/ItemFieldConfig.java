@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Entity
@@ -59,7 +60,6 @@ public class ItemFieldConfig {
 	@OneToMany(
 			cascade = CascadeType.ALL,
 			mappedBy = "itemFieldConfig",
-			orphanRemoval = true,
 			fetch = FetchType.LAZY
 	)
 	private List<MandatoryField> mandatoryFields = new ArrayList<>();
@@ -82,6 +82,16 @@ public class ItemFieldConfig {
 		copy.canAddLater = src.canAddLater;
 		copy.dataSourceName = src.dataSourceName;
 		copy.fieldConfig = src.fieldConfig;
+		if (src.hasMandatoryTranslations()) {
+			copy.mandatoryTranslations = src.mandatoryTranslations.stream()
+					.map(mandatoryTranslation -> new MandatoryTranslation(copy, mandatoryTranslation.getLanguage()))
+					.collect(Collectors.toList());
+		}
+		if (src.hasMandatoryFields()) {
+			copy.mandatoryFields = src.mandatoryFields.stream()
+					.map(mandatoryField -> new MandatoryField(copy, mandatoryField.getFieldConfig()))
+					.collect(Collectors.toList());
+		}
 		return copy;
 	}
 
@@ -205,12 +215,29 @@ public class ItemFieldConfig {
 		this.mandatoryTranslations = mandatoryTranslations;
 	}
 
+	public boolean hasMandatoryTranslations() {
+		return CollectionUtils.isNotEmpty(mandatoryTranslations);
+	}
+
+	public boolean hasMandatoryFields() {
+		return CollectionUtils.isNotEmpty(mandatoryFields);
+	}
+
 	public List<MandatoryTranslation> getNewMandatoryTranslations() {
 		if (CollectionUtils.isEmpty(mandatoryTranslations)) {
 			return Collections.emptyList();
 		}
 		return mandatoryTranslations.stream()
-				.filter(mandatoryTranslation -> mandatoryTranslation.getId() == null)
+				.filter(mandatoryTranslation -> Objects.isNull(mandatoryTranslation.getId()))
+				.collect(Collectors.toList());
+	}
+
+	public List<MandatoryField> getNewMandatoryFields() {
+		if (CollectionUtils.isEmpty(mandatoryFields)) {
+			return Collections.emptyList();
+		}
+		return mandatoryFields.stream()
+				.filter(mandatoryField -> Objects.isNull(mandatoryField.getId()))
 				.collect(Collectors.toList());
 	}
 }

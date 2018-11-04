@@ -5,6 +5,7 @@ import com.itemconfiguration.domain.MandatoryTranslation;
 import com.itemconfiguration.dto.SaveMandatoryDataDto;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.MandatoryTranslationService;
+import com.itemconfiguration.service.savestrategy.mandatory.AbstractMandatoryDataSaveForItemNumbersStrategy;
 import com.itemconfiguration.service.savestrategy.mandatory.MandatoryDataSaveStrategy;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
@@ -16,33 +17,23 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component("item-numbers-mandatory-save")
-public class MandatoryTranslationsSaveForItemNumbersStrategy implements MandatoryDataSaveStrategy {
+public class MandatoryTranslationsSaveForItemNumbersStrategy extends AbstractMandatoryDataSaveForItemNumbersStrategy {
 	private MandatoryTranslationService mandatoryTranslationService;
-	private ItemFieldConfigService itemFieldConfigService;
 
 	public MandatoryTranslationsSaveForItemNumbersStrategy(MandatoryTranslationService mandatoryTranslationService,
 			ItemFieldConfigService itemFieldConfigService) {
+		super(itemFieldConfigService);
 		this.mandatoryTranslationService = mandatoryTranslationService;
-		this.itemFieldConfigService = itemFieldConfigService;
 	}
 
 	@Override
-	public List<ItemFieldConfig> save(SaveMandatoryDataDto dto) {
-		if (CollectionUtils.isEmpty(dto.getItemFieldConfigs())) {
-			throw new IllegalArgumentException("[itemFieldConfigs] should not be empty");
-		}
-		if (CollectionUtils.isEmpty(dto.getItemNumbers())) {
-			throw new IllegalArgumentException("[itemNumbers] should not be empty");
-		}
-		Map<String, List<ItemFieldConfig>> allItemFieldConfigs = itemFieldConfigService.getByFieldConfigNamesAndItemNumbersMap(
-				getItemFieldConfigNames(dto.getItemFieldConfigs()), dto.getItemNumbers());
+	protected void saveNewData(SaveMandatoryDataDto dto, Map<String, List<ItemFieldConfig>> allItemFieldConfigs) {
 		List<MandatoryTranslation> newMandatoryTranslations = createNewMandatoryTranslations(dto.getItemFieldConfigs(), allItemFieldConfigs);
 		mandatoryTranslationService.saveAll(newMandatoryTranslations);
-		return dto.getItemFieldConfigs();
 	}
 
 	private List<MandatoryTranslation> createNewMandatoryTranslations(List<ItemFieldConfig> originalItemFieldConfigs,
-			Map<String, List<ItemFieldConfig>> itemFieldConfigsMap) {
+																	  Map<String, List<ItemFieldConfig>> itemFieldConfigsMap) {
 		List<MandatoryTranslation> result = new ArrayList<>();
 		for (ItemFieldConfig originalItemFieldConfig : originalItemFieldConfigs) {
 			List<MandatoryTranslation> newMandatoryTranslations = originalItemFieldConfig.getNewMandatoryTranslations();
@@ -80,11 +71,4 @@ public class MandatoryTranslationsSaveForItemNumbersStrategy implements Mandator
 		}
 		return result;
 	}
-
-	private List<String> getItemFieldConfigNames(List<ItemFieldConfig> itemFieldConfigs) {
-		return itemFieldConfigs.stream()
-				.map(itemFieldConfig -> itemFieldConfig.getFieldConfig().getName())
-				.collect(Collectors.toList());
-	}
-
 }

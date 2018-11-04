@@ -9,13 +9,16 @@ import javax.annotation.Resource;
 public class MandatoryDataSaveStrategyProvider {
 
     @Resource(name = "default-mandatory-save")
-    MandatoryDataSaveStrategy defaultTranslationSaveStrategy;
+    private MandatoryDataSaveStrategy defaultTranslationSaveStrategy;
 
     @Resource(name = "item-numbers-mandatory-save")
-    MandatoryDataSaveStrategy itemNumbersTranslationSaveStrategy;
+    private MandatoryDataSaveStrategy itemNumbersTranslationSaveStrategy;
 
     @Resource(name = "default-mandatory-field-save")
-    MandatoryDataSaveStrategy defaultFieldSaveStrategy;
+    private MandatoryDataSaveStrategy defaultFieldSaveStrategy;
+
+    @Resource(name = "item-numbers-mandatory-fields-save")
+    private MandatoryDataSaveStrategy itemNumbersFieldsSaveStrategy;
 
     public MandatoryDataSaveStrategy getTranslationSaveStrategy(SaveMandatoryDataDto dto) {
         if (dto.isSaveForAll()) {
@@ -25,6 +28,9 @@ public class MandatoryDataSaveStrategyProvider {
     }
 
     public MandatoryDataSaveStrategy getFieldsSaveStrategy(SaveMandatoryDataDto dto) {
+        if (dto.isSaveForAll()) {
+            return itemNumbersFieldsSaveStrategy;
+        }
         return defaultFieldSaveStrategy;
     }
 }

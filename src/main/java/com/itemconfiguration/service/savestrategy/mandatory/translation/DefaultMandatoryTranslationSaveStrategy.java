@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Component("default-mandatory-save")
 public class DefaultMandatoryTranslationSaveStrategy implements MandatoryDataSaveStrategy {
 
-	private MandatoryTranslationService mandatoryTranslationService;
+	private final MandatoryTranslationService mandatoryTranslationService;
 
 	public DefaultMandatoryTranslationSaveStrategy(MandatoryTranslationService mandatoryTranslationService) {
 		this.mandatoryTranslationService = mandatoryTranslationService;

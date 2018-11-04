@@ -11,6 +11,7 @@ import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
 import com.itemconfiguration.dto.CopyItemDto;
 import com.itemconfiguration.dto.UpdateLocationDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
@@ -37,6 +38,7 @@ public class ItemService {
 		return this.itemDAO.updateLocationEnablemend(item.isIpps(), item.isSb(), item.getId());
 	}
 
+	@Transactional
 	public void updateLocationEnablemendForAll(UpdateLocationDto dto) {
 		if (CollectionUtils.isEmpty(dto.getItemNumbers())) {
 			throw new IllegalArgumentException("[itemNumbers] should not be empty");
@@ -49,6 +51,7 @@ public class ItemService {
 		itemDAO.saveAll(items);
 	}
 
+	@Transactional
 	public void save(Item item) {
 		FieldSet fieldSet = new FieldSet();
 		item.setFieldSet(fieldSet);
@@ -61,6 +64,7 @@ public class ItemService {
 		itemFieldConfigService.saveAll(item.getItemFieldConfigs());
 	}
 
+	@Transactional
 	public void saveWithItemFieldConfigCopy(CopyItemDto copyItemDto) {
 		Optional<Item> optionalCopyItem = getById(copyItemDto.getCopyItemId());
 		optionalCopyItem.ifPresent(copyItem -> {
@@ -76,6 +80,7 @@ public class ItemService {
 		});
 	}
 
+	@Transactional
 	public void saveAll(List<Item> items) {
 		List<FieldSet> fieldSets = new ArrayList<>();
 		List<Field> fields = new ArrayList<>();
@@ -140,6 +145,7 @@ public class ItemService {
 		itemDAO.delete(item);
 	}
 
+	@Transactional
 	public void deleteByItemNumber(String itemNumber) {
 		List<Item> items = findByItemNumber(itemNumber);
 		List<FieldSet> fieldSets = items.stream().map(Item::getFieldSet).collect(Collectors.toList());

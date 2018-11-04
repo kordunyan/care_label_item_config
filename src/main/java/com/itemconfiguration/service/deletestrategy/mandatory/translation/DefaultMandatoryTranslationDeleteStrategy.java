@@ -3,6 +3,7 @@ package com.itemconfiguration.service.deletestrategy.mandatory.translation;
 import com.itemconfiguration.domain.MandatoryTranslation;
 import com.itemconfiguration.dto.DeleteMandatoryDataDto;
 import com.itemconfiguration.service.MandatoryTranslationService;
+import com.itemconfiguration.service.deletestrategy.mandatory.MandatoryDataDeleteStrategy;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Component;
 
@@ -12,9 +13,9 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component("default-mandatory-translation-delete")
-public class DefaultMandatoryTranslationDeleteStrategy implements MandatoryTranslationDeleteStrategy {
+public class DefaultMandatoryTranslationDeleteStrategy implements MandatoryDataDeleteStrategy {
 
-	private MandatoryTranslationService mandatoryTranslationService;
+	private final MandatoryTranslationService mandatoryTranslationService;
 
 	public DefaultMandatoryTranslationDeleteStrategy(MandatoryTranslationService mandatoryTranslationService) {
 		this.mandatoryTranslationService = mandatoryTranslationService;

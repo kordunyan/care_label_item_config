@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @Component("default-mandatory-field-save")
 public class DefaultMandatoryFieldSaveStrategy implements MandatoryDataSaveStrategy {
 
-    private MandatoryFieldService mandatoryFieldService;
+    private final MandatoryFieldService mandatoryFieldService;
 
     public DefaultMandatoryFieldSaveStrategy(MandatoryFieldService mandatoryFieldService) {
         this.mandatoryFieldService = mandatoryFieldService;
