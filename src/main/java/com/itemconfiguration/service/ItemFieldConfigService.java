@@ -7,8 +7,10 @@ import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ItemFieldConfigService {
@@ -32,6 +34,10 @@ public class ItemFieldConfigService {
 			return;
 		}
 		itemFieldConfigDAO.deleteAll(itemFieldConfigs);
+	}
+
+	public List<ItemFieldConfig> getAllByIds(List<Long> ids) {
+		return (List<ItemFieldConfig>) this.itemFieldConfigDAO.findAllById(ids);
 	}
 
 	public ItemFieldConfig getById(Long id) {

@@ -99,4 +99,8 @@ public class Item implements Serializable {
 	public void setItemFieldConfigs(List<ItemFieldConfig> itemFieldConfigs) {
 		this.itemFieldConfigs = itemFieldConfigs;
 	}
+
+	public void deleteItemFieldConfig(ItemFieldConfig itemFieldConfig) {
+		this.itemFieldConfigs.remove(itemFieldConfig);
+	}
 }

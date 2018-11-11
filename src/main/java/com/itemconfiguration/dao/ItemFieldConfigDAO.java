@@ -1,6 +1,7 @@
 package com.itemconfiguration.dao;
 
 import com.itemconfiguration.domain.ItemFieldConfig;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -21,4 +22,8 @@ public interface ItemFieldConfigDAO extends CrudRepository<ItemFieldConfig, Long
 			"WHERE fc.name IN ?1 AND f.fieldConfigName = ?2 AND f.value IN ?3")
 	List<ItemFieldConfig> getByFieldConfigNamesAndItemNumbers(List<String> fieldConfigNames, String itemFieldName,
 			List<String> itemNumbers);
+
+	@Modifying
+	@Query("DELETE FROM ItemFieldConfig f WHERE f.id IN ?1")
+	void deleteByIds(List<Long> ids);
 }

@@ -44,7 +44,7 @@ public class DeleteForAllItemsStrategy implements DeleteItemFieldConfigStrategy{
             for (ItemFieldConfig originalItemFieldConfig : originalItemFieldConfigs) {
                 ItemFieldConfig itemFieldConfig = item.getItemFieldConfig(originalItemFieldConfig.getFieldConfig().getName());
                 if (itemFieldConfig != null) {
-                    itemFieldConfig.setItem(null);
+                    item.deleteItemFieldConfig(itemFieldConfig);
                     result.add(itemFieldConfig);
                 }
             }

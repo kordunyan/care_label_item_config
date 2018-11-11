@@ -48,7 +48,11 @@ public class ItemFieldConfigController {
 	@PostMapping(value = "/delete")
 	public ResponseEntity<Void> delete(@RequestBody ItemCrudOperationsDto crudOperationsDto) {
 		try {
-			forOriginalItemDeleteStrategy.delete(crudOperationsDto);
+			if (crudOperationsDto.isForAll()) {
+				forAllItemsDeleteStrategy.delete(crudOperationsDto);
+			} else {
+				forOriginalItemDeleteStrategy.delete(crudOperationsDto);
+			}
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} catch (SaveItemFieldConfigException e) {
 			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -58,15 +62,5 @@ public class ItemFieldConfigController {
 	@GetMapping("/instructions/{itemId}")
 	public List<ItemFieldConfig> getInstructionsByItemId(@PathVariable("itemId") Long itemId) {
 		return itemFieldConfigService.getInstructionsByItemId(itemId);
-	}
-
-	@PostMapping(value = "deleteForAll")
-	public ResponseEntity<Void> deleteForAll(@RequestBody ItemCrudOperationsDto crudOperationsDto) {
-		try {
-			forAllItemsDeleteStrategy.delete(crudOperationsDto);
-			return new ResponseEntity<Void>(HttpStatus.OK);
-		} catch (SaveItemFieldConfigException e) {
-			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
-		}
 	}
 }

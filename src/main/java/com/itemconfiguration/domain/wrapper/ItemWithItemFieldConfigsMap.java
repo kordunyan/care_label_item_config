@@ -32,6 +32,10 @@ public class ItemWithItemFieldConfigsMap {
 		return itemFieldConfigMap.get(fieldConfigName);
 	}
 
+	public void deleteItemFieldConfig(ItemFieldConfig itemFieldConfig) {
+		item.deleteItemFieldConfig(itemFieldConfig);
+	}
+
 	public boolean containsItemFieldConfig(String fieldConfigName) {
 		return itemFieldConfigMap.containsKey(fieldConfigName);
 	}

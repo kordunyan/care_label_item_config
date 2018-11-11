@@ -6,5 +6,5 @@ import com.itemconfiguration.dto.SaveMandatoryDataDto;
 import java.util.List;
 
 public interface MandatoryDataSaveStrategy {
-    List<ItemFieldConfig> save(SaveMandatoryDataDto dto);
+    void save(SaveMandatoryDataDto dto);
 }

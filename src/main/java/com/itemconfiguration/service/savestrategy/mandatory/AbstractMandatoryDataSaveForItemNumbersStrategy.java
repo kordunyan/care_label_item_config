@@ -19,7 +19,7 @@ public abstract class AbstractMandatoryDataSaveForItemNumbersStrategy implements
 	}
 
 	@Override
-	public List<ItemFieldConfig> save(SaveMandatoryDataDto dto) {
+	public void save(SaveMandatoryDataDto dto) {
 		if (CollectionUtils.isEmpty(dto.getItemFieldConfigs())) {
 			throw new IllegalArgumentException("[itemFieldConfigs] should not be empty");
 		}
@@ -29,7 +29,6 @@ public abstract class AbstractMandatoryDataSaveForItemNumbersStrategy implements
 		Map<String, List<ItemFieldConfig>> allItemFieldConfigs = itemFieldConfigService.getByFieldConfigNamesAndItemNumbersMap(
 				getItemFieldConfigNames(dto.getItemFieldConfigs()), dto.getItemNumbers());
 		saveNewData(dto, allItemFieldConfigs);
-		return dto.getItemFieldConfigs();
 	}
 
 	private List<String> getItemFieldConfigNames(List<ItemFieldConfig> itemFieldConfigs) {

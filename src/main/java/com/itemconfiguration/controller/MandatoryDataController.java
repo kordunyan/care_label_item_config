@@ -15,26 +15,29 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/mandatory/field")
-public class MandatoryFieldController {
+@RequestMapping(value = "/api/mandatory/data")
+public class MandatoryDataController {
 
 	private final MandatoryDataSaveStrategyProvider saveStrategyProvider;
 	private final MandatoryDataDeleteStrategyProvider deleteStrategyProvider;
 
-	public MandatoryFieldController(MandatoryDataSaveStrategyProvider saveStrategyProvider,
-			MandatoryDataDeleteStrategyProvider deleteStrategyProvider) {
+	public MandatoryDataController(MandatoryDataSaveStrategyProvider saveStrategyProvider,
+									MandatoryDataDeleteStrategyProvider deleteStrategyProvider) {
 		this.saveStrategyProvider = saveStrategyProvider;
 		this.deleteStrategyProvider = deleteStrategyProvider;
 	}
 
 	@PostMapping("/save")
 	public List<ItemFieldConfig> saveNew(@RequestBody() SaveMandatoryDataDto saveMandatoryDataDto) {
-		return saveStrategyProvider.getFieldsSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
+		saveStrategyProvider.getFieldsSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
+		saveStrategyProvider.getTranslationSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
+		return saveMandatoryDataDto.getItemFieldConfigs();
 	}
 
 	@PostMapping("/delete")
 	public ResponseEntity<Void> deleteTranslations(@RequestBody DeleteMandatoryDataDto dto) {
 		deleteStrategyProvider.getDeleteFieldsStrategy(dto).delete(dto);
+		deleteStrategyProvider.getDeleteTranslationStrategy(dto).delete(dto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

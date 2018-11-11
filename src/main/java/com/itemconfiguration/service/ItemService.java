@@ -140,6 +140,7 @@ public class ItemService {
 		return itemDAO.findById(id);
 	}
 
+	@Transactional
 	public void delete(Item item) {
 		fieldService.deleteByFieldSet(item.getFieldSet());
 		itemDAO.delete(item);

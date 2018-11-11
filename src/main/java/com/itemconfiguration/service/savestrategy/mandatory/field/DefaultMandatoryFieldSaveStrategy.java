@@ -23,7 +23,7 @@ public class DefaultMandatoryFieldSaveStrategy implements MandatoryDataSaveStrat
     }
 
     @Override
-    public List<ItemFieldConfig> save(SaveMandatoryDataDto dto) {
+    public void save(SaveMandatoryDataDto dto) {
         if (CollectionUtils.isEmpty(dto.getItemFieldConfigs())) {
             throw new IllegalArgumentException("[itemFieldConfigs] should not be empty");
         }
@@ -31,7 +31,6 @@ public class DefaultMandatoryFieldSaveStrategy implements MandatoryDataSaveStrat
         if (CollectionUtils.isNotEmpty(newMandatoryFields)) {
             mandatoryFieldService.saveAll(newMandatoryFields);
         }
-        return dto.getItemFieldConfigs();
     }
 
     private List<MandatoryField> getNewMandatoryFields(List<ItemFieldConfig> itemFieldConfigs) {

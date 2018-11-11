@@ -22,7 +22,7 @@ public class DefaultMandatoryTranslationSaveStrategy implements MandatoryDataSav
 	}
 
 	@Override
-	public List<ItemFieldConfig> save(SaveMandatoryDataDto dto) {
+	public void save(SaveMandatoryDataDto dto) {
 		if (CollectionUtils.isEmpty(dto.getItemFieldConfigs())) {
 			throw new IllegalArgumentException("[itemFieldConfigs] should not be empty");
 		}
@@ -30,7 +30,6 @@ public class DefaultMandatoryTranslationSaveStrategy implements MandatoryDataSav
 		if (CollectionUtils.isNotEmpty(newMandatoryTranslations)) {
 			mandatoryTranslationService.saveAll(newMandatoryTranslations);
 		}
-		return dto.getItemFieldConfigs();
 	}
 
 	private List<MandatoryTranslation> getNewMandatoryTranslations(List<ItemFieldConfig> itemFieldConfigs) {

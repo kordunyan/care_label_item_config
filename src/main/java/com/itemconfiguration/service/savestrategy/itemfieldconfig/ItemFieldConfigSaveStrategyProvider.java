@@ -18,7 +18,7 @@ public class ItemFieldConfigSaveStrategyProvider {
 	ItemFieldConfigSaveStrategy onlyNewdefaultItemFieldConfigSaveStrategy;
 
 	public ItemFieldConfigSaveStrategy getSaveStrategy(SaveConfigDto saveConfigDto) {
-		if (saveConfigDto.isSaveForAll()) {
+		if (saveConfigDto.isForAll()) {
 			return getSaveForAllStrategy(saveConfigDto);
 		}
 		return defaultItemFieldConfigSaveStrategy;

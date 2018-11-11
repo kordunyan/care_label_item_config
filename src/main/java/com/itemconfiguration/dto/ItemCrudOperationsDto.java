@@ -13,7 +13,17 @@ public class ItemCrudOperationsDto {
 
 	private List<ItemFieldConfig> itemFieldConfigs;
 
+	private boolean forAll;
+
 	public ItemCrudOperationsDto() {
+	}
+
+	public boolean isForAll() {
+		return forAll;
+	}
+
+	public void setForAll(boolean forAll) {
+		this.forAll = forAll;
 	}
 
 	public Item getItem() {
