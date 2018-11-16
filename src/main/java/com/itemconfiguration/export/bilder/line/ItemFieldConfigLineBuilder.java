@@ -20,6 +20,7 @@ public class ItemFieldConfigLineBuilder {
 	private static final String STORE_LAST_USER_INPUT = "store_last_user_input,";
 	private static final String CAN_ADD_LATER = "can_add_later,";
 	private static final String FILTER_REGEX = "filter_regex";
+	public static final String VAR_ITEM_FIELD_CONFIG_ID = "var_item_field_config_id";
 
 	public String buildFieldNames() {
 		return String.format(INSERT_LINE_FORAMAT,
@@ -41,6 +42,20 @@ public class ItemFieldConfigLineBuilder {
 				BuilderUtils.escapeWithComma(itemFieldConfig.isCanAddLater()),
 				BuilderUtils.escapeValue(itemFieldConfig.getFilterRegex())
 		);
+	}
+
+	public String buildItemFieldConfigLineWithReturningId(ItemFieldConfig itemFieldConfig, Item item) {
+		return new StringBuilder()
+				.append("WITH new_item_field_config_id AS (").append(StaticLines.NEW_LINE)
+				.append(" INSERT INTO item_field_config").append(StaticLines.NEW_LINE)
+				.append(StaticLines.WHITE_SPACE)
+				.append(buildFieldNames()).append(" VALUES").append(StaticLines.NEW_LINE)
+				.append(StaticLines.WHITE_SPACE)
+				.append(buildItemFieldConfigLine(itemFieldConfig, item))
+				.append(" RETURNING id").append(StaticLines.NEW_LINE)
+				.append(") SELECT id INTO var_item_field_config_id FROM new_item_field_config_id;")
+				.append(StaticLines.getBlockSeparator())
+				.toString();
 	}
 
 }

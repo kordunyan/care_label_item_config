@@ -29,7 +29,7 @@ public class MandatoryDataController {
 
 	@PostMapping("/save")
 	public List<ItemFieldConfig> saveNew(@RequestBody() SaveMandatoryDataDto saveMandatoryDataDto) {
-		saveStrategyProvider.getFieldsSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
+		//saveStrategyProvider.getFieldsSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
 		saveStrategyProvider.getTranslationSaveStrategy(saveMandatoryDataDto).save(saveMandatoryDataDto);
 		return saveMandatoryDataDto.getItemFieldConfigs();
 	}
