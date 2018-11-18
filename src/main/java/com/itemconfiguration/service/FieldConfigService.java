@@ -59,6 +59,30 @@ public class FieldConfigService {
 		return this.getByOwner(owner).stream().collect(Collectors.toMap(FieldConfig::getName, Function.identity()));
 	}
 
+	public List<String> getAllOwners() {
+		return fieldConfigRepository.getAllOwners();
+	}
+
+	public List<String> getAllTypes() {
+		return fieldConfigRepository.getAllTypes();
+	}
+
+	public List<String> getAllNames() {
+		return fieldConfigRepository.getAllNames();
+	}
+
+	public List<FieldConfig> getAllByOwners(List<String> owners) {
+		return fieldConfigRepository.findAllByOwnerIn(owners);
+	}
+
+	public List<FieldConfig> getAllByTypes(List<String> types) {
+		return fieldConfigRepository.findAllByTypeIn(types);
+	}
+
+	public List<FieldConfig> getAllByNames(List<String> names) {
+		return fieldConfigRepository.findAllByNameIn(names);
+	}
+
 	public Map<String, List<String>> getInstructionFields() {
 		List<InstructionField> instructionFields = fieldConfigRepository.getInstructionsFields();
 		Map<String, List<String>> result = new HashMap<>();

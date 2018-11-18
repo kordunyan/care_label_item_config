@@ -6,6 +6,8 @@ import com.itemconfiguration.domain.AppFields;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import com.itemconfiguration.dto.ExportDataDto;
+import com.itemconfiguration.dto.ExportFieldConfigsDto;
+import com.itemconfiguration.export.FieldConfigsExportBuilder;
 import com.itemconfiguration.export.ItemConfigurationExportBuilder;
 import com.itemconfiguration.service.FieldConfigService;
 import com.itemconfiguration.service.ItemService;
@@ -30,12 +32,14 @@ public class ExportController {
     private ItemService itemService;
     private ItemConfigurationExportBuilder itemConfigurationExportBuilder;
     private FieldConfigService fieldConfigService;
+    private FieldConfigsExportBuilder fieldConfigsExportBuilder;
 
     public ExportController(ItemService itemService, ItemConfigurationExportBuilder itemConfigurationExportBuilder,
-            FieldConfigService fieldConfigService) {
+            FieldConfigService fieldConfigService, FieldConfigsExportBuilder fieldConfigsExportBuilder) {
         this.itemService = itemService;
         this.itemConfigurationExportBuilder = itemConfigurationExportBuilder;
         this.fieldConfigService = fieldConfigService;
+        this.fieldConfigsExportBuilder = fieldConfigsExportBuilder;
     }
 
     @GetMapping("/generate")
@@ -53,6 +57,12 @@ public class ExportController {
         FieldConfigsWrapper fieldConfigsWrapper = fieldConfigService.getByOwnerFieldConfigWraper(AppFields.OWNER_ITEM);
         ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper, itemNumbers);
         return WebUtils.stringToDownloadFile(itemConfigurationExportBuilder.build(data), EXPORT_FILE_NAME);
+    }
+
+    @PostMapping("/field-configs")
+    public String exportFieldConfigs(@RequestBody ExportFieldConfigsDto dto) {
+        fieldConfigsExportBuilder.export(dto);
+        return "";
     }
 
 }

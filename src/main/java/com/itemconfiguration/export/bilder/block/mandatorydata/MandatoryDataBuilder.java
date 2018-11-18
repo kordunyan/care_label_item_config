@@ -2,6 +2,8 @@ package com.itemconfiguration.export.bilder.block.mandatorydata;
 
 import com.itemconfiguration.domain.ItemFieldConfig;
 
+import java.util.List;
+
 public interface MandatoryDataBuilder {
-    String build(ItemFieldConfig itemFieldConfig);
+    List<String> build(ItemFieldConfig itemFieldConfig);
 }

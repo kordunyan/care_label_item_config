@@ -18,6 +18,7 @@ public class BaseScreeptsBuilder {
                 .append("DECLARE").append(StaticLines.NEW_LINE)
                 .append("  field_set_id INTEGER;").append(StaticLines.NEW_LINE)
                 .append("  var_item_id BIGINT;").append(StaticLines.NEW_LINE)
+                .append("  var_item_field_config_id BIGINT;").append(StaticLines.NEW_LINE)
                 .append("BEGIN").append(StaticLines.NEW_LINE)
                 .append("  ALTER TABLE purchase_order").append(StaticLines.NEW_LINE)
                 .append("  DROP CONSTRAINT purchase_order_item_id_fkey;").append(StaticLines.NEW_LINE)
@@ -48,7 +49,6 @@ public class BaseScreeptsBuilder {
     private String buildDeleteLoop() {
         return new StringBuilder()
                 .append(" LOOP").append(StaticLines.NEW_LINE)
-                .append("  RAISE INFO E'\\n\\nDelete item info: %', var_item_id;").append(StaticLines.NEW_LINE)
                 .append("  DELETE FROM mandatory_translation ").append(StaticLines.NEW_LINE)
                 .append("  WHERE item_field_config_id IN (").append(StaticLines.NEW_LINE)
                 .append("   SELECT id FROM item_field_config WHERE item_id = var_item_id ").append(StaticLines.NEW_LINE)

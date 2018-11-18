@@ -94,4 +94,19 @@ public class FieldConfigController {
     public FieldConfig getByName(@PathVariable("name") String name) {
         return fieldConfigService.findByName(name).orElse(null);
     }
+
+    @GetMapping("/owners")
+    public List<String> getAllOwners() {
+        return fieldConfigService.getAllOwners();
+    }
+
+    @GetMapping("/types")
+    public List<String> getAllTypes() {
+        return fieldConfigService.getAllTypes();
+    }
+
+    @GetMapping("/names")
+    public List<String> getAllNames() {
+        return fieldConfigService.getAllNames();
+    }
 }

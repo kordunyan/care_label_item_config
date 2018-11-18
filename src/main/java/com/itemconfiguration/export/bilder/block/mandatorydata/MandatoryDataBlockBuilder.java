@@ -1,6 +1,7 @@
 package com.itemconfiguration.export.bilder.block.mandatorydata;
 
 import com.itemconfiguration.domain.ItemFieldConfig;
+import com.itemconfiguration.export.bilder.line.StaticLines;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -19,8 +20,14 @@ public class MandatoryDataBlockBuilder {
 
     public List<String> build(ItemFieldConfig itemFieldConfig) {
         List<String> result = new ArrayList<>();
-        result.add(mandatoryFieldsBuilder.build(itemFieldConfig));
-        result.add(mandatoryTranslationsBuilder.build(itemFieldConfig));
+        result.addAll(mandatoryFieldsBuilder.build(itemFieldConfig));
+        if (!result.isEmpty()) {
+            result.add(StaticLines.getBlockSeparator());
+        }
+        result.addAll(mandatoryTranslationsBuilder.build(itemFieldConfig));
+        if (!result.isEmpty()) {
+            result.add(StaticLines.getBlockSeparator());
+        }
         return result;
     }
 }

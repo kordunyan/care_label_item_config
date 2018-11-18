@@ -35,7 +35,7 @@ public class ItemFieldConfigWithoutMandatoryDataLinesBuilder implements ItemFiel
     private String buildItemFieldConfigsLines(List<ItemFieldConfig> itemFieldConfigs, Item item) {
         return itemFieldConfigs.stream()
                 .map(itemFieldConfig -> itemFieldConfigLineBuilder.buildItemFieldConfigLine(itemFieldConfig, item))
-                .collect(Collectors.joining(StaticLines.INSERT_VALUES_SEPARATOR)) + ";";
+                .collect(Collectors.joining(StaticLines.INSERT_VALUES_SEPARATOR)) + StaticLines.SEMICOLON;
     }
 
     private String buildInsertInto() {
