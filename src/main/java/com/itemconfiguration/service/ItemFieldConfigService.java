@@ -1,16 +1,13 @@
 package com.itemconfiguration.service;
 
-import com.itemconfiguration.AppProperties;
 import com.itemconfiguration.dao.ItemFieldConfigDAO;
 import com.itemconfiguration.domain.AppFields;
-import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.domain.ItemFieldConfig;
+import com.itemconfiguration.utils.ItemFieldConfigUtils;
+import java.util.List;
+import java.util.Map;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class ItemFieldConfigService {
@@ -53,23 +50,8 @@ public class ItemFieldConfigService {
 	}
 
 	public Map<String, List<ItemFieldConfig>> getByFieldConfigNamesAndItemNumbersMap(List<String> fieldConfigNames,
-			List<String> itemmNumbers) {
-		List<ItemFieldConfig> foundItemFieldConfigs = getByFieldConfigNamesAndItemNumbers(fieldConfigNames, itemmNumbers);
-		if (CollectionUtils.isEmpty(foundItemFieldConfigs)) {
-			return Collections.emptyMap();
-		}
-		return createItemFieldConfigsMap(foundItemFieldConfigs);
-	}
-
-	private Map<String, List<ItemFieldConfig>> createItemFieldConfigsMap(List<ItemFieldConfig> itemFieldConfigs) {
-		Map<String, List<ItemFieldConfig>> result = new HashMap<>();
-		for (ItemFieldConfig itemFieldConfig : itemFieldConfigs) {
-			String fieldConfigName = itemFieldConfig.getFieldConfig().getName();
-			if (!result.containsKey(fieldConfigName)) {
-				result.put(fieldConfigName, new ArrayList<>());
-			}
-			result.get(fieldConfigName).add(itemFieldConfig);
-		}
-		return result;
+			List<String> itemNumbers) {
+		List<ItemFieldConfig> foundItemFieldConfigs = getByFieldConfigNamesAndItemNumbers(fieldConfigNames, itemNumbers);
+		return ItemFieldConfigUtils.createItemFieldConfigsMap(foundItemFieldConfigs);
 	}
 }

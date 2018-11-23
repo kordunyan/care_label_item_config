@@ -2,7 +2,6 @@ package com.itemconfiguration.dto;
 
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
-
 import java.util.List;
 
 public class ItemCrudOperationsDto {
@@ -15,7 +14,17 @@ public class ItemCrudOperationsDto {
 
 	private boolean forAll;
 
+	private ItemFieldsCriteriaDto itemFieldsCriteria;
+
 	public ItemCrudOperationsDto() {
+	}
+
+	public ItemFieldsCriteriaDto getItemFieldsCriteria() {
+		return itemFieldsCriteria;
+	}
+
+	public void setItemFieldsCriteria(ItemFieldsCriteriaDto itemFieldsCriteria) {
+		this.itemFieldsCriteria = itemFieldsCriteria;
 	}
 
 	public boolean isForAll() {

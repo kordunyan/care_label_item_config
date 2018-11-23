@@ -5,10 +5,10 @@ import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.dto.ItemFieldCrudOperationsDto;
 import com.itemconfiguration.service.FieldService;
 import com.itemconfiguration.service.ItemService;
-import org.springframework.stereotype.Component;
-
+import com.itemconfiguration.utils.ItemUtils;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ForItemsFieldDeleteStrategy {
@@ -33,7 +33,7 @@ public class ForItemsFieldDeleteStrategy {
     }
 
     private List<ItemWithFieldsMap> getItems(ItemFieldCrudOperationsDto dto) {
-        return itemService.findItemsFithFieldMapByItemNumbers(dto.getItemNumbers());
+        return ItemUtils.convertToItemWithFieldsMap(itemService.findAllByItemNumbers(dto.getItemNumbers()));
     }
 
     private List<Field> getFieldsToDelete(ItemFieldCrudOperationsDto dto, List<ItemWithFieldsMap> itemWithFieldsMaps) {

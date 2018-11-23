@@ -1,15 +1,14 @@
 package com.itemconfiguration.export.bilder;
 
 import com.itemconfiguration.export.bilder.line.StaticLines;
-import org.springframework.stereotype.Component;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 
 @Component
-public class BaseScreeptsBuilder {
+public class ItemExportBaseScreeptsBuilder {
 
     public String buildDeclarations() {
         return new StringBuilder()

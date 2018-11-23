@@ -1,9 +1,8 @@
 package com.itemconfiguration.service.savestrategy.itemField;
 
 import com.itemconfiguration.dto.ItemFieldCrudOperationsDto;
-import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ItemFieldSaveStrategyProvider {
@@ -17,7 +16,7 @@ public class ItemFieldSaveStrategyProvider {
 	}
 
 	public ItemFieldSaveStrategy getStrategy(ItemFieldCrudOperationsDto dto) {
-		switch (dto.getSaveForAllStrategy()){
+		switch (dto.getItemFieldsCriteria().getSaveForAllStrategy()){
 			case ONLY_FOR_NEW:
 				return onlyNewSaveStrategy;
 			case OVERRIDE_CHANGED:

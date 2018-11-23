@@ -6,18 +6,15 @@ import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.FieldSet;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
-import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
-import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
 import com.itemconfiguration.dto.CopyItemDto;
 import com.itemconfiguration.dto.UpdateLocationDto;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class ItemService {
@@ -98,26 +95,6 @@ public class ItemService {
 		fieldSetService.saveAll(fieldSets);
 		fieldService.saveAll(fields);
 		itemDAO.saveAll(items);
-	}
-
-	public List<ItemWithItemFieldConfigsMap> getAllItemsWithFieldConfigMapByItemNumbers(List<String> itemNumbers) {
-		return convertToItemWithItemFieldConfigsMap(findAllByItemNumbers(itemNumbers));
-	}
-
-	public List<ItemWithFieldsMap> findItemsFithFieldMapByItemNumbers(List<String> itemNumbers) {
-		return conertToItemWithFieldsMap(findAllByItemNumbers(itemNumbers));
-	}
-
-	private List<ItemWithFieldsMap> conertToItemWithFieldsMap(List<Item> items) {
-		return items.stream()
-				.map(ItemWithFieldsMap::new)
-				.collect(Collectors.toList());
-	}
-
-	private List<ItemWithItemFieldConfigsMap> convertToItemWithItemFieldConfigsMap(List<Item> items) {
-		return items.stream()
-				.map(ItemWithItemFieldConfigsMap::new)
-				.collect(Collectors.toList());
 	}
 
 	public List<String> getAllItemNumbers() {

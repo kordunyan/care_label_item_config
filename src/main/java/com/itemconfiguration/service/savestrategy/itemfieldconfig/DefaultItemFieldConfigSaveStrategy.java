@@ -2,13 +2,12 @@ package com.itemconfiguration.service.savestrategy.itemfieldconfig;
 
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
-import com.itemconfiguration.dto.SaveConfigDto;
+import com.itemconfiguration.dto.ItemCrudOperationsDto;
 import com.itemconfiguration.service.ItemFieldConfigService;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.collections4.CollectionUtils;
+import org.springframework.stereotype.Component;
 
 @Component("default")
 public class DefaultItemFieldConfigSaveStrategy implements ItemFieldConfigSaveStrategy {
@@ -20,12 +19,12 @@ public class DefaultItemFieldConfigSaveStrategy implements ItemFieldConfigSaveSt
 	}
 
 	@Override
-	public void save(SaveConfigDto saveConfigDto) {
-		List<ItemFieldConfig> changedItemFieldConfigs = saveConfigDto.getItemFieldConfigs();
+	public void save(ItemCrudOperationsDto dto) {
+		List<ItemFieldConfig> changedItemFieldConfigs = dto.getItemFieldConfigs();
 		if (CollectionUtils.isEmpty(changedItemFieldConfigs)) {
 			return;
 		}
-		Item item = saveConfigDto.getItem();
+		Item item = dto.getItem();
 		itemFieldConfigService.saveAll(setItemForChangedFieldConfigs(item, changedItemFieldConfigs));
 	}
 

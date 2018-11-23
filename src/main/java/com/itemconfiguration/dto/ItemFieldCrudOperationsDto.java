@@ -1,16 +1,14 @@
 package com.itemconfiguration.dto;
 
 import com.itemconfiguration.domain.Field;
-import com.itemconfiguration.service.savestrategy.SaveForAllStrategy;
-import org.apache.commons.collections4.CollectionUtils;
-
 import java.util.List;
-import java.util.stream.Collectors;
+import org.apache.commons.collections4.CollectionUtils;
 
 public class ItemFieldCrudOperationsDto {
 	private List<String> itemNumbers;
 	private List<Field> fields;
-	private SaveForAllStrategy saveForAllStrategy;
+	private ItemFieldsCriteriaDto itemFieldsCriteria;
+
 
 	public ItemFieldCrudOperationsDto() {
 	}
@@ -23,12 +21,12 @@ public class ItemFieldCrudOperationsDto {
 		return CollectionUtils.isNotEmpty(this.fields);
 	}
 
-	public SaveForAllStrategy getSaveForAllStrategy() {
-		return saveForAllStrategy;
+	public ItemFieldsCriteriaDto getItemFieldsCriteria() {
+		return itemFieldsCriteria;
 	}
 
-	public void setSaveForAllStrategy(SaveForAllStrategy saveForAllStrategy) {
-		this.saveForAllStrategy = saveForAllStrategy;
+	public void setItemFieldsCriteria(ItemFieldsCriteriaDto itemFieldsCriteria) {
+		this.itemFieldsCriteria = itemFieldsCriteria;
 	}
 
 	public List<String> getItemNumbers() {

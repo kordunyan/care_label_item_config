@@ -5,11 +5,11 @@ import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.dto.ItemFieldCrudOperationsDto;
 import com.itemconfiguration.service.FieldService;
 import com.itemconfiguration.service.ItemService;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
-
+import com.itemconfiguration.utils.ItemUtils;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStrategy {
 
@@ -58,7 +58,7 @@ public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStra
 	protected abstract void addFieldForItem(ItemWithFieldsMap itemWithFieldsMap, Field field, List<Field> result);
 
 	protected List<ItemWithFieldsMap> getItemsWithFieldsMap(List<String> itemNumbers) {
-		return itemService.findItemsFithFieldMapByItemNumbers(itemNumbers);
+		return ItemUtils.convertToItemWithFieldsMap(itemService.findAllByItemNumbers(itemNumbers));
 	}
 
 }

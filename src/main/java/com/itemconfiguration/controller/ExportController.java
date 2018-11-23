@@ -12,6 +12,7 @@ import com.itemconfiguration.export.ItemConfigurationExportBuilder;
 import com.itemconfiguration.service.FieldConfigService;
 import com.itemconfiguration.service.ItemService;
 import com.itemconfiguration.utils.WebUtils;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.ResponseEntity;
@@ -21,14 +22,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/api/export")
 public class ExportController {
 
     @Value(AppProperties.KEY_ITEM_FIELD_CONFIG_FILE_NAME)
-    private String EXPORT_FILE_NAME;
+    private String ITEM_FIELD_CONFOGS_EXPORT_FILE_NAME;
+
+    @Value(AppProperties.KEY_FIELD_CONFIG_FILE_NAME)
+    private String EXPOR_FIELD_CONFIGS_FILE_NAME;
     private ItemService itemService;
     private ItemConfigurationExportBuilder itemConfigurationExportBuilder;
     private FieldConfigService fieldConfigService;
@@ -48,7 +50,7 @@ public class ExportController {
         List<String> itemNumbers = itemService.getAllItemNumbers();
         FieldConfigsWrapper fieldConfigsWrapper = fieldConfigService.getByOwnerFieldConfigWraper(AppFields.OWNER_ITEM);
         ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper, itemNumbers);
-        return WebUtils.stringToDownloadFile(itemConfigurationExportBuilder.build(data), EXPORT_FILE_NAME);
+        return WebUtils.stringToDownloadFile(itemConfigurationExportBuilder.build(data), ITEM_FIELD_CONFOGS_EXPORT_FILE_NAME);
     }
 
     @PostMapping("/generateby")
@@ -56,13 +58,12 @@ public class ExportController {
         List<Item> items = itemService.findAllByItemNumbers(itemNumbers);
         FieldConfigsWrapper fieldConfigsWrapper = fieldConfigService.getByOwnerFieldConfigWraper(AppFields.OWNER_ITEM);
         ExportDataDto data = new ExportDataDto(items, fieldConfigsWrapper, itemNumbers);
-        return WebUtils.stringToDownloadFile(itemConfigurationExportBuilder.build(data), EXPORT_FILE_NAME);
+        return WebUtils.stringToDownloadFile(itemConfigurationExportBuilder.build(data), ITEM_FIELD_CONFOGS_EXPORT_FILE_NAME);
     }
 
     @PostMapping("/field-configs")
-    public String exportFieldConfigs(@RequestBody ExportFieldConfigsDto dto) {
-        fieldConfigsExportBuilder.export(dto);
-        return "";
+    public ResponseEntity<ByteArrayResource> exportFieldConfigs(@RequestBody ExportFieldConfigsDto dto) {
+        return WebUtils.stringToDownloadFile(fieldConfigsExportBuilder.export(dto), EXPOR_FIELD_CONFIGS_FILE_NAME);
     }
 
 }

@@ -4,17 +4,16 @@ import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.dto.ExportDataDto;
-import com.itemconfiguration.export.bilder.BaseScreeptsBuilder;
+import com.itemconfiguration.export.bilder.ItemExportBaseScreeptsBuilder;
 import com.itemconfiguration.export.bilder.block.item.ItemBlockBuilder;
 import com.itemconfiguration.export.bilder.block.itemfieldconfig.ItemFieldConfigBlockBuilder;
 import com.itemconfiguration.export.bilder.block.itemfields.ItemFieldsBlockBuilder;
 import com.itemconfiguration.export.bilder.line.StaticLines;
+import java.util.ArrayList;
+import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class AllItemsConfigurationExportBuilder implements ItemConfigurationExportBuilder {
@@ -22,11 +21,11 @@ public class AllItemsConfigurationExportBuilder implements ItemConfigurationExpo
     private ItemFieldsBlockBuilder itemFieldsBlockBuilder;
     private ItemBlockBuilder itemBlockBuilder;
     private ItemFieldConfigBlockBuilder itemFieldConfigBlockBuilder;
-    private BaseScreeptsBuilder baseScreeptsBuilder;
+    private ItemExportBaseScreeptsBuilder baseScreeptsBuilder;
 
     public AllItemsConfigurationExportBuilder(ItemFieldsBlockBuilder itemFieldsBlockBuilder,
-            ItemBlockBuilder itemBlockBuilder, ItemFieldConfigBlockBuilder itemFieldConfigBlockBuilder,
-            BaseScreeptsBuilder baseScreeptsBuilder) {
+                                              ItemBlockBuilder itemBlockBuilder, ItemFieldConfigBlockBuilder itemFieldConfigBlockBuilder,
+                                              ItemExportBaseScreeptsBuilder baseScreeptsBuilder) {
         this.itemFieldsBlockBuilder = itemFieldsBlockBuilder;
         this.itemBlockBuilder = itemBlockBuilder;
         this.itemFieldConfigBlockBuilder = itemFieldConfigBlockBuilder;

@@ -3,15 +3,16 @@ package com.itemconfiguration.service.savestrategy.itemfieldconfig;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
-import com.itemconfiguration.dto.SaveConfigDto;
+import com.itemconfiguration.dto.ItemCrudOperationsDto;
+import com.itemconfiguration.dto.MultipleField;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.ItemService;
-import org.apache.commons.collections4.CollectionUtils;
-
+import com.itemconfiguration.utils.ItemUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.apache.commons.collections4.CollectionUtils;
 
 public abstract class AbstractItemFieldConfigSaveForAllStrategy implements ItemFieldConfigSaveStrategy {
 
@@ -25,15 +26,15 @@ public abstract class AbstractItemFieldConfigSaveForAllStrategy implements ItemF
     }
 
     @Override
-    public void save(SaveConfigDto saveConfigDto) throws SaveItemFieldConfigException {
-        List<ItemFieldConfig> changedItemFieldsConfigs = saveConfigDto.getItemFieldConfigs();
+    public void save(ItemCrudOperationsDto dto) throws SaveItemFieldConfigException {
+        List<ItemFieldConfig> changedItemFieldsConfigs = dto.getItemFieldConfigs();
         if (CollectionUtils.isEmpty(changedItemFieldsConfigs)) {
             return;
         }
-        Item originalItem = saveConfigDto.getItem();
+        Item originalItem = dto.getItem();
         List<ItemFieldConfig> itemFieldConfigsForSave = new ArrayList<>();
         itemFieldConfigsForSave.addAll(setOriginalItemForChangedFieldConfigs(originalItem, changedItemFieldsConfigs));
-        itemFieldConfigsForSave.addAll(setItemForChangedFieldConfigs(getItems(saveConfigDto), changedItemFieldsConfigs, originalItem));
+        itemFieldConfigsForSave.addAll(setItemForChangedFieldConfigs(getItems(dto), changedItemFieldsConfigs, originalItem));
         itemFieldConfigService.saveAll(itemFieldConfigsForSave);
     }
 
@@ -43,8 +44,16 @@ public abstract class AbstractItemFieldConfigSaveForAllStrategy implements ItemF
                 .collect(Collectors.toList());
     }
 
-    protected List<ItemWithItemFieldConfigsMap> getItems(SaveConfigDto saveConfigDto) throws SaveItemFieldConfigException {
-        return itemService.getAllItemsWithFieldConfigMapByItemNumbers(saveConfigDto.getItemNumbers());
+    protected List<ItemWithItemFieldConfigsMap> getItems(ItemCrudOperationsDto dto) throws SaveItemFieldConfigException {
+        List<Item> items = itemService.findAllByItemNumbers(dto.getItemNumbers());
+        List<MultipleField> multipleFields = dto.getItemFieldsCriteria().getMultipleFields();
+        if (CollectionUtils.isEmpty(multipleFields)) {
+            return ItemUtils.convertToItemWithItemFieldConfigsMap(items);
+        }
+        return items.stream()
+                .filter(item -> ItemUtils.containsAllMultipleFields(item, multipleFields))
+                .map(ItemWithItemFieldConfigsMap::new)
+                .collect(Collectors.toList());
     }
 
     private List<ItemFieldConfig> setItemForChangedFieldConfigs(List<ItemWithItemFieldConfigsMap> items,

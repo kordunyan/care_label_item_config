@@ -3,31 +3,23 @@ package com.itemconfiguration.service.savestrategy.mandatory.translation;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.MandatoryTranslation;
 import com.itemconfiguration.dto.SaveMandatoryDataDto;
-import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.MandatoryTranslationService;
-import com.itemconfiguration.service.savestrategy.mandatory.AbstractMandatoryDataSaveForItemNumbersStrategy;
-import com.itemconfiguration.service.savestrategy.mandatory.MandatoryDataSaveStrategy;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.stereotype.Component;
-
+import com.itemconfiguration.service.savestrategy.mandatory.MandatoryDataSaver;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
-@Component("item-numbers-mandatory-save")
-public class MandatoryTranslationsSaveForItemNumbersStrategy extends AbstractMandatoryDataSaveForItemNumbersStrategy {
-	private MandatoryTranslationService mandatoryTranslationService;
+@Component("MandatoryTranslationsForItemNumbersSaver")
+public class MandatoryTranslationsForItemNumbersSaver implements MandatoryDataSaver {
+	private final MandatoryTranslationService mandatoryTranslationService;
 
-	public MandatoryTranslationsSaveForItemNumbersStrategy(MandatoryTranslationService mandatoryTranslationService,
-			ItemFieldConfigService itemFieldConfigService) {
-		super(itemFieldConfigService);
+	public MandatoryTranslationsForItemNumbersSaver(MandatoryTranslationService mandatoryTranslationService) {
 		this.mandatoryTranslationService = mandatoryTranslationService;
 	}
 
-	@Override
-	protected void saveNewData(SaveMandatoryDataDto dto, Map<String, List<ItemFieldConfig>> allItemFieldConfigs) {
+	public void saveNewData(SaveMandatoryDataDto dto, Map<String, List<ItemFieldConfig>> allItemFieldConfigs) {
 		List<MandatoryTranslation> newMandatoryTranslations = createNewMandatoryTranslations(dto.getItemFieldConfigs(), allItemFieldConfigs);
 		mandatoryTranslationService.saveAll(newMandatoryTranslations);
 	}

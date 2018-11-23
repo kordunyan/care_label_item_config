@@ -4,26 +4,24 @@ import com.itemconfiguration.domain.FieldConfig;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.MandatoryField;
 import com.itemconfiguration.dto.SaveMandatoryDataDto;
-import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.MandatoryFieldService;
-import com.itemconfiguration.service.savestrategy.mandatory.AbstractMandatoryDataSaveForItemNumbersStrategy;
+import com.itemconfiguration.service.savestrategy.mandatory.MandatoryDataSaver;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-
-@Component("item-numbers-mandatory-fields-save")
-public class MandatoryFieldSaveForItemNumbersStrategy extends AbstractMandatoryDataSaveForItemNumbersStrategy {
+@Component("MandatoryFieldsForItemNumbersSaver")
+public class MandatoryFieldsForItemNumbersSaver implements MandatoryDataSaver {
 
 	private final MandatoryFieldService mandatoryFieldService;
 
-	public MandatoryFieldSaveForItemNumbersStrategy(MandatoryFieldService mandatoryFieldService,
-			ItemFieldConfigService itemFieldConfigService) {
-		super(itemFieldConfigService);
+	public MandatoryFieldsForItemNumbersSaver(MandatoryFieldService mandatoryFieldService) {
 		this.mandatoryFieldService = mandatoryFieldService;
 	}
 
-	@Override
-	protected void saveNewData(SaveMandatoryDataDto dto, Map<String, List<ItemFieldConfig>> allItemFieldConfigs) {
+	public void saveNewData(SaveMandatoryDataDto dto, Map<String, List<ItemFieldConfig>> allItemFieldConfigs) {
 		List<MandatoryField> newMandatoryFields = createNewMandatoryFields(dto.getItemFieldConfigs(), allItemFieldConfigs);
 		mandatoryFieldService.saveAll(newMandatoryFields);
 	}

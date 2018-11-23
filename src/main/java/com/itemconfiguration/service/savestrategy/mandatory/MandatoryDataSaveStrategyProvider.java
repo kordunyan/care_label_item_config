@@ -1,36 +1,22 @@
 package com.itemconfiguration.service.savestrategy.mandatory;
 
 import com.itemconfiguration.dto.SaveMandatoryDataDto;
-import org.springframework.stereotype.Component;
-
 import javax.annotation.Resource;
+import org.springframework.stereotype.Component;
 
 @Component
 public class MandatoryDataSaveStrategyProvider {
 
-    @Resource(name = "default-mandatory-save")
-    private MandatoryDataSaveStrategy defaultTranslationSaveStrategy;
+    @Resource(name = "MandatoryDataSaveForItemNumberStrategy")
+    private MandatoryDataSaveStrategy itemNumbersMandatoryDataSaveStrategy;
 
-    @Resource(name = "item-numbers-mandatory-save")
-    private MandatoryDataSaveStrategy itemNumbersTranslationSaveStrategy;
+    @Resource(name = "DefaultMandatoryDataSaveStrategy")
+    private MandatoryDataSaveStrategy defaultSaveStrategy;
 
-    @Resource(name = "default-mandatory-field-save")
-    private MandatoryDataSaveStrategy defaultFieldSaveStrategy;
-
-    @Resource(name = "item-numbers-mandatory-fields-save")
-    private MandatoryDataSaveStrategy itemNumbersFieldsSaveStrategy;
-
-    public MandatoryDataSaveStrategy getTranslationSaveStrategy(SaveMandatoryDataDto dto) {
+    public MandatoryDataSaveStrategy getSaveStrategy(SaveMandatoryDataDto dto) {
         if (dto.isSaveForAll()) {
-            return itemNumbersTranslationSaveStrategy;
+            return itemNumbersMandatoryDataSaveStrategy;
         }
-        return defaultTranslationSaveStrategy;
-    }
-
-    public MandatoryDataSaveStrategy getFieldsSaveStrategy(SaveMandatoryDataDto dto) {
-        if (dto.isSaveForAll()) {
-            return itemNumbersFieldsSaveStrategy;
-        }
-        return defaultFieldSaveStrategy;
+        return defaultSaveStrategy;
     }
 }
