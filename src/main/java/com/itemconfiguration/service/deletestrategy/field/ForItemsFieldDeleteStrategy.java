@@ -1,6 +1,7 @@
 package com.itemconfiguration.service.deletestrategy.field;
 
 import com.itemconfiguration.domain.Field;
+import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.dto.ItemFieldCrudOperationsDto;
 import com.itemconfiguration.service.FieldService;
@@ -33,14 +34,16 @@ public class ForItemsFieldDeleteStrategy {
     }
 
     private List<ItemWithFieldsMap> getItems(ItemFieldCrudOperationsDto dto) {
-        return ItemUtils.convertToItemWithFieldsMap(itemService.findAllByItemNumbers(dto.getItemNumbers()));
+        List<Item> result = itemService.findAllByItemNumbers(dto.getItemNumbers());
+        return ItemUtils.convertToItemsWithFieldsMap(ItemUtils.filterByMultipleFields(result,
+                dto.getItemFieldsCriteria().getMultipleFields()));
     }
 
     private List<Field> getFieldsToDelete(ItemFieldCrudOperationsDto dto, List<ItemWithFieldsMap> itemWithFieldsMaps) {
        List<Field> result = new ArrayList<>();
         for (Field field : dto.getFields()) {
             for (ItemWithFieldsMap item : itemWithFieldsMaps) {
-                if (item.containsField(field.getFieldConfigName())) {
+                if (item.hasField(field.getFieldConfigName())) {
                     result.add(item.getField(field.getFieldConfigName()));
                 }
             }

@@ -8,29 +8,16 @@ import javax.annotation.Resource;
 @Component
 public class MandatoryDataDeleteStrategyProvider {
 
-	@Resource(name = "default-mandatory-translation-delete")
-	private MandatoryDataDeleteStrategy defaultDeleteTranslationsStrategy;
+	@Resource(name = "ForAllMandatoryDataDeleteStrategy")
+	private MandatoryDataDeleteStrategy forAllSeleteStrategy;
 
-	@Resource(name = "mandatory-translation-delete-for_items")
-	private MandatoryDataDeleteStrategy byItemsDeleteTranslationsStrategy;
-
-	@Resource(name = "default-mandatory-field-delete")
-	private MandatoryDataDeleteStrategy defaultDeleteFieldStrategy;
-
-	@Resource(name = "by-items-mandatory-field-delete")
-	private MandatoryDataDeleteStrategy byItemNumbersDeleteFieldStrategy;
-
-	public MandatoryDataDeleteStrategy getDeleteTranslationStrategy(DeleteMandatoryDataDto dto) {
-		if (dto.isDeleteForAll()) {
-			return byItemsDeleteTranslationsStrategy;
-		}
-		return defaultDeleteTranslationsStrategy;
-	}
+	@Resource(name = "DefaultMandatoryDataDeleteStrategy")
+	private MandatoryDataDeleteStrategy defaultDeleteStrategy;
 
 	public MandatoryDataDeleteStrategy getDeleteFieldsStrategy(DeleteMandatoryDataDto dto) {
 		if (dto.isDeleteForAll()) {
-			return byItemNumbersDeleteFieldStrategy;
+			return forAllSeleteStrategy;
 		}
-		return defaultDeleteFieldStrategy;
+		return defaultDeleteStrategy;
 	}
 }

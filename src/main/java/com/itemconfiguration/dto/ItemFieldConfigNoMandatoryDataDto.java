@@ -10,97 +10,98 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ItemFieldConfigNoMandatoryDataDto {
-	private Long id;
-	private FieldConfig fieldConfig;
-	private boolean isActive;
-	private boolean isRequired;
-	private boolean isEditable;
-	private boolean storeLastUserInput;
-	private String predefinedValue;
-	private String filterRegex;
-	private boolean canAddLater;
-	private String dataSourceName;
 
-	public ItemFieldConfigNoMandatoryDataDto() {
-	}
+    private Long id;
+    private FieldConfig fieldConfig;
+    private boolean isActive;
+    private boolean isRequired;
+    private boolean isEditable;
+    private boolean storeLastUserInput;
+    private String predefinedValue;
+    private String filterRegex;
+    private boolean canAddLater;
+    private String dataSourceName;
 
-	public Long getId() {
-		return id;
-	}
+    public ItemFieldConfigNoMandatoryDataDto() {
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public FieldConfig getFieldConfig() {
-		return fieldConfig;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setFieldConfig(FieldConfig fieldConfig) {
-		this.fieldConfig = fieldConfig;
-	}
+    public FieldConfig getFieldConfig() {
+        return fieldConfig;
+    }
 
-	public boolean isActive() {
-		return isActive;
-	}
+    public void setFieldConfig(FieldConfig fieldConfig) {
+        this.fieldConfig = fieldConfig;
+    }
 
-	public void setActive(boolean active) {
-		isActive = active;
-	}
+    public boolean isActive() {
+        return isActive;
+    }
 
-	public boolean isRequired() {
-		return isRequired;
-	}
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
-	public void setRequired(boolean required) {
-		isRequired = required;
-	}
+    public boolean isRequired() {
+        return isRequired;
+    }
 
-	public boolean isEditable() {
-		return isEditable;
-	}
+    public void setRequired(boolean required) {
+        isRequired = required;
+    }
 
-	public void setEditable(boolean editable) {
-		isEditable = editable;
-	}
+    public boolean isEditable() {
+        return isEditable;
+    }
 
-	public boolean isStoreLastUserInput() {
-		return storeLastUserInput;
-	}
+    public void setEditable(boolean editable) {
+        isEditable = editable;
+    }
 
-	public void setStoreLastUserInput(boolean storeLastUserInput) {
-		this.storeLastUserInput = storeLastUserInput;
-	}
+    public boolean isStoreLastUserInput() {
+        return storeLastUserInput;
+    }
 
-	public String getPredefinedValue() {
-		return predefinedValue;
-	}
+    public void setStoreLastUserInput(boolean storeLastUserInput) {
+        this.storeLastUserInput = storeLastUserInput;
+    }
 
-	public void setPredefinedValue(String predefinedValue) {
-		this.predefinedValue = predefinedValue;
-	}
+    public String getPredefinedValue() {
+        return predefinedValue;
+    }
 
-	public String getFilterRegex() {
-		return filterRegex;
-	}
+    public void setPredefinedValue(String predefinedValue) {
+        this.predefinedValue = predefinedValue;
+    }
 
-	public void setFilterRegex(String filterRegex) {
-		this.filterRegex = filterRegex;
-	}
+    public String getFilterRegex() {
+        return filterRegex;
+    }
 
-	public boolean isCanAddLater() {
-		return canAddLater;
-	}
+    public void setFilterRegex(String filterRegex) {
+        this.filterRegex = filterRegex;
+    }
 
-	public void setCanAddLater(boolean canAddLater) {
-		this.canAddLater = canAddLater;
-	}
+    public boolean isCanAddLater() {
+        return canAddLater;
+    }
 
-	public String getDataSourceName() {
-		return dataSourceName;
-	}
+    public void setCanAddLater(boolean canAddLater) {
+        this.canAddLater = canAddLater;
+    }
 
-	public void setDataSourceName(String dataSourceName) {
-		this.dataSourceName = dataSourceName;
-	}
+    public String getDataSourceName() {
+        return dataSourceName;
+    }
+
+    public void setDataSourceName(String dataSourceName) {
+        this.dataSourceName = dataSourceName;
+    }
 }

@@ -34,7 +34,7 @@ public class ItemWithFieldsMap {
 	}
 
 	public String getFieldValue(String fieldConfigName) {
-		if (containsField(fieldConfigName)) {
+		if (hasField(fieldConfigName)) {
 			return getField(fieldConfigName).getValue();
 		}
 		return null;
@@ -44,7 +44,7 @@ public class ItemWithFieldsMap {
 		return !fieldsMap.isEmpty();
 	}
 
-	public boolean containsField(String fieldConfigName) {
+	public boolean hasField(String fieldConfigName) {
 		return fieldsMap.containsKey(fieldConfigName);
 	}
 }

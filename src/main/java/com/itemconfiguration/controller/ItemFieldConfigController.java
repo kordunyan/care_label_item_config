@@ -24,10 +24,10 @@ public class ItemFieldConfigController {
 	private ItemFieldConfigSaveStrategyProvider saveStrategyProvider;
 	private ItemFieldConfigService itemFieldConfigService;
 
-	@Resource(name = "original")
+	@Resource(name = "DeleteForOriginalItemStrategy")
 	private DeleteItemFieldConfigStrategy forOriginalItemDeleteStrategy;
 
-	@Resource(name = "forAll")
+	@Resource(name = "DeleteForAllItemsStrategy")
 	private DeleteItemFieldConfigStrategy forAllItemsDeleteStrategy;
 
 	public ItemFieldConfigController(ItemFieldConfigSaveStrategyProvider saveStrategyProvider,

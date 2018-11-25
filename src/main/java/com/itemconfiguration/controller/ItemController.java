@@ -8,6 +8,7 @@ import com.itemconfiguration.dto.ItemWithoutItemFieldConfigsDto;
 import com.itemconfiguration.dto.UpdateLocationDto;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.ItemService;
+import com.itemconfiguration.service.savestrategy.item.ItemSaveStrategyProvider;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,12 +27,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/item")
 public class ItemController {
 
-	private ItemService itemService;
-	protected ItemFieldConfigService itemFieldConfigService;
+	private final ItemService itemService;
+	private final ItemSaveStrategyProvider itemSaveStrategyProvider;
 
-	public ItemController(ItemService itemService, ItemFieldConfigService itemFieldConfigService) {
+	public ItemController(ItemService itemService, ItemSaveStrategyProvider itemSaveStrategyProvider) {
 		this.itemService = itemService;
-		this.itemFieldConfigService = itemFieldConfigService;
+		this.itemSaveStrategyProvider = itemSaveStrategyProvider;
 	}
 
 	@PostMapping()
@@ -58,8 +59,8 @@ public class ItemController {
 	}
 
 	@PostMapping("/copy-all")
-	public ResponseEntity<Void> copyItem(@RequestBody CopyItemDto copyItemDto) {
-		this.itemService.saveWithItemFieldConfigCopy(copyItemDto);
+	public ResponseEntity<Void> copyItem(@RequestBody CopyItemDto dto) {
+		itemSaveStrategyProvider.getSaveStrategy(dto).save(dto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 

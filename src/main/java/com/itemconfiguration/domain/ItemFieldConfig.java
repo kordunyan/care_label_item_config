@@ -82,6 +82,12 @@ public class ItemFieldConfig {
 		copy.canAddLater = src.canAddLater;
 		copy.dataSourceName = src.dataSourceName;
 		copy.fieldConfig = src.fieldConfig;
+
+		return copy;
+	}
+
+	public static ItemFieldConfig copyWithMandatoryData(ItemFieldConfig src) {
+		ItemFieldConfig copy = copyWithoutIdAndItem(src);
 		if (src.hasMandatoryTranslations()) {
 			copy.mandatoryTranslations = src.mandatoryTranslations.stream()
 					.map(mandatoryTranslation -> new MandatoryTranslation(copy, mandatoryTranslation.getLanguage()))

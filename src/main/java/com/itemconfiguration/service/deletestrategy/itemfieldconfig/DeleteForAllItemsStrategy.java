@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
-@Component("forAll")
+@Component("DeleteForAllItemsStrategy")
 public class DeleteForAllItemsStrategy implements DeleteItemFieldConfigStrategy{
 
     private ItemFieldConfigService itemFieldConfigService;

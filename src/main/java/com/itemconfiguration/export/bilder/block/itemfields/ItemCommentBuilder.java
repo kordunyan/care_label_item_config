@@ -29,7 +29,7 @@ public class ItemCommentBuilder {
 		List<String> result = new ArrayList<>();
 		fieldConfigsWrapper.getMultipleFieldConfigs()
 				.forEach(fieldConfig -> {
-					if (item.containsField(fieldConfig.getName())) {
+					if (item.hasField(fieldConfig.getName())) {
 						result.add(toCommentField(item.getField(fieldConfig.getName())));
 					}
 				});

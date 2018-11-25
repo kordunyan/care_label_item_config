@@ -6,8 +6,8 @@ import com.itemconfiguration.domain.ItemFieldConfig;
 import java.util.List;
 
 public class ItemWithItemFieldConfigDto {
-    private Item item;
 
+    private Item item;
     private List<ItemFieldConfig> itemFieldConfigs;
 
     public ItemWithItemFieldConfigDto() {

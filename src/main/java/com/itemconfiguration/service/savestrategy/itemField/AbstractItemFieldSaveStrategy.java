@@ -1,6 +1,7 @@
 package com.itemconfiguration.service.savestrategy.itemField;
 
 import com.itemconfiguration.domain.Field;
+import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.dto.ItemFieldCrudOperationsDto;
 import com.itemconfiguration.service.FieldService;
@@ -9,7 +10,6 @@ import com.itemconfiguration.utils.ItemUtils;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.lang3.StringUtils;
 
 public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStrategy {
 
@@ -29,10 +29,9 @@ public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStra
 		if (!dto.hasFields()) {
 			throw new IllegalArgumentException("[fields] should no be empty");
 		}
-		List<ItemWithFieldsMap> itemsWithFieldsMap = getItemsWithFieldsMap(dto.getItemNumbers());
+		List<ItemWithFieldsMap> itemsWithFieldsMap = getItemsWithFieldsMap(dto);
 		if (CollectionUtils.isEmpty(itemsWithFieldsMap)) {
-			throw new IllegalStateException("There are any item with item numbers: " +
-					StringUtils.join(dto.getItemNumbers(), ","));
+			return;
 		}
 		List<Field> fieldsForSave = updateFieldsForItems(dto, itemsWithFieldsMap);
 		this.fieldService.saveAll(fieldsForSave);
@@ -45,7 +44,7 @@ public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStra
 			for (Field field : dto.getFields()) {
 				Field itemField = itemWithFieldsMap.getField(field.getFieldConfigName());
 				//always should to update original field
-				if (itemField != null && itemField.getId().equals(field.getId())) {
+				if (isOriginalItemField(field, itemField)) {
 					result.add(field);
 				} else {
 					addFieldForItem(itemWithFieldsMap, field, result);
@@ -55,10 +54,16 @@ public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStra
 		return result;
 	}
 
+	protected boolean isOriginalItemField(Field field, Field itemField) {
+		return itemField != null && itemField.getId().equals(field.getId());
+	}
+
 	protected abstract void addFieldForItem(ItemWithFieldsMap itemWithFieldsMap, Field field, List<Field> result);
 
-	protected List<ItemWithFieldsMap> getItemsWithFieldsMap(List<String> itemNumbers) {
-		return ItemUtils.convertToItemWithFieldsMap(itemService.findAllByItemNumbers(itemNumbers));
+	protected List<ItemWithFieldsMap> getItemsWithFieldsMap(ItemFieldCrudOperationsDto dto) {
+		List<Item> result = itemService.findAllByItemNumbers(dto.getItemNumbers());
+		return ItemUtils.convertToItemsWithFieldsMap(ItemUtils.filterByMultipleFields(result,
+				dto.getItemFieldsCriteria().getMultipleFields()));
 	}
 
 }

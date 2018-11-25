@@ -7,13 +7,9 @@ import java.util.List;
 public class ItemCrudOperationsDto {
 
 	private Item item;
-
 	private List<String> itemNumbers;
-
 	private List<ItemFieldConfig> itemFieldConfigs;
-
 	private boolean forAll;
-
 	private ItemFieldsCriteriaDto itemFieldsCriteria;
 
 	public ItemCrudOperationsDto() {

@@ -36,14 +36,9 @@ public class FieldService {
 		return this.fieldDAO.save(field);
 	}
 
-	public int updateAllForItem(Field field) {
-		return this.fieldDAO.updateAllForItem(field.getValue(), field.getId());
-	}
-
 	public void saveNewFieldsForAllItems(List<FieldForAllItemsDto> fieldForAllItems) {
 		this.fieldDAO.saveAll(createCopyForEachFieldSets(fieldForAllItems));
 	}
-
 
 	public void deleteAll(List<Field> fields) {
 		if (CollectionUtils.isEmpty(fields)) {
@@ -73,10 +68,6 @@ public class FieldService {
 
 	public int deleteByFieldSets(List<FieldSet> fieldSets) {
 		return fieldDAO.deleteByFieldSetIn(fieldSets);
-	}
-
-	public int deleteForAllItems(Field field) {
-		return this.fieldDAO.deleteForAllItems(field.getId());
 	}
 
 	public void delete(Field field) {

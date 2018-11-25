@@ -21,7 +21,7 @@ public class MandatoryDataController {
 	private final MandatoryDataDeleteStrategyProvider deleteStrategyProvider;
 
 	public MandatoryDataController(MandatoryDataSaveStrategyProvider saveStrategyProvider,
-									MandatoryDataDeleteStrategyProvider deleteStrategyProvider) {
+			MandatoryDataDeleteStrategyProvider deleteStrategyProvider) {
 		this.saveStrategyProvider = saveStrategyProvider;
 		this.deleteStrategyProvider = deleteStrategyProvider;
 	}
@@ -35,7 +35,6 @@ public class MandatoryDataController {
 	@PostMapping("/delete")
 	public ResponseEntity<Void> deleteTranslations(@RequestBody DeleteMandatoryDataDto dto) {
 		deleteStrategyProvider.getDeleteFieldsStrategy(dto).delete(dto);
-		deleteStrategyProvider.getDeleteTranslationStrategy(dto).delete(dto);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 }

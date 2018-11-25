@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component("original")
+@Component("DeleteForOriginalItemStrategy")
 public class DeleteForOriginalItemStrategy implements DeleteItemFieldConfigStrategy{
 
     private ItemFieldConfigService itemFieldConfigService;

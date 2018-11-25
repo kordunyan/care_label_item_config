@@ -9,10 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 public class DeleteMandatoryDataDto {
+
 	private Map<String, List<MandatoryTranslation>> translationsToDeleteByFieldName = new HashMap<>();
 	private Map<String, List<MandatoryField>> fieldsToDeleteByFieldName = new HashMap<>();
 	private boolean deleteForAll;
 	private List<String> itemNumbers = new ArrayList<>();
+	private ItemFieldsCriteriaDto itemFieldsCriteria;
 
 	public Map<String, List<MandatoryTranslation>> getTranslationsToDeleteByFieldName() {
 		return translationsToDeleteByFieldName;
@@ -28,6 +30,14 @@ public class DeleteMandatoryDataDto {
 
 	public void setFieldsToDeleteByFieldName(Map<String, List<MandatoryField>> fieldsToDeleteByFieldName) {
 		this.fieldsToDeleteByFieldName = fieldsToDeleteByFieldName;
+	}
+
+	public ItemFieldsCriteriaDto getItemFieldsCriteria() {
+		return itemFieldsCriteria;
+	}
+
+	public void setItemFieldsCriteria(ItemFieldsCriteriaDto itemFieldsCriteria) {
+		this.itemFieldsCriteria = itemFieldsCriteria;
 	}
 
 	public boolean isDeleteForAll() {

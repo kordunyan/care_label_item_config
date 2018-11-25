@@ -52,11 +52,6 @@ public class FieldController {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@PostMapping("/delete-for-all-items")
-	public int deleteForAllItems(@RequestBody Field field) {
-		return this.fieldService.deleteForAllItems(field);
-	}
-
 	@PostMapping("/delete")
 	public ResponseEntity<Void> delete(@RequestBody Field field) {
 		this.fieldService.delete(field);

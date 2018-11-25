@@ -17,7 +17,7 @@ public class OnlyNewItemFieldSaveStrategy extends AbstractItemFieldSaveStrategy 
 
 	@Override
 	protected void addFieldForItem(ItemWithFieldsMap itemWithFieldsMap, Field field, List<Field> result) {
-		if (itemWithFieldsMap.containsField(field.getFieldConfigName()))	{
+		if (itemWithFieldsMap.hasField(field.getFieldConfigName()))	{
 			return;
 		}
 		result.add(new Field(field.getFieldConfigName(), field.getValue(), itemWithFieldsMap.getItem().getFieldSet()));

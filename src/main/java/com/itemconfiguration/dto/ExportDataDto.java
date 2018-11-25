@@ -6,6 +6,7 @@ import com.itemconfiguration.domain.wrapper.FieldConfigsWrapper;
 import java.util.List;
 
 public class ExportDataDto {
+
     private List<Item> items;
     private List<String> itemNumbers;
 
