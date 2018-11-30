@@ -15,15 +15,14 @@ public interface FieldDAO extends CrudRepository<Field, Long> {
 	List<String> findAllByFieldConfigname(String fieldConfigName);
 
 	@Modifying
-	@Transactional
+	@Query("DELETE FROM Field f WHERE f.fieldSet IN ?1")
 	int deleteByFieldSetIn(List<FieldSet> fieldSetIds);
 
 	@Modifying
-	@Transactional
 	@Query(value = "DELETE FROM Field f WHERE f.id IN ?1")
 	void deleteAllById(List<Long> ids);
 
 	@Modifying
-	@Transactional
+	@Query("DELETE FROM Field f WHERE f.fieldSet = ?1")
 	int deleteByFieldSet(FieldSet fieldSet);
 }
