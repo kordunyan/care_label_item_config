@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.annotation.Resource;
+
+import com.itemconfiguration.utils.ItemUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
@@ -43,11 +45,8 @@ public class MandatoryDataSaveForItemNumberStrategy implements MandatoryDataSave
     private Map<String, List<ItemFieldConfig>> getAllItemFieldConfigs(SaveMandatoryDataDto dto) {
         List<ItemFieldConfig> itemFieldConfigs = itemFieldConfigService.getByFieldConfigNamesAndItemNumbers(
                 getItemFieldConfigNames(dto.getItemFieldConfigs()), dto.getItemNumbers());
-        if (dto.getItemFieldsCriteria() == null || CollectionUtils.isEmpty(dto.getItemFieldsCriteria().getMultipleFields())) {
-            return ItemFieldConfigUtils.createItemFieldConfigsMap(itemFieldConfigs);
-        }
-        return ItemFieldConfigUtils.createItemFieldConfigsMap(ItemFieldConfigUtils.filterByMultipleFields(itemFieldConfigs,
-                dto.getItemFieldsCriteria().getMultipleFields()));
+        return ItemFieldConfigUtils.createItemFieldConfigsMap(ItemFieldConfigUtils.filterByitemFieldsCriteria(itemFieldConfigs,
+                dto.getItemFieldsCriteria()));
     }
 
     private List<String> getItemFieldConfigNames(List<ItemFieldConfig> itemFieldConfigs) {

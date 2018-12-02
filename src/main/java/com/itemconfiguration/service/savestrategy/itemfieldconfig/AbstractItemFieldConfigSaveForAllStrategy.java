@@ -46,12 +46,11 @@ public abstract class AbstractItemFieldConfigSaveForAllStrategy implements ItemF
 
     protected List<ItemWithItemFieldConfigsMap> getItems(ItemCrudOperationsDto dto) throws SaveItemFieldConfigException {
         List<Item> items = itemService.findAllByItemNumbers(dto.getItemNumbers());
-        List<MultipleField> multipleFields = dto.getItemFieldsCriteria().getMultipleFields();
-        if (CollectionUtils.isEmpty(multipleFields)) {
+        if (!ItemUtils.shouldFilter(dto.getItemFieldsCriteria())) {
             return ItemUtils.convertToItemWithItemFieldConfigsMap(items);
         }
         return items.stream()
-                .filter(item -> ItemUtils.containsAllMultipleFields(item, multipleFields))
+                .filter(item -> ItemUtils.fitsByCriteria(item, dto.getItemFieldsCriteria()))
                 .map(ItemWithItemFieldConfigsMap::new)
                 .collect(Collectors.toList());
     }

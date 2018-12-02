@@ -6,7 +6,6 @@ import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.FieldSet;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
-import com.itemconfiguration.dto.CopyItemDto;
 import com.itemconfiguration.dto.UpdateLocationDto;
 
 import java.util.ArrayList;
@@ -43,8 +42,8 @@ public class ItemService {
         if (CollectionUtils.isEmpty(dto.getItemNumbers())) {
             throw new IllegalArgumentException("[itemNumbers] should not be empty");
         }
-		List<Item> items = ItemUtils.filterByMultipleFields(this.findAllByItemNumbers(dto.getItemNumbers()),
-                dto.getItemFieldsCriteria().getMultipleFields());
+		List<Item> items = ItemUtils.filterByFieldsCritaria(this.findAllByItemNumbers(dto.getItemNumbers()),
+                dto.getItemFieldsCriteria());
 		if (CollectionUtils.isEmpty(items)) {
 		    return;
         }

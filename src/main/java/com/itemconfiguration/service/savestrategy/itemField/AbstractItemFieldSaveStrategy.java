@@ -62,8 +62,8 @@ public abstract class AbstractItemFieldSaveStrategy implements ItemFieldSaveStra
 
 	protected List<ItemWithFieldsMap> getItemsWithFieldsMap(ItemFieldCrudOperationsDto dto) {
 		List<Item> result = itemService.findAllByItemNumbers(dto.getItemNumbers());
-		return ItemUtils.convertToItemsWithFieldsMap(ItemUtils.filterByMultipleFields(result,
-				dto.getItemFieldsCriteria().getMultipleFields()));
+		return ItemUtils.convertToItemsWithFieldsMap(ItemUtils.filterByFieldsCritaria(result,
+				dto.getItemFieldsCriteria()));
 	}
 
 }

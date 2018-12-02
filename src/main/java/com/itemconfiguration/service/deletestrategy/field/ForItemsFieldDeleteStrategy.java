@@ -35,8 +35,8 @@ public class ForItemsFieldDeleteStrategy {
 
     private List<ItemWithFieldsMap> getItems(ItemFieldCrudOperationsDto dto) {
         List<Item> result = itemService.findAllByItemNumbers(dto.getItemNumbers());
-        return ItemUtils.convertToItemsWithFieldsMap(ItemUtils.filterByMultipleFields(result,
-                dto.getItemFieldsCriteria().getMultipleFields()));
+        return ItemUtils.convertToItemsWithFieldsMap(ItemUtils.filterByFieldsCritaria(result,
+                dto.getItemFieldsCriteria()));
     }
 
     private List<Field> getFieldsToDelete(ItemFieldCrudOperationsDto dto, List<ItemWithFieldsMap> itemWithFieldsMaps) {

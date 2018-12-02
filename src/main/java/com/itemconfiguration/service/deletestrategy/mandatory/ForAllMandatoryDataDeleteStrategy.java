@@ -39,8 +39,8 @@ public class ForAllMandatoryDataDeleteStrategy implements MandatoryDataDeleteStr
         if (dto.getItemFieldsCriteria() == null || CollectionUtils.isEmpty(dto.getItemFieldsCriteria().getMultipleFields())) {
             return ItemFieldConfigUtils.createItemFieldConfigsMap(itemFieldConfigs);
         }
-        return ItemFieldConfigUtils.createItemFieldConfigsMap(ItemFieldConfigUtils.filterByMultipleFields(itemFieldConfigs,
-                dto.getItemFieldsCriteria().getMultipleFields()));
+        return ItemFieldConfigUtils.createItemFieldConfigsMap(ItemFieldConfigUtils.filterByitemFieldsCriteria(itemFieldConfigs,
+                dto.getItemFieldsCriteria()));
     }
 
     private List<String> getItemFieldConfigNames(DeleteMandatoryDataDto dto) {

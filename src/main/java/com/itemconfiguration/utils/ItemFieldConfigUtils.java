@@ -2,6 +2,7 @@ package com.itemconfiguration.utils;
 
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
+import com.itemconfiguration.dto.ItemFieldsCriteriaDto;
 import com.itemconfiguration.dto.MultipleField;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,8 +28,8 @@ public class ItemFieldConfigUtils {
         return result;
     }
 
-    public static List<ItemFieldConfig> filterByMultipleFields(List<ItemFieldConfig> itemFieldConfigs, List<MultipleField> multipleFields) {
-        if (CollectionUtils.isEmpty(itemFieldConfigs) || CollectionUtils.isEmpty(multipleFields)) {
+    public static List<ItemFieldConfig> filterByitemFieldsCriteria(List<ItemFieldConfig> itemFieldConfigs, ItemFieldsCriteriaDto criteria) {
+        if (CollectionUtils.isEmpty(itemFieldConfigs) || !ItemUtils.shouldFilter(criteria)) {
             return itemFieldConfigs;
         }
         Map<Long, Boolean> itemMultipleFieldsStatus = new HashMap<>();
@@ -36,7 +37,7 @@ public class ItemFieldConfigUtils {
         for (ItemFieldConfig itemFieldConfig : itemFieldConfigs) {
             Item item = itemFieldConfig.getItem();
             if (!itemMultipleFieldsStatus.containsKey(item.getId())) {
-                itemMultipleFieldsStatus.put(item.getId(), ItemUtils.containsAllMultipleFields(item, multipleFields));
+                itemMultipleFieldsStatus.put(item.getId(), ItemUtils.fitsByCriteria(item, criteria));
             }
             if (itemMultipleFieldsStatus.get(item.getId())) {
                 result.add(itemFieldConfig);

@@ -4,6 +4,7 @@ import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.wrapper.ItemWithFieldsMap;
 import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
+import com.itemconfiguration.dto.ItemFieldsCriteriaDto;
 import com.itemconfiguration.dto.MultipleField;
 import java.util.Collections;
 import java.util.List;
@@ -13,13 +14,29 @@ import org.apache.commons.lang3.StringUtils;
 
 public class ItemUtils {
 
-    public static List<Item> filterByMultipleFields(List<Item> items, List<MultipleField> multipleFields) {
-        if (CollectionUtils.isEmpty(multipleFields) || CollectionUtils.isEmpty(items)) {
+    public static List<Item> filterByFieldsCritaria(List<Item> items, ItemFieldsCriteriaDto itemFieldsCriteria) {
+        if (!shouldFilter(itemFieldsCriteria) || CollectionUtils.isEmpty(items)) {
             return items;
         }
         return items.stream()
-                .filter(itemWithFieldsMap -> containsAllMultipleFields(itemWithFieldsMap, multipleFields))
+                .filter(item -> fitsByCriteria(item, itemFieldsCriteria))
                 .collect(Collectors.toList());
+    }
+
+    public static boolean fitsByCriteria(Item item, ItemFieldsCriteriaDto criteria) {
+        return fitsBatchBuilderCriteria(item, criteria) && containsAllMultipleFields(item, criteria.getMultipleFields());
+    }
+
+    private static boolean fitsBatchBuilderCriteria(Item item, ItemFieldsCriteriaDto criteria) {
+        if (!criteria.isWithBatchType()) {
+            return true;
+        }
+        return item.isIpps() == criteria.isIpps() && item.isSb() == criteria.isSb();
+    }
+
+    public static boolean shouldFilter(ItemFieldsCriteriaDto itemFieldsCriteria) {
+        return itemFieldsCriteria != null && (CollectionUtils.isNotEmpty(itemFieldsCriteria.getMultipleFields())
+                || itemFieldsCriteria.isWithBatchType());
     }
 
     public static boolean containsAllMultipleFields(Item item, List<MultipleField> multipleFields) {
