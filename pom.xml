@@ -6,8 +6,8 @@
 	<groupId>com.kordunyan</groupId>
 	<artifactId>care_label_item_config</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
-	<!--<packaging>war</packaging>-->
+	<!--<packaging>jar</packaging>-->
+	<packaging>war</packaging>
 
 	<name>care_label_item_config</name>
 	<description></description>

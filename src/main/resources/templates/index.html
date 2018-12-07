@@ -1,19 +1,21 @@
-<!doctype html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>ItemConfigClient</title>
-    <base href="/app/">
-
+    <base href="/item_config/app/">
+    <api-href th:href="@{/api}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/x-icon" th:href="@{/favicon.ico}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="/static/css/styles.68908d3fbbf65b108d06.css"></head>
+    <link rel="stylesheet" th:href="@{/static/css/styles.3c061153efaee263b996.css}">
+</head>
 <body>
 <app-root></app-root>
-<script type="text/javascript" src="/static/js/runtime.ec2944dd8b20ec099bf3.js"></script>
-<script type="text/javascript" src="/static/js/polyfills.4a1680e9bfa9b2241c7e.js"></script>
-<script type="text/javascript" src="/static/js/scripts.6bc580d54b3e6256921f.js"></script>
-<script type="text/javascript" src="/static/js/main.e2b901169565ed3dee6d.js"></script>
+
+<script type="text/javascript" th:src="@{/static/js/runtime.ec2944dd8b20ec099bf3.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/polyfills.7960349de8eeee2174a5.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/scripts.6bc580d54b3e6256921f.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/main.259e45d3a3146fea12f7.js}"></script>
 </body>
 </html>
