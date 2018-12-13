@@ -4,7 +4,6 @@ import com.itemconfiguration.domain.Item;
 import com.itemconfiguration.domain.ItemFieldConfig;
 import com.itemconfiguration.domain.wrapper.ItemWithItemFieldConfigsMap;
 import com.itemconfiguration.dto.ItemCrudOperationsDto;
-import com.itemconfiguration.dto.MultipleField;
 import com.itemconfiguration.exception.SaveItemFieldConfigException;
 import com.itemconfiguration.service.ItemFieldConfigService;
 import com.itemconfiguration.service.ItemService;
