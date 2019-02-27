@@ -4,12 +4,12 @@ import com.itemconfiguration.dao.FieldDAO;
 import com.itemconfiguration.domain.Field;
 import com.itemconfiguration.domain.FieldSet;
 import com.itemconfiguration.dto.FieldForAllItemsDto;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import javax.transaction.Transactional;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 @Service
 public class FieldService {
@@ -40,6 +40,7 @@ public class FieldService {
 		this.fieldDAO.saveAll(createCopyForEachFieldSets(fieldForAllItems));
 	}
 
+	@Transactional
 	public void deleteAll(List<Field> fields) {
 		if (CollectionUtils.isEmpty(fields)) {
 			return;
