@@ -1,5 +1,8 @@
 package com.itemconfiguration.domain;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,9 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "item")
@@ -41,6 +41,9 @@ public class Item implements Serializable {
 	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<ItemFieldConfig> itemFieldConfigs = new ArrayList<>();
 
+	@OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<ItemPrintType> itemPrintTypes = new ArrayList<>();
+
 	public Item() {
 	}
 
@@ -50,6 +53,19 @@ public class Item implements Serializable {
 		this.fieldSet = fieldSet;
 		this.fields = fields;
 		this.itemFieldConfigs = itemFieldConfigs;
+	}
+
+	public void addItemPrintType(ItemPrintType itemPrintType) {
+		itemPrintType.setItem(this);
+		itemPrintTypes.add(itemPrintType);
+	}
+
+	public List<ItemPrintType> getItemPrintTypes() {
+		return itemPrintTypes;
+	}
+
+	public void setItemPrintTypes(List<ItemPrintType> itemPrintTypes) {
+		this.itemPrintTypes = itemPrintTypes;
 	}
 
 	public void setIpps(boolean ipps) {
